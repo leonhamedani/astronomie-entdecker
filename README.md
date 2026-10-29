@@ -24,7 +24,10 @@ Alternativ: `npx serve .`
 - **Sternbilder:** alle 88 IAU-Sternbilder mit Strichfiguren und deutschen Namen (ein-/ausblendbar). Klick öffnet eine Infokarte mit Mythologie, Highlights, hellsten Sternen, Figur-Vorschau und bester Jahreszeit.
 - **Standort:** Browser-Geolocation, Städteliste (Deutschland/Europa, mit passender Zeitzone) oder eigene Koordinaten. Wird im Browser gespeichert.
 - **Heute Nacht sichtbar:** Sonnenuntergang, Dämmerungsphasen, astronomische Dunkelheit, Mondphase, Mondauf-/-untergang, Planeten, helle Sterne und Sternbilder – jeweils mit Himmelsrichtung (z. B. „Südost, 135°“), Höhe („35° über dem Horizont“) und bester Beobachtungszeit. „Auf der Karte zeigen“ springt direkt zur passenden Ansicht.
-- **Einsteiger-Bereich:** interaktives SVG-Teleskop (Objektiv/Hauptspiegel, Tubus, Okular, Sucher, Fokussierer, Montierung, Stativ), Refraktor-vs.-Reflektor-Vergleich mit animiertem Lichtweg, Drag-&-Drop-Baupuzzle, Quiz und Beobachtungstipps.
+- **Sterne lesen lernen:** Lernpfad mit 8 Stationen (Großer Wagen → Polarstern → Kassiopeia → Arktur & Spica → Sommerdreieck → Herbstviereck & Andromedagalaxie → Orion → Wintersechseck) mit animierten Star-Hopping-Demos, Sichtbarkeit für heute Abend und Fortschritt/Rang (im Browser gespeichert). Dazu der Hand-Trick zum Winkelmessen (Finger ≈ 1°, Faust ≈ 10° …), das Mini-Spiel „Finde das Sternbild“ mit Rekord, Profi-Tipps, Rotlicht-Modus sowie App- und Sternkarten-Empfehlungen.
+- **Einsteiger-Bereich:** interaktives SVG-Teleskop (Objektiv/Hauptspiegel, Tubus, Okular, Sucher, Fokussierer, Montierung, Stativ) – jedes Bauteil mit eigener Animation (Lichtweg, Fokussieren unscharf → scharf, Sucher-Fadenkreuz, schwenkende Achsen, ausklappendes Stativ), Refraktor-vs.-Reflektor-Vergleich mit fließenden Lichtteilchen entlang des Strahlengangs, Drag-&-Drop-Baupuzzle, Quiz und Beobachtungstipps.
+
+- **Design:** dunkle Weltraum-Optik mit Glas-Effekten (Milchglas-Panels, Glanzkanten, Lichtreflexe beim Hover), Parallax-Sternenfeld, Sternschnuppen, Scroll-Animationen; responsiv für Handy und Tablet.
 
 ## Technik & Quellen
 

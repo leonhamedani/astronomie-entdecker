@@ -20,6 +20,7 @@
     <a href="#himmelskarte">Himmelskarte</a>
     <a href="#heute-nacht">Heute Nacht</a>
     <a href="#sternbilder">Sternbilder</a>
+    <a href="#sterne-lesen">Sterne lesen</a>
     <a href="#einsteiger">Einsteiger</a>
   </nav>
   <button class="loc-chip" id="locChip" title="Standort ändern">📍 <span id="locChipText">Standort wählen</span></button>
@@ -32,7 +33,9 @@
     <div class="planet"><div class="ring"></div></div>
     <div class="moonlet"></div>
   </div>
-  <div class="hero-content">
+  <div class="glass-orb" style="width:120px;height:120px;left:8%;top:22%" aria-hidden="true"></div>
+  <div class="glass-orb" style="width:70px;height:70px;left:18%;bottom:18%;animation-delay:-4s" aria-hidden="true"></div>
+  <div class="hero-content glass hero-glass">
     <p class="eyebrow reveal">Dein persönliches Planetarium im Browser</p>
     <h1 class="reveal">Astronomie <span class="grad">Entdecker</span></h1>
     <p class="lead reveal">Finde heraus, welche Sterne, Sternbilder und Planeten <strong>heute Nacht</strong> über dir leuchten – mit exakter Himmelsrichtung, Höhe und bester Beobachtungszeit.</p>
@@ -135,6 +138,76 @@
   <div class="grid cards-4" id="conGrid"></div>
 </section>
 
+<!-- STERNE LESEN LERNEN -->
+<section class="section" id="sterne-lesen">
+  <div class="section-head reveal">
+    <p class="eyebrow">Sterne lesen lernen</p>
+    <h2>Vom ersten Stern zum <span class="grad">Himmelsnavigator</span></h2>
+    <p class="muted">Der Himmel ist wie eine Landkarte: Wer ein paar Wegweiser kennt, findet sich überall zurecht. Folge dem Lernpfad – Schritt für Schritt, Sternbild für Sternbild.</p>
+  </div>
+
+  <div class="glass learn-progress reveal">
+    <div class="lp-rank"><span class="rank-ic" id="rankIc">🌱</span><div><b id="rankName">Sternenneuling</b><span class="muted small" id="rankTxt">0 von 8 Stationen am echten Himmel gefunden</span></div></div>
+    <div class="progress-bar"><span id="learnBar"></span></div>
+    <button class="chip" id="learnReset" title="Fortschritt zurücksetzen">↺ Zurücksetzen</button>
+  </div>
+
+  <div class="learn-layout">
+    <ol class="learn-steps" id="learnSteps" aria-label="Lernpfad"></ol>
+    <div class="glass learn-stage reveal">
+      <div class="learn-canvas-wrap">
+        <canvas id="learnCanvas" aria-label="Animierte Sternkarte zum Star-Hopping" role="img"></canvas>
+        <button class="btn-round replay" id="learnReplay" aria-label="Animation wiederholen">↻</button>
+        <span class="learn-hint" id="learnHint"></span>
+      </div>
+      <div class="learn-text" id="learnText" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <h3 class="sub-h reveal">✋ Der Hand-Trick: Winkel am Himmel messen</h3>
+  <div class="glass hand-box reveal">
+    <div class="hand-canvas-wrap"><canvas id="handCanvas" aria-label="Hand am ausgestreckten Arm vor dem Großen Wagen" role="img"></canvas></div>
+    <div class="hand-side">
+      <p>Strecke deinen Arm ganz aus – dann wird deine Hand zum Winkelmesser. Das klappt bei fast allen Menschen, weil längere Arme meist auch größere Hände haben.</p>
+      <div class="hand-tabs" id="handTabs" role="tablist"></div>
+      <div class="hand-info" id="handInfo"></div>
+    </div>
+  </div>
+
+  <h3 class="sub-h reveal">🎯 Mini-Spiel: Finde das Sternbild</h3>
+  <div class="glass game find-game reveal" id="findGame">
+    <div class="find-layout">
+      <div class="learn-canvas-wrap find-canvas-wrap"><canvas id="findCanvas" aria-label="Sternfeld eines gesuchten Sternbilds" role="img"></canvas></div>
+      <div class="find-side">
+        <p class="muted small">Welches Sternbild versteckt sich in diesem Ausschnitt? Die hellsten Sterne verraten es!</p>
+        <div class="find-opts" id="findOpts"></div>
+        <p class="find-msg" id="findMsg"></p>
+        <div class="game-foot"><span id="findScore">Punkte: 0 · Serie: 0 · Rekord: 0</span><button class="chip" id="findNext">Nächstes Sternbild →</button></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-h reveal">🌙 Profi-Tipps für deine Sternennacht</h3>
+  <div class="grid cards-3">
+    <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Dunkeladaption</h4><p>Die Stäbchen in deiner Netzhaut brauchen 20–30 Minuten, bis sie voll lichtempfindlich sind. Ein einziger Blick aufs helle Handy setzt die Uhr zurück!</p><p class="small muted">Trick: Schau schwache Objekte leicht <b>seitlich</b> an („indirektes Sehen“) – am Rand der Netzhaut sitzen mehr Stäbchen.</p></div>
+    <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" id="redBtn">🔴 Rotlicht-Modus testen</button></div>
+    <div class="card glass tip reveal"><div class="tip-ic">🗺️</div><h4>Sternkarte richtig halten</h4><p>Halte die Karte über den Kopf und drehe sie so, dass die Himmelsrichtung, in die du schaust, unten liegt. Dann passt sie genau zum Himmel.</p></div>
+    <div class="card glass tip reveal"><div class="tip-ic">🧭</div><h4>Vom Bekannten zum Unbekannten</h4><p>Lerne nie ein Sternbild isoliert. Hangle dich immer von einem bekannten Wegweiser zum nächsten – das nennt man <b>Star-Hopping</b>.</p></div>
+    <div class="card glass tip reveal"><div class="tip-ic">📅</div><h4>Eine Jahreszeit nach der anderen</h4><p>Jeden Monat gehen Sterne etwa 2 Stunden früher auf. Lerne pro Jahreszeit 2–3 Sternbilder – nach einem Jahr kennst du den ganzen Himmel.</p></div>
+    <div class="card glass tip reveal"><div class="tip-ic">✏️</div><h4>Zeichnen statt Fotografieren</h4><p>Skizziere, was du siehst. Beim Zeichnen prägen sich Muster und Abstände viel besser ein als beim Knipsen.</p></div>
+  </div>
+
+  <h3 class="sub-h reveal">📱 Apps &amp; Sternkarten für den Start</h3>
+  <div class="grid cards-3 apps">
+    <div class="card glass app reveal"><span class="app-ic">🌌</span><div><h4>Stellarium</h4><p class="small">Kostenloses Planetarium für PC, Mac und Linux (auch als App). Perfekt, um eine Nacht vorab zu „proben“.</p><span class="pill ok">kostenlos</span></div></div>
+    <div class="card glass app reveal"><span class="app-ic">📱</span><div><h4>Sky-Apps (z. B. SkySafari, Star Walk, Sky Tonight)</h4><p class="small">Handy an den Himmel halten – die App zeigt, was du siehst. Tipp: Nachtmodus (rot) einschalten!</p><span class="pill ok">ideal für unterwegs</span></div></div>
+    <div class="card glass app reveal"><span class="app-ic">🗺️</span><div><h4>Drehbare Sternkarte</h4><p class="small">Der Klassiker aus Pappe: Datum und Uhrzeit einstellen – fertig. Braucht keinen Akku und blendet nicht.</p><span class="pill ok">ohne Strom</span></div></div>
+    <div class="card glass app reveal"><span class="app-ic">📘</span><div><h4>Astronomisches Jahrbuch</h4><p class="small">Jahrbücher wie das „Kosmos Himmelsjahr“ listen Monat für Monat Planeten, Finsternisse und Sternschnuppen.</p><span class="pill ok">Monatsplaner</span></div></div>
+    <div class="card glass app reveal"><span class="app-ic">🔭</span><div><h4>Sternwarten &amp; Vereine</h4><p class="small">Viele Volkssternwarten bieten öffentliche Beobachtungsabende – dort darfst du oft durch große Teleskope schauen.</p><span class="pill ok">Gemeinschaft</span></div></div>
+    <div class="card glass app reveal"><span class="app-ic">✨</span><div><h4>Diese Website</h4><p class="small">Nutze die Himmelskarte oben mit dem Zeitregler, um dir vor der Nacht anzusehen, wo deine Wegweiser stehen.</p><a class="pill ok" href="#himmelskarte">zur Himmelskarte</a></div></div>
+  </div>
+</section>
+
 <!-- EINSTEIGER -->
 <section class="section" id="einsteiger">
   <div class="section-head reveal">
@@ -156,6 +229,11 @@
           <radialGradient id="lensGrad" cx=".4" cy=".35" r=".7">
             <stop offset="0" stop-color="#c9f2ff"/><stop offset=".6" stop-color="#4fb3ff"/><stop offset="1" stop-color="#1a3f8f"/>
           </radialGradient>
+          <linearGradient id="sheenGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="phG"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#ffe27a"/><stop offset="1" stop-color="#ffd34a" stop-opacity="0"/></radialGradient>
+          <clipPath id="tubeClip"><rect x="140" y="195" width="300" height="52" rx="8"/></clipPath>
           <filter id="glowF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
         <g class="scope-light" aria-hidden="true">
@@ -163,57 +241,76 @@
         </g>
         <!-- Stativ -->
         <g class="part" data-part="stativ" tabindex="0">
-          <path d="M300 300 L190 440 M300 300 L410 440 M300 300 L300 445" stroke="url(#metalGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
-          <path d="M235 385 L365 385" stroke="#3a4260" stroke-width="5"/>
-          <polygon points="250,382 350,382 300,395" fill="#2b3150" opacity=".8"/>
+          <path class="leg leg-l" d="M300 300 L190 440" stroke="url(#metalGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <path class="leg leg-r" d="M300 300 L410 440" stroke="url(#metalGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <path class="leg leg-c" d="M300 300 L300 445" stroke="#3a4260" stroke-width="12" stroke-linecap="round" fill="none"/>
+          <g class="spreader"><path d="M235 385 L365 385" stroke="#3a4260" stroke-width="5"/><polygon points="250,382 350,382 300,395" fill="#2b3150" opacity=".8"/></g>
         </g>
         <!-- Montierung -->
         <g class="part" data-part="montierung" tabindex="0">
+          <ellipse class="az-ring" cx="300" cy="300" rx="62" ry="13" fill="none" stroke="#8affd6" stroke-width="2.5" stroke-dasharray="14 10"/>
           <rect x="270" y="255" width="60" height="50" rx="10" fill="url(#metalGrad)"/>
           <rect x="284" y="225" width="32" height="40" rx="6" fill="#3d4566"/>
           <circle cx="300" cy="232" r="16" fill="#555f86" stroke="#9aa8d6" stroke-width="2"/>
+          <path class="alt-ring" d="M300 186 A46 46 0 0 1 346 232" fill="none" stroke="#8affd6" stroke-width="2.5" stroke-dasharray="10 8"/>
           <path d="M330 280 q40 10 40 40" stroke="#9aa8d6" stroke-width="4" fill="none" stroke-linecap="round"/>
           <circle cx="370" cy="322" r="7" fill="#9aa8d6"/>
         </g>
-        <!-- Tubus -->
-        <g class="part" data-part="tubus" tabindex="0">
-          <g transform="rotate(-28 300 220)">
-            <rect x="140" y="195" width="300" height="52" rx="8" fill="url(#tubeGrad)"/>
-            <rect x="200" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
-            <rect x="360" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
+        <g id="ota">
+          <!-- Tubus -->
+          <g class="part" data-part="tubus" tabindex="0">
+            <g transform="rotate(-28 300 220)">
+              <rect class="tube-body" x="140" y="195" width="300" height="52" rx="8" fill="url(#tubeGrad)"/>
+              <g clip-path="url(#tubeClip)"><rect class="tube-sheen" x="100" y="195" width="60" height="52" fill="url(#sheenGrad)"/></g>
+              <rect x="200" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
+              <rect x="360" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
+            </g>
+          </g>
+          <!-- Objektiv -->
+          <g class="part" data-part="objektiv" tabindex="0">
+            <g transform="rotate(-28 300 220)">
+              <rect x="440" y="188" width="50" height="66" rx="8" fill="#20263f"/>
+              <ellipse class="lens" cx="490" cy="221" rx="9" ry="31" fill="url(#lensGrad)" filter="url(#glowF)"/>
+            </g>
+          </g>
+          <!-- Sucher -->
+          <g class="part" data-part="sucher" tabindex="0">
+            <g transform="rotate(-28 300 220)">
+              <g class="finder-beam"><line x1="376" y1="165" x2="596" y2="165"/><circle class="finder-target" cx="600" cy="165" r="6"/><path class="finder-cross" d="M600 150 V180 M585 165 H615"/></g>
+              <rect x="300" y="168" width="10" height="26" fill="#3d4566"/>
+              <rect x="260" y="156" width="110" height="18" rx="6" fill="#c7d0f0"/>
+              <ellipse cx="370" cy="165" rx="4" ry="9" fill="url(#lensGrad)"/>
+            </g>
+          </g>
+          <!-- Fokussierer -->
+          <g class="part" data-part="fokussierer" tabindex="0">
+            <g transform="rotate(-28 300 220)">
+              <rect x="105" y="203" width="40" height="36" rx="4" fill="#3d4566"/>
+              <g class="knob"><circle cx="125" cy="250" r="10" fill="#8a96c4" stroke="#20263f" stroke-width="3"/><rect x="123.5" y="241" width="3" height="7" fill="#20263f"/><circle cx="125" cy="250" r="3" fill="#20263f"/></g>
+            </g>
+          </g>
+          <!-- Okular -->
+          <g class="part" data-part="okular" tabindex="0">
+            <g transform="rotate(-28 300 220)">
+              <g class="focus-slide">
+                <rect x="72" y="207" width="36" height="28" rx="4" fill="#1b1f33"/>
+                <rect x="60" y="211" width="14" height="20" rx="3" fill="#ffcf5a"/>
+              </g>
+            </g>
+          </g>
+          <!-- Animierter Lichtweg -->
+          <g class="anim-rays" aria-hidden="true" transform="rotate(-28 300 220)">
+            <path class="ray-base" d="M640 203 L490 203 L74 221"/>
+            <path class="ray-base" d="M640 221 L74 221"/>
+            <path class="ray-base" d="M640 239 L490 239 L74 221"/>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" repeatCount="indefinite" path="M640 203 L490 203 L74 221"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-0.7s" repeatCount="indefinite" path="M640 221 L74 221"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.4s" repeatCount="indefinite" path="M640 239 L490 239 L74 221"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite" path="M640 203 L490 203 L74 221"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.8s" repeatCount="indefinite" path="M640 239 L490 239 L74 221"/></circle>
+            <circle class="eye-glow" cx="62" cy="221" r="9"/>
           </g>
         </g>
-        <!-- Objektiv -->
-        <g class="part" data-part="objektiv" tabindex="0">
-          <g transform="rotate(-28 300 220)">
-            <rect x="440" y="188" width="50" height="66" rx="8" fill="#20263f"/>
-            <ellipse cx="490" cy="221" rx="9" ry="31" fill="url(#lensGrad)" filter="url(#glowF)"/>
-          </g>
-        </g>
-        <!-- Sucher -->
-        <g class="part" data-part="sucher" tabindex="0">
-          <g transform="rotate(-28 300 220)">
-            <rect x="300" y="168" width="10" height="26" fill="#3d4566"/>
-            <rect x="260" y="156" width="110" height="18" rx="6" fill="#c7d0f0"/>
-            <ellipse cx="370" cy="165" rx="4" ry="9" fill="url(#lensGrad)"/>
-          </g>
-        </g>
-        <!-- Fokussierer -->
-        <g class="part" data-part="fokussierer" tabindex="0">
-          <g transform="rotate(-28 300 220)">
-            <rect x="105" y="203" width="40" height="36" rx="4" fill="#3d4566"/>
-            <circle cx="125" cy="250" r="10" fill="#8a96c4" stroke="#20263f" stroke-width="3"/>
-            <circle cx="125" cy="250" r="3" fill="#20263f"/>
-          </g>
-        </g>
-        <!-- Okular -->
-        <g class="part" data-part="okular" tabindex="0">
-          <g transform="rotate(-28 300 220)">
-            <rect x="72" y="207" width="36" height="28" rx="4" fill="#1b1f33"/>
-            <rect x="60" y="211" width="14" height="20" rx="3" fill="#ffcf5a"/>
-          </g>
-        </g>
-        <g class="scope-labels" aria-hidden="true"></g>
       </svg>
       <div class="part-pills" id="partPills"></div>
     </div>
@@ -242,21 +339,45 @@
           <path class="ray" d="M600 66 L490 66 L95 100"/>
           <path class="ray" d="M600 100 L95 100"/>
           <path class="ray" d="M600 134 L490 134 L95 100"/>
-          <circle cx="95" cy="100" r="5" class="focus"/>
-          <text x="490" y="30" class="lp-t">Objektivlinse bricht das Licht</text>
-          <text x="40" y="180" class="lp-t">Brennpunkt → Okular</text>
+          <g class="photons">
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 66 L490 66 L95 100"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 100 L95 100"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 134 L490 134 L95 100"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 66 L490 66 L95 100"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 100 L95 100"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 134 L490 134 L95 100"/></circle>
+          </g>
+          <circle cx="95" cy="100" r="6" class="focus"/>
+          <g class="lp-step"><circle cx="575" cy="40" r="11"/><text x="575" y="44">1</text></g>
+          <g class="lp-step"><circle cx="490" cy="170" r="11"/><text x="490" y="174">2</text></g>
+          <g class="lp-step"><circle cx="95" cy="140" r="11"/><text x="95" y="144">3</text></g>
+          <text x="420" y="30" class="lp-t">① Sternenlicht trifft ein</text>
+          <text x="300" y="190" class="lp-t">② Linse bricht &amp; bündelt</text>
+          <text x="112" y="172" class="lp-t">③ Brennpunkt → Okular</text>
         </svg>
         <svg id="lpRefl" viewBox="0 0 600 200" class="lp" aria-label="Lichtweg im Newton-Spiegelteleskop">
           <rect x="60" y="55" width="460" height="90" rx="10" class="lp-tube"/>
           <path d="M70 52 Q86 100 70 148" class="lp-mirror"/>
           <line x1="430" y1="88" x2="452" y2="110" class="lp-mirror2"/>
           <rect x="428" y="20" width="26" height="35" rx="4" class="lp-eye"/>
-          <path class="ray" d="M600 70 L78 70 L441 99 L441 30"/>
-          <path class="ray" d="M600 100 L80 100 L441 99 L441 30"/>
-          <path class="ray" d="M600 130 L78 130 L441 99 L441 30"/>
-          <circle cx="441" cy="34" r="5" class="focus"/>
-          <text x="90" y="180" class="lp-t">Hohlspiegel bündelt das Licht</text>
-          <text x="300" y="15" class="lp-t">Fangspiegel lenkt zum Okular</text>
+          <path class="ray" d="M600 70 L78 70 L441 99 L441 34"/>
+          <path class="ray" d="M600 100 L80 100 L441 99 L441 34"/>
+          <path class="ray" d="M600 130 L78 130 L441 99 L441 34"/>
+          <g class="photons">
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 70 L78 70 L441 99 L441 34"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 100 L80 100 L441 99 L441 34"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 130 L78 130 L441 99 L441 34"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 70 L78 70 L441 99 L441 34"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 100 L80 100 L441 99 L441 34"/></circle>
+            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 130 L78 130 L441 99 L441 34"/></circle>
+          </g>
+          <circle cx="441" cy="34" r="6" class="focus"/>
+          <g class="lp-step"><circle cx="575" cy="40" r="11"/><text x="575" y="44">1</text></g>
+          <g class="lp-step"><circle cx="40" cy="100" r="11"/><text x="40" y="104">2</text></g>
+          <g class="lp-step"><circle cx="476" cy="99" r="11"/><text x="476" y="103">3</text></g>
+          <text x="90" y="178" class="lp-t">② Hohlspiegel bündelt das Licht</text>
+          <text x="250" y="18" class="lp-t">③ Fangspiegel lenkt zum Okular</text>
+          <text x="470" y="178" class="lp-t">① Sternenlicht</text>
         </svg>
       </div>
       <div class="compare-text" id="compareText"></div>
@@ -314,6 +435,7 @@
   </div>
 </div>
 
+<button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/vendor/astronomy.browser.min.js"></script>
@@ -325,6 +447,7 @@
 <script src="js/skymap.js"></script>
 <script src="js/tonight.js"></script>
 <script src="js/telescope.js"></script>
+<script src="js/learn.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

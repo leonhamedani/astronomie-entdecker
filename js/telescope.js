@@ -11,6 +11,17 @@
     montierung: { n: 'Montierung', e: '🧭', t: 'Die Mechanik, die das Teleskop trägt und bewegt. Eine azimutale Montierung bewegt sich hoch/runter und links/rechts, eine parallaktische (äquatoriale) folgt mit einer Achse der Erddrehung.', f: 'Bei 100-facher Vergrößerung wandert ein Stern in unter einer Minute aus dem Bild – wegen der Erdrotation!' },
     stativ: { n: 'Stativ', e: '🦵', t: 'Die stabile Basis. Ein wackeliges Stativ macht jedes Teleskop unbrauchbar – schon ein Windstoß lässt das Bild tanzen. Die Ablage zwischen den Beinen stabilisiert zusätzlich.', f: 'Hänge bei Wind eine Tasche unter das Stativ – das dämpft Schwingungen.' }
   };
+
+  var SATURN = '<div class="saturn"><i></i></div>';
+  var DEMO = {
+    objektiv: '<div class="demo demo-aperture"><div class="ap ap-eye"><div class="funnel"></div><span>Auge<br>7 mm</span></div><div class="ap ap-scope"><div class="funnel"></div><span>Objektiv<br>100 mm</span></div><div class="rain">' + new Array(19).join('<b></b>') + '</div><p class="demo-cap">Mehr Öffnung fängt mehr Licht: ≈ 200× so viel wie dein Auge</p></div>',
+    tubus: '<div class="demo demo-views"><div class="view v-flau">' + SATURN + '<span>ohne Tubus: Streulicht</span></div><div class="view v-klar">' + SATURN + '<span>mit Tubus: kontrastreich</span></div></div>',
+    okular: '<div class="demo demo-zoom"><div class="view v-zoom">' + SATURN + '</div><div class="zoom-labels"><span class="z1">25-mm-Okular → 36×</span><span class="z2">10-mm-Okular → 90×</span></div></div>',
+    fokussierer: '<div class="demo demo-focus"><div class="view v-focus">' + SATURN + '<em class="f-blur">unscharf …</em><em class="f-sharp">scharf! ✓</em></div><p class="demo-cap">Drehen am Rad schiebt das Okular hinein und heraus</p></div>',
+    sucher: '<div class="demo demo-finder"><div class="view v-finder"><div class="field">' + new Array(14).join('<b></b>') + '<b class="tgt"></b></div><div class="cross"></div><em>Ziel erfasst!</em></div><p class="demo-cap">Fadenkreuz aufs Ziel – dann sitzt es auch im Okular</p></div>',
+    montierung: '<div class="demo demo-axes"><svg viewBox="0 0 200 110" aria-hidden="true"><ellipse cx="100" cy="92" rx="70" ry="12" class="ax-ring"/><path d="M100 90 V30" class="ax-line"/><g class="ax-tube"><rect x="60" y="22" width="80" height="14" rx="4"/></g><path d="M150 30 A50 50 0 0 1 150 70" class="ax-ring ax-alt"/><text x="160" y="54">Höhe</text><text x="70" y="108">Azimut</text></svg><p class="demo-cap">Zwei Achsen: hoch/runter (Höhe) und links/rechts (Azimut)</p></div>',
+    stativ: '<div class="demo demo-views"><div class="view v-wobble"><b class="star"></b><span>wackelig</span></div><div class="view v-stable"><b class="star"></b><span>stabil</span></div></div>'
+  };
   var ORDER = ['objektiv', 'tubus', 'okular', 'sucher', 'fokussierer', 'montierung', 'stativ'];
   var svg = $('scopeSvg'), info = $('partInfo'), pills = $('partPills');
   var current = null;
@@ -19,9 +30,11 @@
     current = k;
     svg.querySelectorAll('.part').forEach(function (g) { g.classList.toggle('active', g.getAttribute('data-part') === k); });
     pills.querySelectorAll('button').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-p') === k); });
-    info.innerHTML = '<div class="part-emoji">' + p.e + '</div><h3>' + p.n + '</h3><p>' + p.t + '</p><p class="fun">💡 ' + p.f + '</p>';
+    svg.setAttribute('data-anim', k);
+    info.innerHTML = '<div class="part-head"><div class="part-emoji">' + p.e + '</div><h3>' + p.n + '</h3></div><p>' + p.t + '</p>' + (DEMO[k] || '') + '<p class="fun">💡 ' + p.f + '</p>';
     info.classList.remove('pop'); void info.offsetWidth; info.classList.add('pop');
   }
+  if (AE.reduceMotion) document.querySelectorAll('svg').forEach(function (x) { if (x.pauseAnimations) x.pauseAnimations(); });
   pills.innerHTML = ORDER.map(function (k) { return '<button class="chip" data-p="' + k + '">' + PARTS[k].n.split(' /')[0] + '</button>'; }).join('');
   pills.addEventListener('click', function (e) { var b = e.target.closest('[data-p]'); if (b) select(b.getAttribute('data-p')); });
   svg.querySelectorAll('.part').forEach(function (g) {
@@ -51,6 +64,7 @@
   var dndSvg = document.querySelector('.dnd-svg');
   var clone = svg.cloneNode(true);
   dndSvg.innerHTML = '';
+  Array.prototype.forEach.call(clone.querySelectorAll('.finder-beam, .az-ring, .alt-ring, .tube-sheen, .anim-rays'), function (x) { x.remove(); });
   Array.prototype.forEach.call(clone.querySelectorAll('.part, .scope-light'), function (g) { g.removeAttribute('tabindex'); g.removeAttribute('role'); g.setAttribute('class', 'ghost-part'); dndSvg.appendChild(g); });
   var tEl = $('dndTargets'), bank = $('dndBank'), scoreEl = $('dndScore');
   var nums = ORDER.slice().sort(function () { return Math.random() - 0.5; });
