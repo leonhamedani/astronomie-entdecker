@@ -1,0 +1,10 @@
+Planetentexturen (js/textures/*.js)
+
+Quelle: Solar System Scope – https://www.solarsystemscope.com/textures/
+Lizenz: Creative Commons Namensnennung 4.0 International (CC BY 4.0)
+        https://creativecommons.org/licenses/by/4.0/
+
+Änderungen: auf 1024 x 512 px (Saturnring 1024 x 64 px) verkleinert, als JPEG/PNG
+neu komprimiert und als Base64-Data-URI eingebettet.
+
+Wetterdaten: Open-Meteo.com, CC BY 4.0 – https://open-meteo.com/

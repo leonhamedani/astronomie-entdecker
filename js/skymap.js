@@ -203,6 +203,30 @@
       if (h.alt > -1) projBodies.push({ x: q.x, y: q.y, b: b, alt: h.alt, az: h.az, mag: mag, r: r });
     });
 
+    // ISS
+    if (opts.planets && AE.issLook) {
+      var L = AE.issLook(t);
+      if (L && L.alt > -1) {
+        ctx.save(); ctx.strokeStyle = 'rgba(138,255,214,.55)'; ctx.setLineDash([3, 5]); ctx.lineWidth = 1.5; ctx.beginPath();
+        var started = false;
+        for (var sm = -180; sm <= 360; sm += 20) {
+          var LL = AE.issLook(new Date(t.getTime() + sm * 1000)); if (!LL || LL.alt < -2) { started = false; continue; }
+          var qq = projAltAz(LL.alt, LL.az, {}); if (!qq.ok) { started = false; continue; }
+          if (!started) ctx.moveTo(qq.x, qq.y); else ctx.lineTo(qq.x, qq.y); started = true;
+        }
+        ctx.stroke(); ctx.restore();
+        var qi = projAltAz(L.alt, L.az, {});
+        if (onScreen(qi, 20)) {
+          var col = L.visible ? '#ffffff' : L.lit ? '#bfe9ff' : '#6f7fa8';
+          var gi = ctx.createRadialGradient(qi.x, qi.y, 0, qi.x, qi.y, 16); gi.addColorStop(0, col); gi.addColorStop(0.3, 'rgba(138,255,214,.5)'); gi.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = gi; ctx.beginPath(); ctx.arc(qi.x, qi.y, 16, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = col; ctx.beginPath(); ctx.arc(qi.x, qi.y, 3.5, 0, Math.PI * 2); ctx.fill();
+          ctx.font = '700 12px "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#8affd6'; ctx.fillText('🛰️ ISS', qi.x + 8, qi.y - 8);
+          if (L.alt > -1) projBodies.push({ x: qi.x, y: qi.y, b: { id: 'ISS', de: 'ISS', col: '#8affd6' }, alt: L.alt, az: L.az, mag: L.mag, r: 6, iss: L });
+        }
+      }
+    }
+
     drawGround();
     drawCompass();
     updateInfo(sAlt);
@@ -388,8 +412,9 @@
   function tipHtml(hit) {
     if (hit.body) {
       var o = hit.body;
-      return '<b>' + o.b.de + '</b><small>' + (o.b.id === 'Sun' ? 'Unser Stern' : o.b.id === 'Moon' ? 'Erdtrabant · ' + AE.moonPhase(state.time).name : 'Planet') + '</small>' +
-        '<div class="kv"><span>Helligkeit</span><span>' + AE.fmtNum(o.mag, 1) + ' mag</span><span>Höhe</span><span>' + AE.fmtNum(o.alt, 1) + '°</span><span>Azimut</span><span>' + AE.fmtNum(o.az, 1) + '° (' + AE.dirName(o.az) + ')</span></div>';
+      var subt = o.b.id === 'Sun' ? 'Unser Stern' : o.b.id === 'Moon' ? 'Erdtrabant · ' + AE.moonPhase(state.time).name : o.b.id === 'ISS' ? 'Internationale Raumstation · ' + (o.iss.visible ? 'sonnenbeschienen – sichtbar!' : o.iss.lit ? 'angestrahlt, aber Himmel zu hell' : 'im Erdschatten (unsichtbar)') : 'Planet';
+      return '<b>' + o.b.de + '</b><small>' + subt + '</small>' +
+        '<div class="kv"><span>Helligkeit</span><span>' + (o.mag == null || isNaN(o.mag) ? '–' : AE.fmtNum(o.mag, 1) + ' mag') + '</span><span>Höhe</span><span>' + AE.fmtNum(o.alt, 1) + '°</span><span>Azimut</span><span>' + AE.fmtNum(o.az, 1) + '° (' + AE.dirName(o.az) + ')</span></div>';
     }
     var s = hit.star.s, con = AE.cons[s.con];
     var title = s.name || s.desig || 'Stern';
@@ -511,6 +536,9 @@
     }, 60);
   });
   setInterval(function () { if (state.live) setTime(new Date(), true); }, 30000);
+  // Steht die ISS über dem Horizont, im Live-Modus häufiger aktualisieren
+  setInterval(function () { if (!state.live || !AE.issLook || document.hidden) return; var L = AE.issLook(new Date()); if (L && L.alt > -2) setTime(new Date(), true); }, 2000);
+  AE.on('iss', function () { request(); });
 
   AE.on('location', function () {
     document.getElementById('skyPlace').textContent = AE.loc.name || 'dir';

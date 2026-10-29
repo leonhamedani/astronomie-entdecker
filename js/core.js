@@ -177,6 +177,25 @@
   AE.circumpolar = function (dec) { return AE.loc.lat >= 0 ? dec > 90 - AE.loc.lat : dec < -90 - AE.loc.lat; };
   AE.neverRises = function (dec) { return AE.loc.lat >= 0 ? dec < AE.loc.lat - 90 : dec > AE.loc.lat + 90; };
 
+  AE.V = '5';
+  var loaded = {};
+  AE.loadScript = function (src) {
+    if (loaded[src]) return loaded[src];
+    loaded[src] = new Promise(function (res, rej) {
+      var el = document.createElement('script'); el.src = src + (src.indexOf('?') < 0 ? '?v=' + AE.V : ''); el.async = true;
+      el.onload = function () { res(); }; el.onerror = function () { delete loaded[src]; rej(new Error('Laden fehlgeschlagen: ' + src)); };
+      document.head.appendChild(el);
+    });
+    return loaded[src];
+  };
+  AE.loadTexture = function (name) { return AE.loadScript('js/textures/' + name + '.js').then(function () { return window.AE_TEX[name]; }); };
+  // Höchster Stand eines Himmelskörpers während der Dunkelheit
+  AE.bestDuringNight = function (body, night) {
+    night = night || AE.nightInfo(new Date());
+    var best = { alt: -99 }, n = 60, a = night.darkFrom.getTime(), b = night.darkTo.getTime();
+    for (var i = 0; i <= n; i++) { var t = new Date(a + (b - a) * i / n), h = AE.bodyHor(body, t); if (h.alt > best.alt) best = { alt: h.alt, az: h.az, time: t }; }
+    return best;
+  };
   AE.esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   AE.reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 })();

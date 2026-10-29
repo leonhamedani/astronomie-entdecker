@@ -7,7 +7,7 @@
 <meta name="description" content="Interaktive Sternkarte, Sternbilder, Planeten und Teleskop-Grundlagen – alles auf Deutsch.">
 <meta name="theme-color" content="#05060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -18,8 +18,10 @@
   <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
   <nav class="nav-links" id="navLinks">
     <a href="#himmelskarte">Himmelskarte</a>
+    <a href="#wetter">Wetter</a>
     <a href="#heute-nacht">Heute Nacht</a>
-    <a href="#sternbilder">Sternbilder</a>
+    <a href="#iss">ISS</a>
+    <a href="#planeten">Planeten</a>
     <a href="#sterne-lesen">Sterne lesen</a>
     <a href="#einsteiger">Einsteiger</a>
   </nav>
@@ -118,6 +120,24 @@
   </div>
 </section>
 
+<!-- WETTER -->
+<section class="section" id="wetter">
+  <div class="section-head reveal">
+    <p class="eyebrow">Wetter- &amp; Sichtbarkeits-Check</p>
+    <h2>Lohnt sich <span class="grad">heute Nacht</span>?</h2>
+    <p class="muted">Wolken, Feuchte, Wind, Mondlicht und Dunkelheit – zusammengefasst in einem Beobachtungs-Score für deinen Standort.</p>
+  </div>
+  <div class="weather-top">
+    <div class="glass score-card reveal" id="scoreCard"><div class="wx-loading">⏳ Wetterdaten werden geladen …</div></div>
+    <div class="glass wx-tips reveal" id="wxTips"></div>
+  </div>
+  <div class="glass wx-timeline-card reveal">
+    <div class="wx-tl-head"><h3>🕒 Stunde für Stunde</h3><div class="wx-legend"><span><i class="lg lg-good"></i>gut</span><span><i class="lg lg-mid"></i>mittel</span><span><i class="lg lg-bad"></i>schlecht</span><span>☁️ tief · mittel · hoch</span><span>🌙 Mond über Horizont</span></div></div>
+    <div class="wx-timeline" id="wxTimeline"></div>
+  </div>
+  <p class="muted small credit" id="wxSource">Wetterdaten: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0)</p>
+</section>
+
 <!-- HEUTE NACHT -->
 <section class="section" id="heute-nacht">
   <div class="section-head reveal">
@@ -136,6 +156,47 @@
   <h3 class="sub-h reveal" id="sternbilder">✨ Sternbilder heute Nacht</h3>
   <p class="muted reveal">Klicke auf ein Sternbild für Mythologie, hellste Sterne und die beste Jahreszeit.</p>
   <div class="grid cards-4" id="conGrid"></div>
+</section>
+
+<!-- ISS -->
+<section class="section" id="iss">
+  <div class="section-head reveal">
+    <p class="eyebrow">Internationale Raumstation</p>
+    <h2>Die <span class="grad">ISS</span> über dir</h2>
+    <p class="muted">Die ISS rast mit rund 28.000 km/h um die Erde. Wenn sie von der Sonne angestrahlt wird, während es bei dir schon dunkel ist, siehst du sie als hellen, ruhig ziehenden Lichtpunkt – ganz ohne Teleskop.</p>
+  </div>
+  <div class="iss-layout">
+    <div class="glass iss-map-card reveal">
+      <div class="iss-map-wrap"><canvas id="issMap" aria-label="Live-Position der ISS auf der Weltkarte" role="img"></canvas></div>
+      <div class="iss-live" id="issLive">⏳ Bahndaten werden geladen …</div>
+    </div>
+    <div class="glass iss-next reveal" id="issNext"></div>
+  </div>
+  <div class="iss-controls reveal">
+    <label class="switch"><input type="checkbox" id="issAll"><span class="sw"></span> Auch nicht sichtbare Überflüge zeigen</label>
+    <span class="muted small" id="issTleInfo"></span>
+  </div>
+  <div class="grid cards-3" id="issPasses"></div>
+</section>
+
+<!-- PLANETEN 3D -->
+<section class="section" id="planeten">
+  <div class="section-head reveal">
+    <p class="eyebrow">Planeten-Steckbriefe</p>
+    <h2>Unser Sonnensystem in <span class="grad">3D</span></h2>
+    <p class="muted">Dreh die Planeten mit dem Finger oder der Maus, zoome hinein und vergleiche ihre Größen.</p>
+  </div>
+  <div class="planet-tabs reveal" id="planetTabs" role="tablist"></div>
+  <div class="planet-layout">
+    <div class="glass planet-stage reveal">
+      <canvas id="planetCanvas" aria-label="Drehbares 3D-Modell des Planeten" role="img"></canvas>
+      <div class="size-labels" id="sizeLabels"></div>
+      <div class="planet-loading" id="planetLoading">🪐 3D-Modell wird geladen …</div>
+      <div class="planet-stage-bar"><button class="chip" id="sizeToggle" aria-pressed="false">⚖️ Größenvergleich</button><span class="muted small">Ziehen = drehen · Mausrad/Pinch = zoomen</span></div>
+    </div>
+    <div class="glass planet-facts reveal" id="planetFacts" aria-live="polite"></div>
+  </div>
+  <p class="muted small credit">Planetentexturen: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0, verkleinert) · 3D: three.js (MIT)</p>
 </section>
 
 <!-- STERNE LESEN LERNEN -->
@@ -422,7 +483,7 @@
 </main>
 
 <footer class="footer">
-  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC). Alles läuft lokal in deinem Browser.</p>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Texturen von <em>Solar System Scope</em> (CC BY 4.0), Wetter von <em>Open-Meteo</em> (CC BY 4.0), ISS-Bahndaten von <em>CelesTrak</em>. Keine Anmeldung, keine API-Schlüssel.</p>
   <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
 </footer>
 
@@ -438,16 +499,21 @@
 <button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js"></script>
-<script src="js/data/sky-data.js"></script>
-<script src="js/data/constellation-info.js"></script>
-<script src="js/data/cities.js"></script>
-<script src="js/core.js"></script>
-<script src="js/background.js"></script>
-<script src="js/skymap.js"></script>
-<script src="js/tonight.js"></script>
-<script src="js/telescope.js"></script>
-<script src="js/learn.js"></script>
-<script src="js/main.js"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=5"></script>
+<script src="js/vendor/satellite.min.js?v=5"></script>
+<script src="js/data/sky-data.js?v=5"></script>
+<script src="js/data/constellation-info.js?v=5"></script>
+<script src="js/data/cities.js?v=5"></script>
+<script src="js/data/iss-tle.js?v=5"></script>
+<script src="js/core.js?v=5"></script>
+<script src="js/background.js?v=5"></script>
+<script src="js/skymap.js?v=5"></script>
+<script src="js/tonight.js?v=5"></script>
+<script src="js/telescope.js?v=5"></script>
+<script src="js/learn.js?v=5"></script>
+<script src="js/weather.js?v=5"></script>
+<script src="js/iss.js?v=5"></script>
+<script src="js/planets3d.js?v=5"></script>
+<script src="js/main.js?v=5"></script>
 </body>
 </html>
