@@ -177,7 +177,7 @@
   AE.circumpolar = function (dec) { return AE.loc.lat >= 0 ? dec > 90 - AE.loc.lat : dec < -90 - AE.loc.lat; };
   AE.neverRises = function (dec) { return AE.loc.lat >= 0 ? dec < AE.loc.lat - 90 : dec > AE.loc.lat + 90; };
 
-  AE.V = '5';
+  AE.V = '6';
   var loaded = {};
   AE.loadScript = function (src) {
     if (loaded[src]) return loaded[src];

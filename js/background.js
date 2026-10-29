@@ -5,14 +5,20 @@
   var ctx = cv.getContext('2d');
   var W, H, dpr, layers = [], shooters = [], mx = 0, my = 0, tmx = 0, tmy = 0, scrollY = 0;
   var reduce = window.AE && AE.reduceMotion;
+  // Handy/Tablet: weniger Sterne, 30 fps, seltener Sternschnuppen (schont Akku)
+  var lite = window.innerWidth <= 760 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+  var lastW = 0, lastH = 0;
 
   function resize() {
+    // Mobile Browser feuern beim Ein-/Ausblenden der Adressleiste „resize“ – dann nicht neu würfeln
+    if (lastW && window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 160) return;
+    lastW = window.innerWidth; lastH = window.innerHeight;
     dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     W = window.innerWidth; H = window.innerHeight;
     cv.width = W * dpr; cv.height = H * dpr;
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var area = W * H;
+    var area = W * H / (lite ? 1.8 : 1);
     layers = [
       { depth: 0.15, stars: make(Math.round(area / 3500), 0.3, 0.9) },
       { depth: 0.35, stars: make(Math.round(area / 9000), 0.6, 1.4) },
@@ -36,6 +42,7 @@
   }
   var last = 0, nextShoot = 1500;
   function frame(t) {
+    if (lite && t - last < 30) { if (!document.hidden) requestAnimationFrame(frame); return; }
     var dt = Math.min(50, t - last); last = t;
     mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
     ctx.clearRect(0, 0, W, H);
@@ -60,7 +67,7 @@
     }
     if (!reduce) {
       nextShoot -= dt;
-      if (nextShoot <= 0) { spawnShooter(); nextShoot = 2500 + Math.random() * 5000; }
+      if (nextShoot <= 0) { spawnShooter(); nextShoot = (lite ? 6000 : 2500) + Math.random() * 5000; }
       for (var k = shooters.length - 1; k >= 0; k--) {
         var sh = shooters[k]; sh.life++; sh.x += sh.vx; sh.y += sh.vy;
         var p = sh.life / sh.max, alpha = p < 0.2 ? p / 0.2 : 1 - (p - 0.2) / 0.8;

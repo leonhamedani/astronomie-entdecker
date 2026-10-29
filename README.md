@@ -32,6 +32,14 @@ Alternativ: `npx serve .`
 
 - **Design:** dunkle Weltraum-Optik mit Glas-Effekten (Milchglas-Panels, Glanzkanten, Lichtreflexe beim Hover), Parallax-Sternenfeld, Sternschnuppen, Scroll-Animationen; responsiv für Handy und Tablet.
 
+## Bedienung & Aufbau
+
+- **Klare Gliederung:** sieben nummerierte Abschnitte (01 Himmelskarte · 02 Wetter · 03 Heute Nacht · 04 ISS · 05 Planeten · 06 Sterne lesen · 07 Einsteiger), jeweils mit kurzer Einleitung, Trennlinie und – wo sinnvoll – Schnellzugriff-Chips auf die Unterbereiche.
+- **Auf- und zuklappen:** längere Unterbereiche (z. B. Helle Sterne, Hand-Trick, Mini-Spiel, Profi-Tipps, Apps, Teleskop-Spiele, Beobachtungstipps) sind Akkordeons mit sanfter Animation. Wichtiges ist offen, Details sind zugeklappt; auf dem Handy ist mehr zugeklappt. Jeder Abschnitt mit mehreren Bereichen hat „Alle aufklappen/zuklappen“. Der Zustand wird im Browser gespeichert (`localStorage`, Schlüssel `ae-folds-v1`). Barrierearm: echte Buttons mit `aria-expanded`/`aria-controls`, Bedienung per Enter/Leertaste, zugeklappte Inhalte sind `inert`.
+- **„Mehr anzeigen“:** lange Kartenlisten (Sternbilder, helle Sterne, ISS-Überflüge, Tipps) zeigen zunächst nur die ersten Einträge.
+- **Orientierung:** Scroll-Spy markiert den aktuellen Abschnitt in der Navigation und in einer Punkt-Leiste am rechten Rand (große Bildschirme), dazu ein Lesefortschritt unter der Kopfzeile und ein „Nach oben“-Knopf.
+- **Handy (360–430 px):** Hamburger-Menü mit großen Zeilen (≥ 48 px), Esc/Antippen außerhalb schließt es; Touch-Ziele ≥ 44 px, Schrift ≥ 12 px, kein horizontales Scrollen, waagerecht wischbare Werkzeug- und Planetenleisten, passend große Himmelskarte und 3D-Bühne, weniger Effekte (weniger Hintergrundsterne, 30 fps, keine Nebel-Animation, schwächerer Glas-Blur).
+
 ## Technik & Quellen
 
 - Reines HTML/CSS/JavaScript, keine Build-Schritte nötig.
@@ -42,7 +50,7 @@ Alternativ: `npx serve .`
 - Planetentexturen: [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), auf 1024 × 512 px verkleinert und als Data-URI in `js/textures/` eingebettet (damit WebGL auch über `file://` funktioniert).
 - Wetter: [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, ohne Schlüssel). ISS-Bahndaten: [CelesTrak](https://celestrak.org/).
 - Lizenztexte in `licenses/`.
-- Cache-Busting: alle CSS/JS-Verweise tragen `?v=…` (Version in `AE.V` in `js/core.js` und in `index.html` gemeinsam erhöhen).
+- Cache-Busting: alle CSS/JS-Verweise tragen `?v=…` (aktuell `?v=6`) (Version in `AE.V` in `js/core.js` und in `index.html` gemeinsam erhöhen).
 
 ## Hinweise / Grenzen
 
