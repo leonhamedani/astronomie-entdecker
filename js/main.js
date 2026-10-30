@@ -126,8 +126,14 @@
   AE.on('location', updateChip);
 
   /* ---------- „Auf der Karte zeigen“ (auch von anderen Unterseiten) ---------- */
-  function showOnSky(alt, az, t) {
+  function parseMark(str) {
+    if (!str) return null;
+    var a = String(str).split(','), ra = +a[0], dec = +a[1];
+    return isFinite(ra) && isFinite(dec) ? { ra: ra, dec: dec, label: a.slice(2).join(',') } : null;
+  }
+  function showOnSky(alt, az, t, mark) {
     AE.closeModals();
+    if (AE._sky.setMarker) AE._sky.setMarker(mark || null);
     AE._sky.setTime(new Date(t), false);
     AE.skyLookAt(alt, az);
     AE.toast('Karte springt auf ' + AE.fmtTime(new Date(t)) + ' Uhr – Blick nach ' + AE.dirName(az));
@@ -135,14 +141,16 @@
   document.addEventListener('click', function (e) {
     var s = e.target.closest('[data-show]'); if (!s) return;
     var p = s.getAttribute('data-show').split(',').map(Number);
-    if (AE._sky && AE.skyLookAt) { showOnSky(p[0], p[1], p[2]); return; }
-    location.href = 'sternkarte.html?zeige=' + encodeURIComponent(p[0] + ',' + p[1] + ',' + p[2]);
+    var mk = s.getAttribute('data-mark');
+    if (AE._sky && AE.skyLookAt) { showOnSky(p[0], p[1], p[2], parseMark(mk)); return; }
+    location.href = 'sternkarte.html?zeige=' + encodeURIComponent(p[0] + ',' + p[1] + ',' + p[2]) + (mk ? '&ziel=' + encodeURIComponent(mk) : '');
   });
   function showFromUrl() {
     var m = /[?&]zeige=([^&#]+)/.exec(location.search); if (!m || !AE._sky) return;
     var p = decodeURIComponent(m[1]).split(',').map(Number);
     if (p.length < 3 || !p.every(isFinite)) return;
-    setTimeout(function () { showOnSky(p[0], p[1], p[2]); }, 350);
+    var z = /[?&]ziel=([^&#]+)/.exec(location.search), mk = z ? parseMark(decodeURIComponent(z[1])) : null;
+    setTimeout(function () { showOnSky(p[0], p[1], p[2], mk); }, 350);
     try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   }
 

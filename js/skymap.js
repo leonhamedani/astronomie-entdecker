@@ -223,10 +223,28 @@
       }
     }
 
+    // Zielmarke (z. B. Messier-Objekt aus „Himmelsobjekte erklärt“)
+    var mOn = false;
+    if (marker) {
+      hv(marker.v, tmp); var qm = proj(tmp[0], tmp[1], tmp[2], {});
+      if (onScreen(qm, 30)) {
+        mOn = !document.hidden;
+        var pulse = 14 + 3 * Math.sin(performance.now() / 300);
+        ctx.save(); ctx.strokeStyle = '#ffd76a'; ctx.lineWidth = 2; ctx.setLineDash([5, 4]); ctx.shadowColor = '#ffd76a'; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(qm.x, qm.y, pulse, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(qm.x - pulse - 8, qm.y); ctx.lineTo(qm.x - pulse + 3, qm.y); ctx.moveTo(qm.x + pulse - 3, qm.y); ctx.lineTo(qm.x + pulse + 8, qm.y); ctx.stroke();
+        ctx.font = '700 13px "Segoe UI", system-ui, sans-serif'; ctx.fillStyle = '#ffd76a'; ctx.shadowBlur = 6; ctx.fillText(marker.label, qm.x + pulse + 10, qm.y - pulse);
+        ctx.restore();
+      }
+    }
+
     drawGround();
     drawCompass();
     updateInfo(sAlt);
+    if (marker && mOn && !marker.raf) { marker.raf = setTimeout(function () { if (marker) marker.raf = null; request(); }, 120); }
   }
+  var marker = null;
+  function setMarker(m) { marker = m && isFinite(m.ra) && isFinite(m.dec) ? { v: AE.toVec(m.ra, m.dec), label: String(m.label || '').slice(0, 40) } : null; request(); }
 
   function drawMoon(x, y, r, t) {
     var ph = AE.moonPhase(t);
@@ -549,5 +567,5 @@
     resize();
   };
   // Für Tests
-  AE._sky = { view: view, state: state, opts: opts, projStars: function () { return projStars; }, setTime: setTime, request: request };
+  AE._sky = { view: view, state: state, opts: opts, projStars: function () { return projStars; }, setTime: setTime, request: request, setMarker: setMarker, marker: function () { return marker; } };
 })();

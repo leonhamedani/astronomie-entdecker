@@ -52,11 +52,11 @@
     reflektor: '<h4>🪞 Reflektor – das Newton-Spiegelteleskop</h4><p>Licht wandert durch den offenen Tubus nach hinten zum <b>Hohlspiegel</b>, wird zurückgeworfen und vom kleinen <b>Fangspiegel</b> seitlich ins Okular gelenkt. Erfunden 1668 von Isaac Newton.</p><ul class="pros"><li>✅ Viel Öffnung fürs Geld – ideal für Galaxien und Nebel</li><li>✅ Keine Farbfehler</li><li>⚠️ Spiegel müssen gelegentlich justiert werden (Kollimation)</li><li>⚠️ Braucht Zeit zum Auskühlen</li></ul>'
   };
   function setCmp(t) {
-    document.querySelectorAll('.seg-btn').forEach(function (b) { var on = b.getAttribute('data-type') === t; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+    document.querySelectorAll('.seg-btn[data-type]').forEach(function (b) { var on = b.getAttribute('data-type') === t; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
     $('lpRefr').classList.toggle('active', t === 'refraktor'); $('lpRefl').classList.toggle('active', t === 'reflektor');
     $('compareText').innerHTML = CMP[t];
   }
-  document.querySelectorAll('.seg-btn').forEach(function (b) { b.addEventListener('click', function () { setCmp(b.getAttribute('data-type')); }); });
+  document.querySelectorAll('.seg-btn[data-type]').forEach(function (b) { b.addEventListener('click', function () { setCmp(b.getAttribute('data-type')); }); });
   setCmp('refraktor');
 
   /* ---------- Bau-Spiel (Drag & Drop) ---------- */

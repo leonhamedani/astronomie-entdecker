@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sterne lesen lernen & Teleskop – Astronomie Entdecker</title>
-<meta name="description" content="Lernpfad zum Sterne lesen mit animiertem Star-Hopping, Hand-Trick und Mini-Spiel – plus ein interaktives Teleskop mit Animationen, Puzzle und Quiz.">
+<meta name="description" content="Sterne lesen lernen, Teleskope verstehen und auswählen: Lernpfad, interaktives Teleskop, Teleskop-Ratgeber mit Quiz, Okular-Rechner, Himmelsobjekte, Handy-Astrofotografie und Bortle-Skala.">
 <meta name="theme-color" content="#05060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body class="page-lernen">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -32,8 +32,8 @@
   <div class="page-hero-inner glass reveal">
     <p class="eyebrow">Lernen &amp; ausprobieren</p>
     <h1>Sterne lesen &amp; <span class="grad">Teleskop verstehen</span></h1>
-    <p class="lead">Folge dem Lernpfad vom Großen Wagen bis zum Wintersechseck – und entdecke spielerisch, wie ein Teleskop funktioniert.</p>
-    <div class="sec-links page-subnav" aria-label="Auf dieser Seite"><a class="chip" href="#sterne-lesen" data-spy-sub="sterne-lesen">🧭 Sterne lesen</a><a class="chip" href="#einsteiger" data-spy-sub="einsteiger">🔭 Teleskop</a><a class="chip" href="#fold-games" data-spy-sub="fold-games">🎮 Spiele</a></div>
+    <p class="lead">Folge dem Lernpfad vom Großen Wagen bis zum Wintersechseck, entdecke spielerisch, wie ein Teleskop funktioniert – und finde das passende Gerät, die richtige Vergrößerung und den dunkelsten Himmel.</p>
+    <div class="sec-links page-subnav" aria-label="Auf dieser Seite"><a class="chip" href="#sterne-lesen" data-spy-sub="sterne-lesen">🧭 Sterne lesen</a><a class="chip" href="#einsteiger" data-spy-sub="einsteiger">🔭 Teleskop</a><a class="chip" href="#ratgeber" data-spy-sub="ratgeber">🛒 Ratgeber</a><a class="chip" href="#rechner" data-spy-sub="rechner">🧮 Rechner</a><a class="chip" href="#himmelsobjekte" data-spy-sub="himmelsobjekte">🌌 Himmelsobjekte</a><a class="chip" href="#astrofoto" data-spy-sub="astrofoto">📱 Astrofoto</a><a class="chip" href="#dunkler-himmel" data-spy-sub="dunkler-himmel">🌃 Dunkler Himmel</a></div>
   </div>
 </div>
 
@@ -350,6 +350,272 @@
     </div></div>
   </div>
 </section>
+
+<!-- TELESKOP-RATGEBER -->
+<section class="section" id="ratgeber">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">03</span>Teleskop-Ratgeber</p>
+    <h2>Welches <span class="grad">Teleskop</span> passt zu dir?</h2>
+    <p class="muted">Linse, Spiegel, Dobson, Kompakt-Teleskop, Smart-Teleskop oder doch erst ein Fernglas? Hier siehst du, wie jede Bauart das Licht lenkt, was sie gut kann – und wo ihre Grenzen liegen.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-scope-typen" data-fold-link="scope-typen">🔭 Bauarten</a><a class="chip" href="#fold-scope-quiz" data-fold-link="scope-quiz">🧩 Welches passt zu mir?</a><a class="chip" href="#fold-scope-tabelle" data-fold-link="scope-tabelle">📊 Vergleich</a><button class="chip ghost" type="button" data-fold-all="ratgeber" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+
+  <div class="fold reveal" id="fold-scope-typen" data-fold="scope-typen" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-typen" aria-expanded="true" aria-controls="fb-scope-typen"><span class="fold-title">🔭 Bauarten im Überblick</span><span class="fold-sum">Animierter Strahlengang, Vor- &amp; Nachteile, Preise</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-scope-typen" role="region" aria-labelledby="fh-scope-typen"><div class="fold-inner">
+    <div class="st-tabs" id="stTabs" role="tablist" aria-label="Teleskop-Bauart wählen"></div>
+    <div class="st-layout">
+      <div class="glass st-stage"><div class="st-svg" id="stSvg"></div><p class="muted small st-cap" id="stCap"></p></div>
+      <div class="glass st-info" id="stInfo" aria-live="polite"></div>
+    </div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-scope-quiz" data-fold="scope-quiz" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-quiz" aria-expanded="true" aria-controls="fb-scope-quiz"><span class="fold-title">🧩 Welches Teleskop passt zu mir?</span><span class="fold-sum">5 kurze Fragen – mit begründeter Empfehlung</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-scope-quiz" role="region" aria-labelledby="fh-scope-quiz"><div class="fold-inner">
+    <div class="glass sq-card" id="scopeQuiz" aria-live="polite"></div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-scope-tabelle" data-fold="scope-tabelle" data-open="0" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-tabelle" aria-expanded="false" aria-controls="fb-scope-tabelle"><span class="fold-title">📊 Alle Bauarten im Vergleich</span><span class="fold-sum">Stärken auf einen Blick</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-scope-tabelle" role="region" aria-labelledby="fh-scope-tabelle"><div class="fold-inner">
+    <div class="glass st-table-wrap"><div class="st-table" id="stTable" role="table" aria-label="Vergleich der Teleskop-Bauarten"></div></div>
+    <p class="muted small center-note">Preise sind grobe Richtwerte für Neugeräte inklusive Montierung (Stand 2026) – je nach Zubehör und Marke gibt es Ausreißer nach oben und unten. Gebraucht geht es oft deutlich günstiger.</p>
+    </div></div>
+  </div>
+
+</section>
+
+
+<!-- OKULAR-RECHNER -->
+<section class="section" id="rechner">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">04</span>Okular- &amp; Vergrößerungs-Rechner</p>
+    <h2>Wie viel <span class="grad">Vergrößerung</span> geht?</h2>
+    <p class="muted">Gib Brennweite und Öffnung deines Teleskops ein und wähle ein Okular – der Rechner zeigt Vergrößerung, Gesichtsfeld, Austrittspupille und wie groß der Mond im Okular erscheint.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-okular-rechner" data-fold-link="okular-rechner">🧮 Rechner</a><a class="chip" href="#fold-okular-begriffe" data-fold-link="okular-begriffe">📖 Begriffe erklärt</a><button class="chip ghost" type="button" data-fold-all="rechner" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+
+  <div class="fold reveal" id="fold-okular-rechner" data-fold="okular-rechner" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-okular-rechner" aria-expanded="true" aria-controls="fb-okular-rechner"><span class="fold-title">🧮 Okular-Rechner</span><span class="fold-sum">Vergrößerung, Gesichtsfeld, Austrittspupille, Grenzgröße</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-okular-rechner" role="region" aria-labelledby="fh-okular-rechner"><div class="fold-inner">
+    <div class="calc-layout">
+      <form class="glass calc-form" id="ocForm" autocomplete="off" onsubmit="return false">
+        <label class="field">Teleskop-Vorlage
+          <select id="ocPreset"></select>
+        </label>
+        <div class="field-row">
+          <label class="field">Brennweite Teleskop (mm)<input id="ocF" type="number" inputmode="decimal" min="100" max="5000" step="1" value="1200"></label>
+          <label class="field">Öffnung (mm)<input id="ocD" type="number" inputmode="decimal" min="20" max="1000" step="1" value="150"></label>
+        </div>
+        <div class="field-row">
+          <label class="field">Okular-Brennweite (mm)<input id="ocE" type="number" inputmode="decimal" min="2" max="60" step="0.5" value="25"></label>
+          <label class="field">Eigenes Gesichtsfeld (°)<input id="ocA" type="number" inputmode="decimal" min="30" max="120" step="1" value="52"></label>
+        </div>
+        <div class="oc-chips" id="ocEyes" aria-label="Okular schnell wählen"></div>
+        <label class="field">Barlowlinse
+          <select id="ocB"><option value="1">keine</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="2.5">2,5×</option><option value="3">3×</option><option value="5">5×</option></select>
+        </label>
+      </form>
+      <div class="glass calc-out">
+        <div class="oc-res" id="ocRes" aria-live="polite"></div>
+        <div class="oc-warn" id="ocWarn" aria-live="polite"></div>
+      </div>
+      <div class="glass oc-view">
+        <div class="oc-view-head"><h4>👁️ So groß erscheint es im Okular</h4><div class="oc-obj" id="ocObj" role="tablist" aria-label="Objekt wählen"></div></div>
+        <div class="oc-svg-wrap"><svg id="ocSvg" viewBox="0 0 300 300" role="img" aria-label="Simuliertes Gesichtsfeld im Okular"></svg></div>
+        <p class="muted small" id="ocViewTxt"></p>
+      </div>
+    </div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-okular-begriffe" data-fold="okular-begriffe" data-open="0" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-okular-begriffe" aria-expanded="false" aria-controls="fb-okular-begriffe"><span class="fold-title">📖 Begriffe kurz erklärt</span><span class="fold-sum">Was die Zahlen bedeuten</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-okular-begriffe" role="region" aria-labelledby="fh-okular-begriffe"><div class="fold-inner">
+    <div class="grid cards-3">
+      <div class="card glass tip reveal"><div class="tip-ic">🔍</div><h4>Vergrößerung</h4><p class="small">Teleskop-Brennweite ÷ Okular-Brennweite. Mehr ist nicht automatisch besser: Ab etwa der doppelten Öffnung in mm wird das Bild nur noch größer, aber nicht schärfer – und die Luftunruhe begrenzt oft schon bei 150–250×.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⭕</div><h4>Gesichtsfeld</h4><p class="small">Das „eigene“ (scheinbare) Gesichtsfeld steht auf dem Okular, z. B. 52° bei einem Plössl. Geteilt durch die Vergrößerung ergibt es das wahre Feld am Himmel – der Vollmond ist etwa 0,5° groß.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Austrittspupille</h4><p class="small">Der Lichtkreis hinter dem Okular: Öffnung ÷ Vergrößerung. 2–4 mm passen für fast alles, 5–7 mm für großflächige Nebel. Über ~7 mm verschenkst du Licht, denn größer wird die Pupille im Dunkeln kaum (mit dem Alter eher 5–6 mm).</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">➗</div><h4>Öffnungsverhältnis</h4><p class="small">Brennweite ÷ Öffnung, z. B. f/8. Kleine Zahl („schnell“, f/4–f/5) = großes Feld, gut für Deep-Sky und Fotos. Große Zahl (f/10–f/15) = hohe Vergrößerung mit bequemen Okularen, ideal für Mond und Planeten.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">✖️</div><h4>Barlowlinse</h4><p class="small">Eine Zerstreuungslinse vor dem Okular, die die Brennweite des Teleskops verlängert – eine 2×-Barlow verdoppelt die Vergrößerung jedes Okulars. Praktisch, aber gute Okulare ersetzt sie nicht.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⭐</div><h4>Grenzgröße &amp; Auflösung</h4><p class="small">Mehr Öffnung = mehr Licht (schwächere Sterne) und feinere Details. Die Werte hier sind Faustformeln für einen dunklen Himmel und ruhige Luft – in der Stadt siehst du 1–3 Größenklassen weniger.</p></div>
+    </div>
+    </div></div>
+  </div>
+
+</section>
+
+
+<!-- HIMMELSOBJEKTE -->
+<section class="section" id="himmelsobjekte">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">05</span>Himmelsobjekte erklärt</p>
+    <h2>Was gibt es am Himmel <span class="grad">zu entdecken</span>?</h2>
+    <p class="muted">Von Doppelsternen bis Galaxien: Was die Objekte sind, wie sie im Fernglas oder kleinen Teleskop wirklich aussehen – und wo du die berühmtesten Beispiele findest.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-objekte" data-fold-link="objekte">🌌 Objektarten</a><button class="chip ghost" type="button" data-fold-all="himmelsobjekte" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+
+  <div class="fold reveal" id="fold-objekte" data-fold="objekte" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-objekte" aria-expanded="true" aria-controls="fb-objekte"><span class="fold-title">🌌 Sterne, Haufen, Nebel &amp; Galaxien</span><span class="fold-sum">7 Objektarten mit Beispielen und „Auf der Karte zeigen“</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-objekte" role="region" aria-labelledby="fh-objekte"><div class="fold-inner">
+    <div class="obj-bar glass">
+      <p class="small">🎨 Die Bilder zeigen, wie Fotos aussehen. Ehrlich gesagt sieht das Auge am Okular viel weniger: meist zarte, graue Nebelflecken. Schalte um und vergleiche!</p>
+      <div class="seg" role="tablist" aria-label="Ansicht"><button class="seg-btn active" type="button" data-objview="foto" role="tab" aria-selected="true">📷 Foto-Ansicht</button><button class="seg-btn" type="button" data-objview="okular" role="tab" aria-selected="false">🔭 Okular-Ansicht</button></div>
+    </div>
+    <div class="grid obj-grid" id="objGrid" data-more-mobile="3" data-more-label="Objektarten"></div>
+    <p class="muted small center-note" id="objNote">„Auf der Karte zeigen“ öffnet die Sternkarte zur besten Uhrzeit heute Nacht und markiert das Objekt mit einem goldenen Kreis.</p>
+    </div></div>
+  </div>
+
+</section>
+
+
+<!-- ASTROFOTOGRAFIE -->
+<section class="section" id="astrofoto">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">06</span>Astrofotografie mit dem Handy</p>
+    <h2>Sterne fotografieren <span class="grad">mit dem Handy</span></h2>
+    <p class="muted">Für erste Astrofotos brauchst du keine teure Kamera: Mit Stativ, den richtigen Einstellungen und etwas Geduld gelingen Mond, Sternbilder und sogar die Milchstraße.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-foto-schritte" data-fold-link="foto-schritte">📋 Schritt für Schritt</a><a class="chip" href="#fold-foto-motive" data-fold-link="foto-motive">🌕 Motive</a><a class="chip" href="#fold-belichtung" data-fold-link="belichtung">⏱️ Belichtungs-Helfer</a><button class="chip ghost" type="button" data-fold-all="astrofoto" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+
+  <div class="fold reveal" id="fold-foto-schritte" data-fold="foto-schritte" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-foto-schritte" aria-expanded="true" aria-controls="fb-foto-schritte"><span class="fold-title">📋 Schritt für Schritt zum ersten Sternenfoto</span><span class="fold-sum">Stativ, Modus, ISO, Belichtung, Fokus, Auslöser, RAW</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-foto-schritte" role="region" aria-labelledby="fh-foto-schritte"><div class="fold-inner">
+    <ol class="af-steps"><li class="glass af-step reveal"><span class="af-num">1</span><span class="af-ic" aria-hidden="true">🧱</span><div><h4>Stativ</h4><p class="small">Ohne Stativ geht nachts nichts: Jede Belichtung dauert Sekunden. Ein kleines Handy-Stativ mit Halteklammer reicht – zur Not lehnst du das Handy fest an einen Stein oder Rucksack.</p></div></li><li class="glass af-step reveal"><span class="af-num">2</span><span class="af-ic" aria-hidden="true">🌙</span><div><h4>Nachtmodus oder Pro-Modus</h4><p class="small">Der Nachtmodus vieler Handys sammelt automatisch viele Einzelbilder (auf dem Stativ teils bis 30 s, beim Google Pixel im Astro-Modus mehrere Minuten). Mehr Kontrolle gibt der „Pro“- oder „Manuell“-Modus.</p></div></li><li class="glass af-step reveal"><span class="af-num">3</span><span class="af-ic" aria-hidden="true">🎚️</span><div><h4>ISO</h4><p class="small">ISO ist die Empfindlichkeit. Für Sterne und Milchstraße ISO 800–3200, für den hellen Mond ISO 50–100. Höher = heller, aber auch mehr Bildrauschen.</p></div></li><li class="glass af-step reveal"><span class="af-num">4</span><span class="af-ic" aria-hidden="true">⏱️</span><div><h4>Belichtungszeit</h4><p class="small">Sterne: so lange, bis sie Striche ziehen würden – der Belichtungs-Helfer unten rechnet es aus (beim Handy oft 10–20 s). Mond: sehr kurz, etwa 1/125–1/500 s, sonst ist er nur ein weißer Fleck.</p></div></li><li class="glass af-step reveal"><span class="af-num">5</span><span class="af-ic" aria-hidden="true">♾️</span><div><h4>Fokus auf unendlich</h4><p class="small">Der Autofokus findet nachts nichts. Stelle im Pro-Modus den manuellen Fokus auf ∞ oder tippe auf einen hellen Stern bzw. den Mond und sperre den Fokus (AE/AF-Sperre). Prüfe mit der Lupe am Display.</p></div></li><li class="glass af-step reveal"><span class="af-num">6</span><span class="af-ic" aria-hidden="true">⏲️</span><div><h4>Selbstauslöser</h4><p class="small">Schon das Antippen wackelt. Nutze 3–10 s Selbstauslöser, eine Bluetooth-Fernbedienung oder die Lautstärketaste am Kopfhörerkabel.</p></div></li><li class="glass af-step reveal"><span class="af-num">7</span><span class="af-ic" aria-hidden="true">🗂️</span><div><h4>RAW speichern</h4><p class="small">Im RAW-Format (DNG, bei iPhones ProRAW) bleiben viel mehr Helligkeits- und Farbinfos erhalten – ideal für die Bearbeitung. Die Dateien sind dafür deutlich größer.</p></div></li></ol>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-foto-motive" data-fold="foto-motive" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-foto-motive" aria-expanded="true" aria-controls="fb-foto-motive"><span class="fold-title">🌕 Motive: Mond, Milchstraße, Sternspuren &amp; Bearbeitung</span><span class="fold-sum">Mit animierter Afokal-Methode</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-foto-motive" role="region" aria-labelledby="fh-foto-motive"><div class="fold-inner">
+    <div class="grid af-motive">
+      <div class="card glass af-card reveal">
+        <svg class="af-art afocal" viewBox="0 0 320 170" aria-hidden="true">
+          <rect x="18" y="70" width="190" height="34" rx="8" class="af-tube"/><rect x="200" y="62" width="22" height="50" rx="5" class="af-tube-end"/>
+          <rect x="6" y="76" width="16" height="22" rx="3" class="af-eyepiece"/>
+          <g class="af-phone"><rect x="-36" y="34" width="36" height="104" rx="7" class="af-phone-body"/><rect x="-32" y="42" width="28" height="86" rx="3" class="af-phone-screen"/><circle cx="-18" cy="85" r="11" class="af-moon-img"/><circle cx="-21" cy="81" r="2" class="af-crater"/><circle cx="-14" cy="90" r="2.6" class="af-crater"/></g>
+          <g class="af-moon"><circle cx="292" cy="40" r="18"/><circle cx="286" cy="34" r="3" class="af-crater"/><circle cx="298" cy="46" r="4" class="af-crater"/></g>
+          <path d="M272 48 L222 80 L22 87" class="af-ray"/><path d="M276 30 L222 94 L22 87" class="af-ray"/>
+        </svg>
+        <h4>🌕 Mond durchs Okular (Afokal-Methode)</h4>
+        <p class="small">Stelle den Mond im Teleskop scharf, halte die Handykamera ganz dicht und mittig ans Okular und schieb sie langsam hin und her, bis das runde Bild den Schirm füllt. Viel einfacher geht es mit einer <b>Smartphone-Halterung</b> fürs Okular (ca. 15–40 €). Belichtung am Display herunterziehen, damit Krater sichtbar bleiben, und Zoom höchstens 2× nutzen.</p>
+      </div>
+      <div class="card glass af-card reveal">
+        <svg class="af-art mw" viewBox="0 0 320 170" aria-hidden="true">
+          <defs><linearGradient id="afMwG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9db4ff" stop-opacity="0"/><stop offset=".5" stop-color="#e8e4ff" stop-opacity=".55"/><stop offset="1" stop-color="#ffd7a8" stop-opacity="0"/></linearGradient><filter id="afBlur"><feGaussianBlur stdDeviation="9"/></filter></defs>
+          <path d="M40 180 Q140 60 300 -10" stroke="url(#afMwG)" stroke-width="70" fill="none" filter="url(#afBlur)" class="af-mw-band"/>
+          <g class="af-stars"></g>
+          <path d="M0 170 L0 140 Q40 120 80 138 T160 132 T240 140 T320 128 L320 170 Z" class="af-hill"/>
+        </svg>
+        <h4>🌌 Milchstraße</h4>
+        <p class="small">Du brauchst einen dunklen Ort (siehe Bortle-Skala unten), keinen Mond und das Weitwinkel- oder Hauptobjektiv. Am besten zu sehen ist das helle Zentrum bei uns von Mai bis August im Süden. ISO 1600–3200, Belichtung nach der 500er/NPF-Regel, ein Stück Landschaft im Vordergrund macht das Bild lebendig.</p>
+      </div>
+      <div class="card glass af-card reveal">
+        <svg class="af-art trails" viewBox="0 0 320 170" aria-hidden="true"><g class="af-trails" transform="translate(160 40)"></g><path d="M0 170 L0 150 L30 150 L30 135 L52 135 L52 150 L90 148 Q160 132 230 150 L260 146 L262 128 L276 128 L278 146 L320 150 L320 170 Z" class="af-hill"/></svg>
+        <h4>🌀 Sternspuren</h4>
+        <p class="small">Richte die Kamera auf den Polarstern und mache viele Fotos hintereinander (z. B. 30 s, eine Stunde lang – Intervall-Funktion oder App). Später legt eine App wie <i>StarStaX</i> oder <i>Sequator</i> alle Bilder übereinander, und die Sterne ziehen Kreise um den Himmelspol. Powerbank nicht vergessen!</p>
+      </div>
+      <div class="card glass af-card reveal">
+        <svg class="af-art edit" viewBox="0 0 320 170" aria-hidden="true"><rect x="40" y="18" width="240" height="120" rx="10" class="af-photo"/><g class="af-edit-stars"></g><rect x="40" y="18" width="240" height="120" rx="10" class="af-photo-glow"/><g class="af-sliders"><line x1="60" y1="152" x2="260" y2="152"/><circle cx="110" cy="152" r="6" class="af-knob"/></g></svg>
+        <h4>🎛️ Bearbeitung</h4>
+        <p class="small">Schon wenige Regler machen viel aus: Weißabgleich etwas kühler (ca. 3.800–4.500 K), Kontrast und „Struktur/Klarheit“ leicht hoch, Lichter runter, Rauschreduzierung behutsam. Gut geeignet sind z. B. <i>Snapseed</i> oder <i>Lightroom Mobile</i>. Mehrere gleiche Aufnahmen zu stapeln („Stacking“) senkt das Rauschen deutlich.</p>
+      </div>
+    </div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-belichtung" data-fold="belichtung" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-belichtung" aria-expanded="true" aria-controls="fb-belichtung"><span class="fold-title">⏱️ Belichtungs-Helfer: 500er- und NPF-Regel</span><span class="fold-sum">Wie lange belichten, bevor Sterne zu Strichen werden?</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-belichtung" role="region" aria-labelledby="fh-belichtung"><div class="fold-inner">
+    <div class="calc-layout ex-layout">
+      <form class="glass calc-form" id="exForm" autocomplete="off" onsubmit="return false">
+        <label class="field">Kamera-Vorlage<select id="exPreset"></select></label>
+        <div class="field-row">
+          <label class="field">Brennweite, echt (mm)<input id="exF" type="number" inputmode="decimal" min="1" max="600" step="0.1" value="6.9"></label>
+          <label class="field">Crop-Faktor<input id="exC" type="number" inputmode="decimal" min="1" max="10" step="0.1" value="3.5"></label>
+        </div>
+        <div class="field-row">
+          <label class="field">Blende (f/…)<input id="exN" type="number" inputmode="decimal" min="0.9" max="22" step="0.1" value="1.8"></label>
+          <label class="field">Pixelgröße (µm)<input id="exP" type="number" inputmode="decimal" min="0.5" max="10" step="0.1" value="1.2"></label>
+        </div>
+        <label class="field">Himmelsregion im Bild
+          <select id="exDec"><option value="0">Nahe Himmelsäquator, z. B. Orion, Milchstraßenzentrum (strengste Grenze)</option><option value="30">Mittlere Höhe, z. B. Sommerdreieck (±30°)</option><option value="60">Nahe Polarstern, z. B. Großer Wagen (±60°)</option></select>
+        </label>
+      </form>
+      <div class="glass calc-out">
+        <div class="oc-res" id="exRes" aria-live="polite"></div>
+        <p class="muted small" id="exNote"></p>
+      </div>
+      <div class="glass oc-view ex-view">
+        <div class="oc-view-head"><h4>✨ Vorschau: Sterne bei deiner Belichtung</h4></div>
+        <label class="field ex-slider">Deine Belichtungszeit: <b id="exTval">10 s</b><input id="exT" type="range" min="1" max="60" step="1" value="10" aria-label="Belichtungszeit in Sekunden"></label>
+        <div class="oc-svg-wrap"><svg id="exSvg" viewBox="0 0 300 180" role="img" aria-label="Simulierte Sterne, punktförmig oder als Striche"></svg></div>
+        <p class="small" id="exVerdict" aria-live="polite"></p>
+      </div>
+    </div>
+    </div></div>
+  </div>
+
+</section>
+
+
+<!-- LICHTVERSCHMUTZUNG -->
+<section class="section" id="dunkler-himmel">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">07</span>Lichtverschmutzung &amp; dunkle Orte</p>
+    <h2>Wie dunkel ist <span class="grad">dein Himmel</span>?</h2>
+    <p class="muted">In Großstädten siehst du oft nur ein paar Dutzend Sterne, unter einem wirklich dunklen Himmel Tausende. Die Bortle-Skala beschreibt, wie hell der Nachthimmel ist – probier sie aus.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-bortle" data-fold-link="bortle">🎚️ Bortle-Skala</a><a class="chip" href="#fold-dunkle-orte" data-fold-link="dunkle-orte">🧭 Dunkle Orte finden</a><a class="chip" href="#fold-sternenparks" data-fold-link="sternenparks">🌲 Sternenparks</a><button class="chip ghost" type="button" data-fold-all="dunkler-himmel" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+
+  <div class="fold reveal" id="fold-bortle" data-fold="bortle" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-bortle" aria-expanded="true" aria-controls="fb-bortle"><span class="fold-title">🎚️ Die Bortle-Skala zum Ausprobieren</span><span class="fold-sum">Von 1 (perfekt dunkel) bis 9 (Innenstadt)</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-bortle" role="region" aria-labelledby="fh-bortle"><div class="fold-inner">
+    <div class="bortle-layout">
+      <div class="glass bortle-stage">
+        <canvas id="bortleCanvas" aria-label="Simulierter Nachthimmel je nach Bortle-Klasse" role="img"></canvas>
+        <div class="bortle-badge" id="bortleBadge"></div>
+      </div>
+      <div class="glass bortle-info">
+        <label class="field bortle-slider">Bortle-Klasse: <b id="bortleVal">4</b>
+          <input id="bortleRange" type="range" min="1" max="9" step="1" value="4" aria-label="Bortle-Klasse von 1 bis 9">
+        </label>
+        <div class="bortle-ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div id="bortleText" aria-live="polite"></div>
+      </div>
+    </div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-dunkle-orte" data-fold="dunkle-orte" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-dunkle-orte" aria-expanded="true" aria-controls="fb-dunkle-orte"><span class="fold-title">🧭 Dunkle Orte finden &amp; Augen anpassen</span><span class="fold-sum">Lichtverschmutzungskarte, Tipps, Dunkeladaption</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-dunkle-orte" role="region" aria-labelledby="fh-dunkle-orte"><div class="fold-inner">
+    <div class="grid cards-3">
+      <div class="card glass tip reveal lpm-card"><div class="tip-ic">🗺️</div><h4>Lichtverschmutzungskarte</h4><p class="small">Auf der Karte von <b>lightpollutionmap.info</b> siehst du, wo es um dich herum dunkel ist. Suche grüne, blaue oder graue Flecken – je dunkler, desto besser.</p><a class="btn btn-primary lpm-btn" href="https://www.lightpollutionmap.info/" target="_blank" rel="noopener">🌍 Karte öffnen <span aria-hidden="true">↗</span></a></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🚗</div><h4>Raus aus der Lichtglocke</h4><p class="small">Schon 20–40 km Abstand von einer Großstadt machen einen riesigen Unterschied. Fahre möglichst so, dass die Stadt hinter dir (im Norden) liegt – dann ist der Süden dunkel.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⛰️</div><h4>Höhe &amp; freie Sicht</h4><p class="small">Hügel, Felder und Mittelgebirge über dem Dunst sind ideal. Meide Täler mit Nebel, Straßenlaternen und beleuchtete Gewächshäuser – und prüfe vorher, ob du dort nachts sein darfst.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Mond &amp; Wetter beachten</h4><p class="small">Der dunkelste Ort hilft wenig bei Vollmond. Plane um Neumond herum und prüfe den Beobachtungs-Score auf <a href="heute.html#wetter">„Heute sichtbar“</a>.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Dunkeladaption: 20–30 Minuten</h4><p class="small">So lange brauchen deine Augen, bis sie richtig empfindlich sind. Nutze nur <b>rotes Licht</b> (Stirnlampe oder Rotlicht-Modus), dimme das Handy maximal – ein einziger weißer Lichtblitz kostet dich viele Minuten.</p><button class="btn btn-ghost red-btn" type="button" data-red-toggle>🔴 Rotlicht-Modus</button></div>
+      <div class="card glass tip reveal"><div class="tip-ic">👀</div><h4>Indirektes Sehen</h4><p class="small">Schau bei lichtschwachen Objekten knapp daneben: Am Rand der Netzhaut sitzen die lichtempfindlichen Stäbchen. Ein Nebel, den du direkt nicht siehst, taucht so plötzlich auf.</p></div>
+    </div>
+    </div></div>
+  </div>
+
+  <div class="fold reveal" id="fold-sternenparks" data-fold="sternenparks" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-sternenparks" aria-expanded="true" aria-controls="fb-sternenparks"><span class="fold-title">🌲 Sternenparks in Deutschland</span><span class="fold-sum">Offiziell anerkannt von DarkSky International</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-sternenparks" role="region" aria-labelledby="fh-sternenparks"><div class="fold-inner">
+    <div class="grid cards-3 parks" data-more-mobile="3" data-more-label="Sternenparks"><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Westhavelland</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Erstes Lichtschutzgebiet Deutschlands, ca. 70 km westlich von Berlin – mit Beobachtungsplatz bei Gülpe/Parey.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Nationalpark Eifel</h4><p class="muted small">Nordrhein-Westfalen</p></div></div><p class="small">Rund um Vogelsang und den Nationalpark; regelmäßige Sternführungen.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Biosphärenreservat Rhön</h4><p class="muted small">Bayern · Hessen · Thüringen</p></div></div><p class="small">Weite Hochflächen mit freiem Horizont, z. B. Wasserkuppe und Lange Rhön.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Winklmoosalm</h4><p class="muted small">Bayern (Reit im Winkl)</p></div></div><p class="small">Auf rund 1.200 m in den Chiemgauer Alpen – Bergkulisse und kaum Lichtglocken.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2018</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Bayerischer Wald</h4><p class="muted small">Bayern</p></div></div><p class="small">Nationalpark Bayerischer Wald und Teile des Naturparks – ein großes, sehr dunkles Waldgebiet an der Grenze zu Tschechien.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2025</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Kyritz-Ruppiner Heide</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Ehemaliger Truppenübungsplatz, heute weite Heidelandschaft unter dunklem Himmel.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2026</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Naturpark Nossentiner/Schwinzer Heide</h4><p class="muted small">Mecklenburg-Vorpommern</p></div></div><p class="small">Erster zertifizierter Sternenpark in Mecklenburg-Vorpommern – Seen, Wälder und Heide.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2025/26</span></div></article></div>
+    <div class="glass park-comm reveal"><h4>✨ Dazu kommen „Dark Sky Communities“ – Orte, die ihre Beleuchtung sternfreundlich umgestellt haben:</h4><ul><li><b>Fulda</b> <span class="muted">(Hessen, seit 2019)</span> – erste „Sternenstadt“ Deutschlands</li><li><b>Spiekeroog</b> <span class="muted">(Niedersachsen, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Pellworm</b> <span class="muted">(Schleswig-Holstein, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Eiweiler</b> <span class="muted">(Saarland, seit 2024)</span> – Sternendorf</li></ul>
+    <p class="muted small">Stand: 2026, ohne Gewähr. Die aktuelle offizielle Liste findest du bei <a href="https://darksky.org/locations/germany/" target="_blank" rel="noopener">DarkSky International ↗</a>. Viele Parks bieten Führungen an – oft mit Teleskopen zum Durchschauen.</p></div>
+    </div></div>
+  </div>
+
+</section>
+
 </main>
 
 <footer class="footer">
@@ -381,19 +647,23 @@
   </div>
 </div>
 <button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
-<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#sterne-lesen" data-spy="sterne-lesen"><span>Sterne lesen</span></a><a href="#einsteiger" data-spy="einsteiger"><span>Teleskop</span></a></nav>
+<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#sterne-lesen" data-spy="sterne-lesen"><span>Sterne lesen</span></a><a href="#einsteiger" data-spy="einsteiger"><span>Teleskop</span></a><a href="#ratgeber" data-spy="ratgeber"><span>Ratgeber</span></a><a href="#rechner" data-spy="rechner"><span>Okular-Rechner</span></a><a href="#himmelsobjekte" data-spy="himmelsobjekte"><span>Himmelsobjekte</span></a><a href="#astrofoto" data-spy="astrofoto"><span>Astrofoto</span></a><a href="#dunkler-himmel" data-spy="dunkler-himmel"><span>Dunkler Himmel</span></a></nav>
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=7"></script>
-<script src="js/data/sky-data.js?v=7"></script>
-<script src="js/data/constellation-info.js?v=7"></script>
-<script src="js/data/cities.js?v=7"></script>
-<script src="js/core.js?v=7"></script>
-<script src="js/background.js?v=7"></script>
-<script src="js/telescope.js?v=7"></script>
-<script src="js/learn.js?v=7"></script>
-<script src="js/ux.js?v=7"></script>
-<script src="js/main.js?v=7"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=8"></script>
+<script src="js/data/sky-data.js?v=8"></script>
+<script src="js/data/constellation-info.js?v=8"></script>
+<script src="js/data/cities.js?v=8"></script>
+<script src="js/core.js?v=8"></script>
+<script src="js/background.js?v=8"></script>
+<script src="js/telescope.js?v=8"></script>
+<script src="js/learn.js?v=8"></script>
+<script src="js/ratgeber.js?v=8"></script>
+<script src="js/rechner.js?v=8"></script>
+<script src="js/objekte.js?v=8"></script>
+<script src="js/bortle.js?v=8"></script>
+<script src="js/ux.js?v=8"></script>
+<script src="js/main.js?v=8"></script>
 </body>
 </html>
