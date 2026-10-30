@@ -7,7 +7,7 @@
 <meta name="description" content="Interaktive Live-Sternkarte für deinen Standort mit 4.086 Sternen, Planeten, Mond, ISS und allen 88 Sternbildern.">
 <meta name="theme-color" content="#05060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=10">
+<link rel="stylesheet" href="css/style.css?v=11">
 </head>
 <body class="page-sternkarte">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -21,7 +21,7 @@
     <a href="sternkarte.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
     <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
-    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernen &amp; Teleskop</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
   <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
   <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
@@ -109,7 +109,7 @@
 </main>
 
 <footer class="footer">
-  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html" aria-current="page">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernen &amp; Teleskop</a></nav>
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html" aria-current="page">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernkurs</a></nav>
   <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
   <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
   <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
@@ -148,18 +148,18 @@
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=10"></script>
-<script src="js/vendor/satellite.min.js?v=10"></script>
-<script src="js/data/sky-data.js?v=10"></script>
-<script src="js/data/constellation-info.js?v=10"></script>
-<script src="js/data/cities.js?v=10"></script>
-<script src="js/data/iss-tle.js?v=10"></script>
-<script src="js/core.js?v=10"></script>
-<script src="js/background.js?v=10"></script>
-<script src="js/skymap.js?v=10"></script>
-<script src="js/tonight.js?v=10"></script>
-<script src="js/iss.js?v=10"></script>
-<script src="js/ux.js?v=10"></script>
-<script src="js/main.js?v=10"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=11"></script>
+<script src="js/vendor/satellite.min.js?v=11"></script>
+<script src="js/data/sky-data.js?v=11"></script>
+<script src="js/data/constellation-info.js?v=11"></script>
+<script src="js/data/cities.js?v=11"></script>
+<script src="js/data/iss-tle.js?v=11"></script>
+<script src="js/core.js?v=11"></script>
+<script src="js/background.js?v=11"></script>
+<script src="js/skymap.js?v=11"></script>
+<script src="js/tonight.js?v=11"></script>
+<script src="js/iss.js?v=11"></script>
+<script src="js/ux.js?v=11"></script>
+<script src="js/main.js?v=11"></script>
 </body>
 </html>
