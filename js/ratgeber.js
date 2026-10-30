@@ -213,7 +213,7 @@
     if (e.target.closest('[data-sq-back]')) { qi = Math.max(0, qi - 1); ans.length = qi; renderQ(); return; }
     if (e.target.closest('[data-sq-restart]')) { qi = 0; ans = []; renderQ(); return; }
     var s = e.target.closest('[data-sq-show]');
-    if (s) { render(s.getAttribute('data-sq-show')); var f = AE.openFold && AE.openFold('scope-typen', true); var el = $('fold-scope-typen'); if (el) el.scrollIntoView({ behavior: AE.reduceMotion ? 'auto' : 'smooth', block: 'start' }); }
+    if (s) { render(s.getAttribute('data-sq-show')); if (AE.gotoLesson) AE.gotoLesson('teleskop-typen'); else { var el = $('stTabs'); if (el) el.scrollIntoView({ block: 'start' }); } }
   });
   AE._scopeQuiz = { answer: function (list) { qi = 0; ans = []; renderQ(); list.forEach(function (i) { box.querySelector('[data-sq="' + i + '"]').click(); }); return AE._scopeQuiz.last; }, last: null };
   AE._scopeTypes = { render: render, types: T };

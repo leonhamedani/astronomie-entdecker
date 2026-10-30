@@ -338,9 +338,10 @@
     lp.resize(); hp.resize(); fp.resize();
     select(0); playHand(); newRound();
   }
-  var sec = $('sterne-lesen');
+  /* v10: Lernpfad, Hand-Trick und Mini-Spiel liegen in verschiedenen Kurs-Lektionen – starten, sobald eines sichtbar wird */
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (en, obs) { if (en[0].isIntersecting) { start(); obs.disconnect(); } }, { rootMargin: '200px' }).observe(sec);
+    var io = new IntersectionObserver(function (en, obs) { if (en.some(function (x) { return x.isIntersecting; })) { start(); obs.disconnect(); } }, { rootMargin: '200px' });
+    ['learnCanvas', 'handCanvas', 'findCanvas'].forEach(function (id) { if ($(id)) io.observe($(id)); });
   } else start();
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (started) resizeAll(); }, 150); });
   AE.on('location', function () { if (started) renderText(); });

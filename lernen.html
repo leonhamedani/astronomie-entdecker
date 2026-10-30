@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sterne lesen lernen & Teleskop – Astronomie Entdecker</title>
-<meta name="description" content="Sterne lesen lernen, Teleskope verstehen und auswählen: Lernpfad, interaktives Teleskop, Teleskop-Ratgeber mit Quiz, Okular-Rechner, Himmelsobjekte, Handy-Astrofotografie und Bortle-Skala.">
+<title>Lernkurs: Sterne, Teleskope & Astrofotos – Astronomie Entdecker</title>
+<meta name="description" content="Astronomie Schritt für Schritt lernen: 27 kurze Lektionen von Einsteiger bis Experte – Sterne finden, Hand-Trick, Teleskope verstehen und auswählen, Okular-Rechner, Himmelsobjekte, Handy-Astrofotografie und Bortle-Skala, mit Fortschrittsanzeige.">
 <meta name="theme-color" content="#05060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=10">
 </head>
 <body class="page-lernen">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -30,23 +30,72 @@
 <main id="inhalt">
 <div class="page-hero">
   <div class="page-hero-inner glass reveal">
-    <p class="eyebrow">Lernen &amp; ausprobieren</p>
-    <h1>Sterne lesen &amp; <span class="grad">Teleskop verstehen</span></h1>
-    <p class="lead">Folge dem Lernpfad vom Großen Wagen bis zum Wintersechseck, entdecke spielerisch, wie ein Teleskop funktioniert – und finde das passende Gerät, die richtige Vergrößerung und den dunkelsten Himmel.</p>
-    <div class="sec-links page-subnav" aria-label="Auf dieser Seite"><a class="chip" href="#sterne-lesen" data-spy-sub="sterne-lesen">🧭 Sterne lesen</a><a class="chip" href="#einsteiger" data-spy-sub="einsteiger">🔭 Teleskop</a><a class="chip" href="#ratgeber" data-spy-sub="ratgeber">🛒 Ratgeber</a><a class="chip" href="#rechner" data-spy-sub="rechner">🧮 Rechner</a><a class="chip" href="#himmelsobjekte" data-spy-sub="himmelsobjekte">🌌 Himmelsobjekte</a><a class="chip" href="#astrofoto" data-spy-sub="astrofoto">📱 Astrofoto</a><a class="chip" href="#dunkler-himmel" data-spy-sub="dunkler-himmel">🌃 Dunkler Himmel</a></div>
+    <p class="eyebrow">Lernkurs · Schritt für Schritt</p>
+    <h1>Vom ersten Stern zum <span class="grad">Astro-Experten</span></h1>
+    <p class="lead">27 kurze Lektionen in drei Stufen – von „Wo ist Norden?“ bis zur Austrittspupille. Klick dich in deinem Tempo durch: Jede Lektion behandelt genau ein Thema, dein Fortschritt wird gespeichert.</p>
+    <div class="sec-links page-subnav" aria-label="Stufen"><a class="chip" href="#stufe-1" data-level-link="1">🌱 Stufe 1 · Einsteiger</a><a class="chip" href="#stufe-2" data-level-link="2">🔭 Stufe 2 · Fortgeschritten</a><a class="chip" href="#stufe-3" data-level-link="3">🎓 Stufe 3 · Experte</a></div>
   </div>
 </div>
 
-<!-- STERNE LESEN LERNEN -->
-<section class="section" id="sterne-lesen">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">01</span>Sterne lesen lernen</p>
-    <h2>Vom ersten Stern zum <span class="grad">Himmelsnavigator</span></h2>
-    <p class="muted">Der Himmel ist wie eine Landkarte: Wer ein paar Wegweiser kennt, findet sich überall zurecht. Folge dem Lernpfad – Schritt für Schritt, Sternbild für Sternbild.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-hand" data-fold-link="hand">✋ Hand-Trick</a><a class="chip" href="#fold-find" data-fold-link="find">🎯 Mini-Spiel</a><a class="chip" href="#fold-pro-tipps" data-fold-link="pro-tipps">🌙 Profi-Tipps</a><a class="chip" href="#fold-apps" data-fold-link="apps">📱 Apps</a><button class="chip ghost" type="button" data-fold-all="sterne-lesen" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+<!-- LERNKURS: Schritt für Schritt von Einsteiger bis Experte -->
+<section class="section course" id="kurs">
+  <div class="course-bar glass" id="courseBar">
+    <div class="cb-top">
+      <button class="chip cb-home" type="button" data-course-home aria-label="Zur Kursübersicht">☰ <span>Übersicht</span></button>
+      <div class="cb-text"><b id="cbTitle">Dein Lernkurs</b><span class="muted small" id="cbSub">0 von 27 Lektionen abgeschlossen</span></div>
+      <span class="cb-pct" id="cbPct">0 %</span>
+    </div>
+    <div class="cb-bar" aria-hidden="true"><span class="cb-fill" id="cbFill"></span></div>
+    <div class="cb-levels" id="cbLevels"></div>
   </div>
 
-  <div class="glass learn-progress reveal">
+  <div class="course-overview" id="courseOverview" aria-label="Kursübersicht"></div>
+
+  <div class="course-lessons" id="courseLessons">
+<article class="lesson" id="lektion-erster-blick" data-lesson="erster-blick" data-level="1" data-min="3" data-icon="👀" data-aliases="" aria-labelledby="lt-erster-blick">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 1 · ca. 3 Min.</span></p>
+    <h2 id="lt-erster-blick"><span class="lesson-ic" aria-hidden="true">👀</span> Dein erster Blick an den Himmel</h2>
+    <p class="muted lesson-intro">Du brauchst kein Teleskop, um loszulegen: Deine Augen, eine klare Nacht und ein bisschen Geduld reichen völlig.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass lesson-note"><div class="lesson-points">
+    <div><span>🌙</span><p><b>Wann?</b> Am besten in einer klaren Nacht ohne Vollmond, etwa 1–2 Stunden nach Sonnenuntergang. Wann es heute dunkel wird, zeigt die Seite <a href="heute.html">Heute sichtbar</a>.</p></div>
+    <div><span>🏡</span><p><b>Wo?</b> Ein Ort mit freiem Blick und ohne Laternen in der Nähe – schon ein dunkler Garten, Feldweg oder Park ist gut.</p></div>
+    <div><span>⏳</span><p><b>Wie lange?</b> Plane mindestens 20 Minuten ein: So lange brauchen deine Augen, um sich an die Dunkelheit zu gewöhnen (mehr dazu in Lektion 5).</p></div>
+    <div><span>🌍</span><p><b>Der Himmel dreht sich:</b> Weil sich die Erde dreht, wandern alle Sterne im Lauf der Nacht von Osten nach Westen – um den Polarstern herum, der fast stillsteht.</p></div>
+    <div><span>✨</span><p><b>Sterne oder Planeten?</b> Sterne funkeln, Planeten leuchten meist ruhiger. Die hellsten „Sterne“ am Abend sind oft Venus oder Jupiter.</p></div>
+  </div></div><div class="glass lesson-check" data-why="Richtig – die Erde dreht sich einmal am Tag, deshalb scheint der ganze Himmel um den Polarstern zu kreisen."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Warum wandern die Sterne im Lauf der Nacht über den Himmel?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">Weil sich die Sterne bewegen</button><button class="quiz-opt" type="button" data-ok="1">Weil sich die Erde dreht</button><button class="quiz-opt" type="button" data-ok="0">Wegen des Windes</button></div><p class="lc-msg" aria-live="polite"></p></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-orientierung" data-lesson="orientierung" data-level="1" data-min="3" data-icon="🧭" data-aliases="" aria-labelledby="lt-orientierung">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 2 · ca. 3 Min.</span></p>
+    <h2 id="lt-orientierung"><span class="lesson-ic" aria-hidden="true">🧭</span> Orientierung: Richtung, Höhe & Sternkarte</h2>
+    <p class="muted lesson-intro">Jeder Ort am Himmel lässt sich mit zwei Angaben beschreiben – wie bei einer Wegbeschreibung: in welche Richtung und wie hoch.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass lesson-note"><div class="lesson-points">
+    <div><span>🧭</span><p><b>Himmelsrichtung (Azimut):</b> Norden = 0°, Osten = 90°, Süden = 180°, Westen = 270°. Auf dieser Website steht das immer als „Süd­ost, 135°“.</p></div>
+    <div><span>📐</span><p><b>Höhe:</b> Der Horizont hat 0°, der Punkt genau über dir (Zenit) 90°. „35° über dem Horizont“ ist etwa ein Drittel des Wegs nach oben – wie du das mit der Hand misst, lernst du in Lektion 4.</p></div>
+    <div><span>⭐</span><p><b>Norden finden:</b> Der Polarstern steht immer im Norden – in Deutschland etwa 48–54° hoch, also ungefähr so hoch, wie dein Ort nördlich vom Äquator liegt.</p></div>
+  </div></div>
+    <div class="grid cards-3">
+      <div class="card glass tip reveal"><div class="tip-ic">🗺️</div><h4>Sternkarte richtig halten</h4><p>Halte die Karte über den Kopf und drehe sie so, dass die Himmelsrichtung, in die du schaust, unten liegt. Dann passt sie genau zum Himmel.</p></div>
+    </div>
+    <p class="center-note"><a class="btn btn-ghost" href="sternkarte.html">🗺️ Zur Live-Sternkarte mit Himmelsrichtungen</a></p>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-lernpfad" data-lesson="lernpfad" data-level="1" data-min="8" data-icon="🌟" data-aliases="sterne-lesen" aria-labelledby="lt-lernpfad">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 3 · ca. 8 Min.</span></p>
+    <h2 id="lt-lernpfad"><span class="lesson-ic" aria-hidden="true">🌟</span> Großer Wagen, Polarstern & Co.</h2>
+    <p class="muted lesson-intro">Der Himmel ist wie eine Landkarte: Wer ein paar Wegweiser kennt, findet sich überall zurecht. Folge dem Lernpfad – Station für Station, vom Großen Wagen bis zum Wintersechseck.</p>
+  </header>
+  <div class="lesson-body">
+      <div class="glass learn-progress reveal">
     <div class="lp-rank"><span class="rank-ic" id="rankIc">🌱</span><div><b id="rankName">Sternenneuling</b><span class="muted small" id="rankTxt">0 von 8 Stationen am echten Himmel gefunden</span></div></div>
     <div class="progress-bar"><span id="learnBar"></span></div>
     <button class="chip" id="learnReset" title="Fortschritt zurücksetzen">↺ Zurücksetzen</button>
@@ -63,11 +112,17 @@
       <div class="learn-text" id="learnText" aria-live="polite"></div>
     </div>
   </div>
+  </div>
+</article>
 
-  <div class="fold reveal" id="fold-hand" data-fold="hand" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hand" aria-expanded="false" aria-controls="fb-hand"><span class="fold-title">✋ Der Hand-Trick</span><span class="fold-sum">Winkel am Himmel mit der Hand messen</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-hand" role="region" aria-labelledby="fh-hand"><div class="fold-inner">
-  <div class="glass hand-box">
+<article class="lesson" id="lektion-hand-trick" data-lesson="hand-trick" data-level="1" data-min="3" data-icon="✋" data-aliases="fold-hand hand" aria-labelledby="lt-hand-trick">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 4 · ca. 3 Min.</span></p>
+    <h2 id="lt-hand-trick"><span class="lesson-ic" aria-hidden="true">✋</span> Der Hand-Trick: Winkel messen</h2>
+    <p class="muted lesson-intro">Wie weit ist es von einem Stern zum nächsten? Mit deiner Hand am ausgestreckten Arm misst du Abstände am Himmel – ganz ohne Werkzeug.</p>
+  </header>
+  <div class="lesson-body">
+      <div class="glass hand-box">
     <div class="hand-canvas-wrap"><canvas id="handCanvas" aria-label="Hand am ausgestreckten Arm vor dem Großen Wagen" role="img"></canvas></div>
     <div class="hand-side">
       <p>Strecke deinen Arm ganz aus – dann wird deine Hand zum Winkelmesser. Das klappt bei fast allen Menschen, weil längere Arme meist auch größere Hände haben.</p>
@@ -75,13 +130,115 @@
       <div class="hand-info" id="handInfo"></div>
     </div>
   </div>
-    </div></div>
+    <div class="glass lesson-check" data-why="Genau – eine Faust ist etwa 10°, ein Finger etwa 1°."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Wie breit ist ungefähr deine Faust am ausgestreckten Arm?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">etwa 1°</button><button class="quiz-opt" type="button" data-ok="1">etwa 10°</button><button class="quiz-opt" type="button" data-ok="0">etwa 45°</button></div><p class="lc-msg" aria-live="polite"></p></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-find" data-fold="find" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-find" aria-expanded="false" aria-controls="fb-find"><span class="fold-title">🎯 Mini-Spiel: Finde das Sternbild</span><span class="fold-sum">Teste dein Wissen – mit Rekord</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-find" role="region" aria-labelledby="fh-find"><div class="fold-inner">
-  <div class="glass game find-game" id="findGame">
+<article class="lesson" id="lektion-dunkeladaption" data-lesson="dunkeladaption" data-level="1" data-min="3" data-icon="🔴" data-aliases="" aria-labelledby="lt-dunkeladaption">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 5 · ca. 3 Min.</span></p>
+    <h2 id="lt-dunkeladaption"><span class="lesson-ic" aria-hidden="true">🔴</span> Dunkeladaption & Rotlicht</h2>
+    <p class="muted lesson-intro">Deine Augen sind das wichtigste Instrument. Mit diesen Tricks siehst du doppelt so viel.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="grid cards-3">
+      <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Dunkeladaption</h4><p>Die Stäbchen in deiner Netzhaut brauchen 20–30 Minuten, bis sie voll lichtempfindlich sind. Ein einziger Blick aufs helle Handy setzt die Uhr zurück!</p><p class="small muted">Trick: Schau schwache Objekte leicht <b>seitlich</b> an („indirektes Sehen“) – am Rand der Netzhaut sitzen mehr Stäbchen.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" id="redBtn">🔴 Rotlicht-Modus testen</button></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Dunkeladaption: 20–30 Minuten</h4><p class="small">So lange brauchen deine Augen, bis sie richtig empfindlich sind. Nutze nur <b>rotes Licht</b> (Stirnlampe oder Rotlicht-Modus), dimme das Handy maximal – ein einziger weißer Lichtblitz kostet dich viele Minuten.</p><button class="btn btn-ghost red-btn" type="button" data-red-toggle>🔴 Rotlicht-Modus</button></div>
+      <div class="card glass tip reveal"><div class="tip-ic">👀</div><h4>Indirektes Sehen</h4><p class="small">Schau bei lichtschwachen Objekten knapp daneben: Am Rand der Netzhaut sitzen die lichtempfindlichen Stäbchen. Ein Nebel, den du direkt nicht siehst, taucht so plötzlich auf.</p></div>
+    </div>
+    <div class="glass lesson-check" data-why="Richtig – rotes Licht stört die lichtempfindlichen Stäbchen im Auge kaum."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Welches Licht stört die Dunkeladaption am wenigsten?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">Weißes Handylicht</button><button class="quiz-opt" type="button" data-ok="1">Rotes Licht</button><button class="quiz-opt" type="button" data-ok="0">Blaues Licht</button></div><p class="lc-msg" aria-live="polite"></p></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-bortle" data-lesson="bortle" data-level="1" data-min="4" data-icon="🌃" data-aliases="dunkler-himmel fold-bortle bortle-skala" aria-labelledby="lt-bortle">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 6 · ca. 4 Min.</span></p>
+    <h2 id="lt-bortle"><span class="lesson-ic" aria-hidden="true">🌃</span> Wie dunkel ist dein Himmel?</h2>
+    <p class="muted lesson-intro">In Großstädten siehst du oft nur ein paar Dutzend Sterne, unter einem wirklich dunklen Himmel Tausende. Die Bortle-Skala beschreibt, wie hell der Nachthimmel ist – schieb den Regler und vergleiche.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="bortle-layout">
+      <div class="glass bortle-stage">
+        <canvas id="bortleCanvas" aria-label="Simulierter Nachthimmel je nach Bortle-Klasse" role="img"></canvas>
+        <div class="bortle-badge" id="bortleBadge"></div>
+      </div>
+      <div class="glass bortle-info">
+        <label class="field bortle-slider">Bortle-Klasse: <b id="bortleVal">4</b>
+          <input id="bortleRange" type="range" min="1" max="9" step="1" value="4" aria-label="Bortle-Klasse von 1 bis 9">
+        </label>
+        <div class="bortle-ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div id="bortleText" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-objekte-ueberblick" data-lesson="objekte-ueberblick" data-level="1" data-min="3" data-icon="🌌" data-aliases="" aria-labelledby="lt-objekte-ueberblick">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 7 · ca. 3 Min.</span></p>
+    <h2 id="lt-objekte-ueberblick"><span class="lesson-ic" aria-hidden="true">🌌</span> Was gibt es am Himmel?</h2>
+    <p class="muted lesson-intro">Sterne sind nur der Anfang. Hier ein erster Überblick – im Detail lernst du die Objekte in Stufe 2 kennen.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass lesson-note"><div class="lesson-points lp-grid">
+    <div><span>🌙</span><p><b>Mond</b> – das beste Einstiegsobjekt, schon im Fernglas mit Kratern.</p></div>
+    <div><span>🪐</span><p><b>Planeten</b> – wandern langsam durch die Sternbilder und funkeln kaum.</p></div>
+    <div><span>⭐</span><p><b>Sterne</b> – ferne Sonnen in verschiedenen Farben.</p></div>
+    <div><span>✨</span><p><b>Doppelsterne</b> – zwei Sterne, die eng beieinander stehen.</p></div>
+    <div><span>💎</span><p><b>Sternhaufen</b> – Gruppen aus Dutzenden bis Hunderttausenden Sternen.</p></div>
+    <div><span>🌫️</span><p><b>Nebel</b> – leuchtende Gaswolken, Geburtsorte von Sternen.</p></div>
+    <div><span>🌌</span><p><b>Galaxien</b> – ganze Sterneninseln, Millionen Lichtjahre entfernt.</p></div>
+    <div><span>☄️</span><p><b>Kometen & Sternschnuppen</b> – Besucher aus dem Sonnensystem.</p></div>
+  </div>
+  <p class="small muted">Welche Planeten heute sichtbar sind, zeigt <a href="heute.html">Heute sichtbar</a>; drehbare 3D-Modelle findest du bei <a href="planeten.html">Planeten 3D</a>.</p></div><div class="glass lesson-check" data-why="Genau – wie unsere Milchstraße besteht eine Galaxie aus Milliarden Sternen."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Was ist eine Galaxie?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">Eine Gaswolke in unserer Nähe</button><button class="quiz-opt" type="button" data-ok="1">Eine riesige Sterneninsel mit Milliarden Sternen</button><button class="quiz-opt" type="button" data-ok="0">Ein heller Planet</button></div><p class="lc-msg" aria-live="polite"></p></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-fernglas" data-lesson="fernglas" data-level="1" data-min="3" data-icon="🔍" data-aliases="" aria-labelledby="lt-fernglas">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 8 · ca. 3 Min.</span></p>
+    <h2 id="lt-fernglas"><span class="lesson-ic" aria-hidden="true">🔍</span> Mit dem Fernglas starten</h2>
+    <p class="muted lesson-intro">Bevor du ein Teleskop kaufst: Ein Fernglas ist der perfekte erste Schritt – günstig, sofort einsatzbereit und mit großem Gesichtsfeld.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass lesson-note"><div class="lesson-points">
+    <div><span>🔢</span><p><b>Was bedeutet 10×50?</b> Die erste Zahl ist die Vergrößerung (10-fach), die zweite der Durchmesser der Objektive in Millimetern (50 mm). Mehr Millimeter = mehr Licht.</p></div>
+    <div><span>🤲</span><p><b>Ruhig halten:</b> Stütze die Ellbogen auf, lehne dich an oder nutze einen Stativadapter – dann siehst du deutlich mehr.</p></div>
+    <div><span>🎯</span><p><b>Erste Ziele:</b> Mondkrater, die vier hellen Jupitermonde, die Plejaden, der Orionnebel und die Andromedagalaxie als zarter Fleck.</p></div>
+  </div></div>
+    <div class="grid cards-3">
+      <div class="card glass tip reveal"><div class="tip-ic">🔭</div><h4>Mit dem Fernglas starten</h4><p>Ein 10×50-Fernglas zeigt Mondkrater, Jupitermonde und Sternhaufen – günstig, leicht und perfekt zum Lernen.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">☀️</div><h4>Niemals in die Sonne!</h4><p>Schau nie ohne zertifizierten Sonnenfilter durch Fernglas oder Teleskop in die Sonne – das führt sofort zu bleibenden Augenschäden.</p></div>
+    </div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-erste-nacht" data-lesson="erste-nacht" data-level="1" data-min="3" data-icon="🏕️" data-aliases="fold-obs-tipps obs-tipps" aria-labelledby="lt-erste-nacht">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 9 · ca. 3 Min.</span></p>
+    <h2 id="lt-erste-nacht"><span class="lesson-ic" aria-hidden="true">🏕️</span> Deine erste Beobachtungsnacht</h2>
+    <p class="muted lesson-intro">Ein bisschen Planung macht aus einer kalten Nacht ein tolles Erlebnis. Diese Tipps helfen dir beim ersten Mal.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="grid cards-3 tips" data-more-mobile="3" data-more-label="Tipps">
+      <div class="card glass tip reveal"><div class="tip-ic">🕶️</div><h4>Augen an die Dunkelheit gewöhnen</h4><p>Deine Augen brauchen 20–30 Minuten, um sich voll anzupassen. Nutze Rotlicht – weißes Handylicht macht alles wieder zunichte.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Neumond nutzen</h4><p>Rund um Neumond ist der Himmel am dunkelsten. Der Mond selbst ist aber zum Halbmond hin am spannendsten: Schatten am Terminator!</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🏞️</div><h4>Raus aus der Stadt</h4><p>Schon 20 km außerhalb siehst du ein Vielfaches an Sternen. Suche dir einen Ort mit freiem Blick nach Süden.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🧥</div><h4>Warm anziehen</h4><p>Auch im Sommer wird es nachts kühl. Thermoskanne, Decke und Campingstuhl machen die Nacht gemütlich.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">📓</div><h4>Beobachtungstagebuch</h4><p>Notiere Datum, Ort, Wetter und was du gesehen hast. So erkennst du deinen Fortschritt – und es macht riesig Spaß!</p></div>
+    </div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-mini-spiel" data-lesson="mini-spiel" data-level="1" data-min="4" data-icon="🎯" data-aliases="fold-find find" aria-labelledby="lt-mini-spiel">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 10 · ca. 4 Min.</span></p>
+    <h2 id="lt-mini-spiel"><span class="lesson-ic" aria-hidden="true">🎯</span> Mini-Spiel: Finde das Sternbild</h2>
+    <p class="muted lesson-intro">Zeit zum Üben! Welches Sternbild versteckt sich im Ausschnitt? Sammle Punkte und stelle einen Rekord auf.</p>
+  </header>
+  <div class="lesson-body">
+      <div class="glass game find-game" id="findGame">
     <div class="find-layout">
       <div class="learn-canvas-wrap find-canvas-wrap"><canvas id="findCanvas" aria-label="Sternfeld eines gesuchten Sternbilds" role="img"></canvas></div>
       <div class="find-side">
@@ -92,27 +249,17 @@
       </div>
     </div>
   </div>
-    </div></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-pro-tipps" data-fold="pro-tipps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-pro-tipps" aria-expanded="false" aria-controls="fb-pro-tipps"><span class="fold-title">🌙 Profi-Tipps für deine Sternennacht</span><span class="fold-sum">Dunkeladaption, Rotlicht, Star-Hopping …</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-pro-tipps" role="region" aria-labelledby="fh-pro-tipps"><div class="fold-inner">
-  <div class="grid cards-3" data-more-mobile="3" data-more-label="Tipps">
-    <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Dunkeladaption</h4><p>Die Stäbchen in deiner Netzhaut brauchen 20–30 Minuten, bis sie voll lichtempfindlich sind. Ein einziger Blick aufs helle Handy setzt die Uhr zurück!</p><p class="small muted">Trick: Schau schwache Objekte leicht <b>seitlich</b> an („indirektes Sehen“) – am Rand der Netzhaut sitzen mehr Stäbchen.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" id="redBtn">🔴 Rotlicht-Modus testen</button></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🗺️</div><h4>Sternkarte richtig halten</h4><p>Halte die Karte über den Kopf und drehe sie so, dass die Himmelsrichtung, in die du schaust, unten liegt. Dann passt sie genau zum Himmel.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🧭</div><h4>Vom Bekannten zum Unbekannten</h4><p>Lerne nie ein Sternbild isoliert. Hangle dich immer von einem bekannten Wegweiser zum nächsten – das nennt man <b>Star-Hopping</b>.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">📅</div><h4>Eine Jahreszeit nach der anderen</h4><p>Jeden Monat gehen Sterne etwa 2 Stunden früher auf. Lerne pro Jahreszeit 2–3 Sternbilder – nach einem Jahr kennst du den ganzen Himmel.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">✏️</div><h4>Zeichnen statt Fotografieren</h4><p>Skizziere, was du siehst. Beim Zeichnen prägen sich Muster und Abstände viel besser ein als beim Knipsen.</p></div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-apps" data-fold="apps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-apps" aria-expanded="false" aria-controls="fb-apps"><span class="fold-title">📱 Apps &amp; Sternkarten für den Start</span><span class="fold-sum">Stellarium, Sky-Apps, drehbare Sternkarte …</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-apps" role="region" aria-labelledby="fh-apps"><div class="fold-inner">
-  <div class="grid cards-3 apps">
+<article class="lesson" id="lektion-apps" data-lesson="apps" data-level="1" data-min="2" data-icon="📱" data-aliases="fold-apps" aria-labelledby="lt-apps">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv1">Stufe 1 · Einsteiger</span><span class="ls-meta">Lektion 11 · ca. 2 Min.</span></p>
+    <h2 id="lt-apps"><span class="lesson-ic" aria-hidden="true">📱</span> Apps & Sternkarten für den Start</h2>
+    <p class="muted lesson-intro">Mit den richtigen Helfern findest du dich schneller zurecht – digital und ganz ohne Strom.</p>
+  </header>
+  <div class="lesson-body">
+      <div class="grid cards-3 apps">
     <div class="card glass app reveal"><span class="app-ic">🌌</span><div><h4>Stellarium</h4><p class="small">Kostenloses Planetarium für PC, Mac und Linux (auch als App). Perfekt, um eine Nacht vorab zu „proben“.</p><span class="pill ok">kostenlos</span></div></div>
     <div class="card glass app reveal"><span class="app-ic">📱</span><div><h4>Sky-Apps (z. B. SkySafari, Star Walk, Sky Tonight)</h4><p class="small">Handy an den Himmel halten – die App zeigt, was du siehst. Tipp: Nachtmodus (rot) einschalten!</p><span class="pill ok">ideal für unterwegs</span></div></div>
     <div class="card glass app reveal"><span class="app-ic">🗺️</span><div><h4>Drehbare Sternkarte</h4><p class="small">Der Klassiker aus Pappe: Datum und Uhrzeit einstellen – fertig. Braucht keinen Akku und blendet nicht.</p><span class="pill ok">ohne Strom</span></div></div>
@@ -120,20 +267,17 @@
     <div class="card glass app reveal"><span class="app-ic">🔭</span><div><h4>Sternwarten &amp; Vereine</h4><p class="small">Viele Volkssternwarten bieten öffentliche Beobachtungsabende – dort darfst du oft durch große Teleskope schauen.</p><span class="pill ok">Gemeinschaft</span></div></div>
     <div class="card glass app reveal"><span class="app-ic">✨</span><div><h4>Diese Website</h4><p class="small">Nutze die Live-Sternkarte mit dem Zeitregler, um dir vor der Nacht anzusehen, wo deine Wegweiser stehen.</p><a class="pill ok" href="sternkarte.html">zur Sternkarte</a></div></div>
   </div>
-    </div></div>
   </div>
-</section>
+</article>
 
-<!-- EINSTEIGER -->
-<section class="section" id="einsteiger">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">02</span>Teleskop-Spielplatz</p>
-    <h2>Wie funktioniert ein <span class="grad">Teleskop</span>?</h2>
-    <p class="muted">Fahre über die Bauteile oder tippe sie an – und lerne dein erstes Teleskop kennen.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-compare" data-fold-link="compare">⚖️ Linse oder Spiegel</a><a class="chip" href="#fold-games" data-fold-link="games">🎮 Spiele</a><a class="chip" href="#fold-obs-tipps" data-fold-link="obs-tipps">🌌 Tipps</a><button class="chip ghost" type="button" data-fold-all="einsteiger" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="scope-layout">
+<article class="lesson" id="lektion-teleskop-bauteile" data-lesson="teleskop-bauteile" data-level="2" data-min="5" data-icon="🔭" data-aliases="einsteiger" aria-labelledby="lt-teleskop-bauteile">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 12 · ca. 5 Min.</span></p>
+    <h2 id="lt-teleskop-bauteile"><span class="lesson-ic" aria-hidden="true">🔭</span> Wie funktioniert ein Teleskop?</h2>
+    <p class="muted lesson-intro">Fahre über die Bauteile oder tippe sie an – und lerne die Teile deines ersten Teleskops kennen: Objektiv, Tubus, Okular, Sucher, Fokussierer, Montierung und Stativ.</p>
+  </header>
+  <div class="lesson-body">
+      <div class="scope-layout">
     <div class="glass scope-svg-wrap reveal">
       <svg id="scopeSvg" viewBox="0 0 600 460" role="img" aria-label="Teleskop mit anklickbaren Bauteilen">
         <defs>
@@ -237,11 +381,17 @@
       <p>Jedes Teil deines Teleskops hat eine wichtige Aufgabe. Fahre mit der Maus über die Zeichnung oder tippe auf die Schaltflächen darunter.</p>
     </div>
   </div>
+  </div>
+</article>
 
-  <div class="fold reveal" id="fold-compare" data-fold="compare" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-compare" aria-expanded="true" aria-controls="fb-compare"><span class="fold-title">⚖️ Linsenteleskop oder Spiegelteleskop?</span><span class="fold-sum">Refraktor vs. Reflektor – mit animiertem Lichtweg</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-compare" role="region" aria-labelledby="fh-compare"><div class="fold-inner">
-  <!-- Linsen vs Spiegel -->
+<article class="lesson" id="lektion-linse-spiegel" data-lesson="linse-spiegel" data-level="2" data-min="4" data-icon="⚖️" data-aliases="fold-compare compare" aria-labelledby="lt-linse-spiegel">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 13 · ca. 4 Min.</span></p>
+    <h2 id="lt-linse-spiegel"><span class="lesson-ic" aria-hidden="true">⚖️</span> Linsenteleskop oder Spiegelteleskop?</h2>
+    <p class="muted lesson-intro">Es gibt zwei Grundprinzipien, Licht zu bündeln: mit einer Linse (Refraktor) oder mit einem Hohlspiegel (Reflektor). Verfolge den Lichtweg!</p>
+  </header>
+  <div class="lesson-body">
+      <!-- Linsen vs Spiegel -->
   <div class="glass compare">
     <div class="compare-head">
       <p class="muted small compare-lead">Wähle eine Bauart und verfolge den Lichtweg:</p>
@@ -303,196 +453,105 @@
       <div class="compare-text" id="compareText"></div>
     </div>
   </div>
-    </div></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-games" data-fold="games" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-games" aria-expanded="false" aria-controls="fb-games"><span class="fold-title">🎮 Spiele: Bau-Puzzle &amp; Sternen-Quiz</span><span class="fold-sum">Beschrifte das Teleskop und teste dein Wissen</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-games" role="region" aria-labelledby="fh-games"><div class="fold-inner">
-  <!-- Spiele -->
-  <div class="games">
-    <div class="glass game" id="dndGame">
-      <h3>🧩 Bau-Spiel: Beschrifte das Teleskop</h3>
-      <p class="muted small">Ziehe die Begriffe auf die passenden Nummern (am Handy: antippen und dann Zielnummer antippen).</p>
-      <div class="dnd-area">
-        <div class="dnd-figure">
-          <svg viewBox="0 0 600 460" class="dnd-svg" aria-hidden="true">
-            <use href="#scopeClone"/>
-          </svg>
-          <div class="dnd-targets" id="dndTargets"></div>
-        </div>
-        <div class="dnd-bank" id="dndBank"></div>
-      </div>
-      <div class="game-foot"><span id="dndScore">0 / 7 richtig</span><button class="chip" id="dndReset">Neu starten</button></div>
-    </div>
+<article class="lesson" id="lektion-sternen-quiz" data-lesson="sternen-quiz" data-level="2" data-min="3" data-icon="🧠" data-aliases="quiz" aria-labelledby="lt-sternen-quiz">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 14 · ca. 3 Min.</span></p>
+    <h2 id="lt-sternen-quiz"><span class="lesson-ic" aria-hidden="true">🧠</span> Check: Das Sternen-Quiz</h2>
+    <p class="muted lesson-intro">Was hast du bisher gelernt? Teste dein Wissen über Sterne, Teleskope und den Himmel.</p>
+  </header>
+  <div class="lesson-body">
     <div class="glass game" id="quiz">
       <h3>🧠 Sternen-Quiz</h3>
       <div id="quizBody"></div>
     </div>
   </div>
-    </div></div>
-  </div>
+</article>
 
-  <div class="fold reveal" id="fold-obs-tipps" data-fold="obs-tipps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-obs-tipps" aria-expanded="false" aria-controls="fb-obs-tipps"><span class="fold-title">🌌 Tipps für deine erste Beobachtungsnacht</span><span class="fold-sum">9 Tipps vom Fernglas bis zum Tagebuch</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-obs-tipps" role="region" aria-labelledby="fh-obs-tipps"><div class="fold-inner">
-  <div class="grid cards-3 tips" data-more="6" data-more-mobile="3" data-more-label="Tipps">
-    <div class="card glass tip reveal"><div class="tip-ic">🕶️</div><h4>Augen an die Dunkelheit gewöhnen</h4><p>Deine Augen brauchen 20–30 Minuten, um sich voll anzupassen. Nutze Rotlicht – weißes Handylicht macht alles wieder zunichte.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔭</div><h4>Mit dem Fernglas starten</h4><p>Ein 10×50-Fernglas zeigt Mondkrater, Jupitermonde und Sternhaufen – günstig, leicht und perfekt zum Lernen.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Neumond nutzen</h4><p>Rund um Neumond ist der Himmel am dunkelsten. Der Mond selbst ist aber zum Halbmond hin am spannendsten: Schatten am Terminator!</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🏞️</div><h4>Raus aus der Stadt</h4><p>Schon 20 km außerhalb siehst du ein Vielfaches an Sternen. Suche dir einen Ort mit freiem Blick nach Süden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🌡️</div><h4>Teleskop auskühlen lassen</h4><p>Stell dein Teleskop 30–60 Minuten vorher nach draußen, damit Luftschlieren im Tubus verschwinden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔍</div><h4>Geringe Vergrößerung zuerst</h4><p>Beginne mit dem Okular mit der größten Brennweite. Vergrößerung = Teleskop-Brennweite ÷ Okular-Brennweite.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🧥</div><h4>Warm anziehen</h4><p>Auch im Sommer wird es nachts kühl. Thermoskanne, Decke und Campingstuhl machen die Nacht gemütlich.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">☀️</div><h4>Niemals in die Sonne!</h4><p>Schau nie ohne zertifizierten Sonnenfilter durch Fernglas oder Teleskop in die Sonne – das führt sofort zu bleibenden Augenschäden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">📓</div><h4>Beobachtungstagebuch</h4><p>Notiere Datum, Ort, Wetter und was du gesehen hast. So erkennst du deinen Fortschritt – und es macht riesig Spaß!</p></div>
-  </div>
-    </div></div>
-  </div>
-</section>
-
-<!-- TELESKOP-RATGEBER -->
-<section class="section" id="ratgeber">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">03</span>Teleskop-Ratgeber</p>
-    <h2>Welches <span class="grad">Teleskop</span> passt zu dir?</h2>
-    <p class="muted">Linse, Spiegel, Dobson, Kompakt-Teleskop, Smart-Teleskop oder doch erst ein Fernglas? Hier siehst du, wie jede Bauart das Licht lenkt, was sie gut kann – und wo ihre Grenzen liegen.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-scope-typen" data-fold-link="scope-typen">🔭 Bauarten</a><a class="chip" href="#fold-scope-quiz" data-fold-link="scope-quiz">🧩 Welches passt zu mir?</a><a class="chip" href="#fold-scope-tabelle" data-fold-link="scope-tabelle">📊 Vergleich</a><button class="chip ghost" type="button" data-fold-all="ratgeber" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="fold reveal" id="fold-scope-typen" data-fold="scope-typen" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-typen" aria-expanded="true" aria-controls="fb-scope-typen"><span class="fold-title">🔭 Bauarten im Überblick</span><span class="fold-sum">Animierter Strahlengang, Vor- &amp; Nachteile, Preise</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-scope-typen" role="region" aria-labelledby="fh-scope-typen"><div class="fold-inner">
-    <div class="st-tabs" id="stTabs" role="tablist" aria-label="Teleskop-Bauart wählen"></div>
+<article class="lesson" id="lektion-teleskop-typen" data-lesson="teleskop-typen" data-level="2" data-min="6" data-icon="🛒" data-aliases="ratgeber fold-scope-typen fold-scope-tabelle" aria-labelledby="lt-teleskop-typen">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 15 · ca. 6 Min.</span></p>
+    <h2 id="lt-teleskop-typen"><span class="lesson-ic" aria-hidden="true">🛒</span> Teleskop-Bauarten im Überblick</h2>
+    <p class="muted lesson-intro">Linse, Spiegel, Dobson, Kompakt-Teleskop, Smart-Teleskop oder doch erst ein Fernglas? So lenkt jede Bauart das Licht, das kann sie gut – und hier liegen ihre Grenzen.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="st-tabs" id="stTabs" role="tablist" aria-label="Teleskop-Bauart wählen"></div>
     <div class="st-layout">
       <div class="glass st-stage"><div class="st-svg" id="stSvg"></div><p class="muted small st-cap" id="stCap"></p></div>
       <div class="glass st-info" id="stInfo" aria-live="polite"></div>
     </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-scope-quiz" data-fold="scope-quiz" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-quiz" aria-expanded="true" aria-controls="fb-scope-quiz"><span class="fold-title">🧩 Welches Teleskop passt zu mir?</span><span class="fold-sum">5 kurze Fragen – mit begründeter Empfehlung</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-scope-quiz" role="region" aria-labelledby="fh-scope-quiz"><div class="fold-inner">
-    <div class="glass sq-card" id="scopeQuiz" aria-live="polite"></div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-scope-tabelle" data-fold="scope-tabelle" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-scope-tabelle" aria-expanded="false" aria-controls="fb-scope-tabelle"><span class="fold-title">📊 Alle Bauarten im Vergleich</span><span class="fold-sum">Stärken auf einen Blick</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-scope-tabelle" role="region" aria-labelledby="fh-scope-tabelle"><div class="fold-inner">
-    <div class="glass st-table-wrap"><div class="st-table" id="stTable" role="table" aria-label="Vergleich der Teleskop-Bauarten"></div></div>
+    <h3 class="lesson-sub">📊 Alle Bauarten im Vergleich</h3>
+        <div class="glass st-table-wrap"><div class="st-table" id="stTable" role="table" aria-label="Vergleich der Teleskop-Bauarten"></div></div>
     <p class="muted small center-note">Preise sind grobe Richtwerte für Neugeräte inklusive Montierung (Stand 2026) – je nach Zubehör und Marke gibt es Ausreißer nach oben und unten. Gebraucht geht es oft deutlich günstiger.</p>
-    </div></div>
   </div>
+</article>
 
-</section>
-
-
-<!-- OKULAR-RECHNER -->
-<section class="section" id="rechner">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">04</span>Okular- &amp; Vergrößerungs-Rechner</p>
-    <h2>Wie viel <span class="grad">Vergrößerung</span> geht?</h2>
-    <p class="muted">Gib Brennweite und Öffnung deines Teleskops ein und wähle ein Okular – der Rechner zeigt Vergrößerung, Gesichtsfeld, Austrittspupille und wie groß der Mond im Okular erscheint.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-okular-rechner" data-fold-link="okular-rechner">🧮 Rechner</a><a class="chip" href="#fold-okular-begriffe" data-fold-link="okular-begriffe">📖 Begriffe erklärt</a><button class="chip ghost" type="button" data-fold-all="rechner" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+<article class="lesson" id="lektion-teleskop-quiz" data-lesson="teleskop-quiz" data-level="2" data-min="3" data-icon="🧩" data-aliases="fold-scope-quiz" aria-labelledby="lt-teleskop-quiz">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 16 · ca. 3 Min.</span></p>
+    <h2 id="lt-teleskop-quiz"><span class="lesson-ic" aria-hidden="true">🧩</span> Welches Teleskop passt zu mir?</h2>
+    <p class="muted lesson-intro">Fünf kurze Fragen zu Budget, Interessen, Transport, Fotografie und Technik – am Ende bekommst du eine begründete Empfehlung.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="glass sq-card" id="scopeQuiz" aria-live="polite"></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-okular-rechner" data-fold="okular-rechner" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-okular-rechner" aria-expanded="true" aria-controls="fb-okular-rechner"><span class="fold-title">🧮 Okular-Rechner</span><span class="fold-sum">Vergrößerung, Gesichtsfeld, Austrittspupille, Grenzgröße</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-okular-rechner" role="region" aria-labelledby="fh-okular-rechner"><div class="fold-inner">
-    <div class="calc-layout">
-      <form class="glass calc-form" id="ocForm" autocomplete="off" onsubmit="return false">
-        <label class="field">Teleskop-Vorlage
-          <select id="ocPreset"></select>
-        </label>
-        <div class="field-row">
-          <label class="field">Brennweite Teleskop (mm)<input id="ocF" type="number" inputmode="decimal" min="100" max="5000" step="1" value="1200"></label>
-          <label class="field">Öffnung (mm)<input id="ocD" type="number" inputmode="decimal" min="20" max="1000" step="1" value="150"></label>
-        </div>
-        <div class="field-row">
-          <label class="field">Okular-Brennweite (mm)<input id="ocE" type="number" inputmode="decimal" min="2" max="60" step="0.5" value="25"></label>
-          <label class="field">Eigenes Gesichtsfeld (°)<input id="ocA" type="number" inputmode="decimal" min="30" max="120" step="1" value="52"></label>
-        </div>
-        <div class="oc-chips" id="ocEyes" aria-label="Okular schnell wählen"></div>
-        <label class="field">Barlowlinse
-          <select id="ocB"><option value="1">keine</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="2.5">2,5×</option><option value="3">3×</option><option value="5">5×</option></select>
-        </label>
-      </form>
-      <div class="glass calc-out">
-        <div class="oc-res" id="ocRes" aria-live="polite"></div>
-        <div class="oc-warn" id="ocWarn" aria-live="polite"></div>
-      </div>
-      <div class="glass oc-view">
-        <div class="oc-view-head"><h4>👁️ So groß erscheint es im Okular</h4><div class="oc-obj" id="ocObj" role="tablist" aria-label="Objekt wählen"></div></div>
-        <div class="oc-svg-wrap"><svg id="ocSvg" viewBox="0 0 300 300" role="img" aria-label="Simuliertes Gesichtsfeld im Okular"></svg></div>
-        <p class="muted small" id="ocViewTxt"></p>
-      </div>
-    </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-okular-begriffe" data-fold="okular-begriffe" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-okular-begriffe" aria-expanded="false" aria-controls="fb-okular-begriffe"><span class="fold-title">📖 Begriffe kurz erklärt</span><span class="fold-sum">Was die Zahlen bedeuten</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-okular-begriffe" role="region" aria-labelledby="fh-okular-begriffe"><div class="fold-inner">
+<article class="lesson" id="lektion-okulare" data-lesson="okulare" data-level="2" data-min="4" data-icon="🔎" data-aliases="fold-okular-begriffe okular-begriffe" aria-labelledby="lt-okulare">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 17 · ca. 4 Min.</span></p>
+    <h2 id="lt-okulare"><span class="lesson-ic" aria-hidden="true">🔎</span> Okulare & Vergrößerung – die Grundlagen</h2>
+    <p class="muted lesson-intro">Das Okular bestimmt, wie stark dein Teleskop vergrößert. Hier die wichtigsten Begriffe – rechnen kannst du damit in Stufe 3.</p>
+  </header>
+  <div class="lesson-body">
     <div class="grid cards-3">
       <div class="card glass tip reveal"><div class="tip-ic">🔍</div><h4>Vergrößerung</h4><p class="small">Teleskop-Brennweite ÷ Okular-Brennweite. Mehr ist nicht automatisch besser: Ab etwa der doppelten Öffnung in mm wird das Bild nur noch größer, aber nicht schärfer – und die Luftunruhe begrenzt oft schon bei 150–250×.</p></div>
       <div class="card glass tip reveal"><div class="tip-ic">⭕</div><h4>Gesichtsfeld</h4><p class="small">Das „eigene“ (scheinbare) Gesichtsfeld steht auf dem Okular, z. B. 52° bei einem Plössl. Geteilt durch die Vergrößerung ergibt es das wahre Feld am Himmel – der Vollmond ist etwa 0,5° groß.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Austrittspupille</h4><p class="small">Der Lichtkreis hinter dem Okular: Öffnung ÷ Vergrößerung. 2–4 mm passen für fast alles, 5–7 mm für großflächige Nebel. Über ~7 mm verschenkst du Licht, denn größer wird die Pupille im Dunkeln kaum (mit dem Alter eher 5–6 mm).</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">➗</div><h4>Öffnungsverhältnis</h4><p class="small">Brennweite ÷ Öffnung, z. B. f/8. Kleine Zahl („schnell“, f/4–f/5) = großes Feld, gut für Deep-Sky und Fotos. Große Zahl (f/10–f/15) = hohe Vergrößerung mit bequemen Okularen, ideal für Mond und Planeten.</p></div>
       <div class="card glass tip reveal"><div class="tip-ic">✖️</div><h4>Barlowlinse</h4><p class="small">Eine Zerstreuungslinse vor dem Okular, die die Brennweite des Teleskops verlängert – eine 2×-Barlow verdoppelt die Vergrößerung jedes Okulars. Praktisch, aber gute Okulare ersetzt sie nicht.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">⭐</div><h4>Grenzgröße &amp; Auflösung</h4><p class="small">Mehr Öffnung = mehr Licht (schwächere Sterne) und feinere Details. Die Werte hier sind Faustformeln für einen dunklen Himmel und ruhige Luft – in der Stadt siehst du 1–3 Größenklassen weniger.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔍</div><h4>Geringe Vergrößerung zuerst</h4><p>Beginne mit dem Okular mit der größten Brennweite. Vergrößerung = Teleskop-Brennweite ÷ Okular-Brennweite.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🌡️</div><h4>Teleskop auskühlen lassen</h4><p>Stell dein Teleskop 30–60 Minuten vorher nach draußen, damit Luftschlieren im Tubus verschwinden.</p></div>
     </div>
-    </div></div>
+    <div class="glass lesson-check" data-why="Richtig – 1200 mm ÷ 25 mm = 48-fach."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Ein Teleskop hat 1200 mm Brennweite, das Okular 25 mm. Wie stark vergrößert es?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">25×</button><button class="quiz-opt" type="button" data-ok="1">48×</button><button class="quiz-opt" type="button" data-ok="0">1225×</button></div><p class="lc-msg" aria-live="polite"></p></div>
   </div>
+</article>
 
-</section>
-
-
-<!-- HIMMELSOBJEKTE -->
-<section class="section" id="himmelsobjekte">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">05</span>Himmelsobjekte erklärt</p>
-    <h2>Was gibt es am Himmel <span class="grad">zu entdecken</span>?</h2>
-    <p class="muted">Von Doppelsternen bis Galaxien: Was die Objekte sind, wie sie im Fernglas oder kleinen Teleskop wirklich aussehen – und wo du die berühmtesten Beispiele findest.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-objekte" data-fold-link="objekte">🌌 Objektarten</a><button class="chip ghost" type="button" data-fold-all="himmelsobjekte" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="fold reveal" id="fold-objekte" data-fold="objekte" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-objekte" aria-expanded="true" aria-controls="fb-objekte"><span class="fold-title">🌌 Sterne, Haufen, Nebel &amp; Galaxien</span><span class="fold-sum">7 Objektarten mit Beispielen und „Auf der Karte zeigen“</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-objekte" role="region" aria-labelledby="fh-objekte"><div class="fold-inner">
-    <div class="obj-bar glass">
+<article class="lesson" id="lektion-himmelsobjekte" data-lesson="himmelsobjekte" data-level="2" data-min="7" data-icon="🌌" data-aliases="fold-objekte objekte" aria-labelledby="lt-himmelsobjekte">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 18 · ca. 7 Min.</span></p>
+    <h2 id="lt-himmelsobjekte"><span class="lesson-ic" aria-hidden="true">🌌</span> Himmelsobjekte im Detail</h2>
+    <p class="muted lesson-intro">Von Doppelsternen bis Galaxien: Was die Objekte sind, wie sie im Fernglas oder kleinen Teleskop wirklich aussehen – und wo du die berühmtesten Beispiele heute Nacht findest.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="obj-bar glass">
       <p class="small">🎨 Die Bilder zeigen, wie Fotos aussehen. Ehrlich gesagt sieht das Auge am Okular viel weniger: meist zarte, graue Nebelflecken. Schalte um und vergleiche!</p>
       <div class="seg" role="tablist" aria-label="Ansicht"><button class="seg-btn active" type="button" data-objview="foto" role="tab" aria-selected="true">📷 Foto-Ansicht</button><button class="seg-btn" type="button" data-objview="okular" role="tab" aria-selected="false">🔭 Okular-Ansicht</button></div>
     </div>
     <div class="grid obj-grid" id="objGrid" data-more-mobile="3" data-more-label="Objektarten"></div>
     <p class="muted small center-note" id="objNote">„Auf der Karte zeigen“ öffnet die Sternkarte zur besten Uhrzeit heute Nacht und markiert das Objekt mit einem goldenen Kreis.</p>
-    </div></div>
   </div>
+</article>
 
-</section>
-
-
-<!-- ASTROFOTOGRAFIE -->
-<section class="section" id="astrofoto">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">06</span>Astrofotografie mit dem Handy</p>
-    <h2>Sterne fotografieren <span class="grad">mit dem Handy</span></h2>
-    <p class="muted">Für erste Astrofotos brauchst du keine teure Kamera: Mit Stativ, den richtigen Einstellungen und etwas Geduld gelingen Mond, Sternbilder und sogar die Milchstraße.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-foto-schritte" data-fold-link="foto-schritte">📋 Schritt für Schritt</a><a class="chip" href="#fold-foto-motive" data-fold-link="foto-motive">🌕 Motive</a><a class="chip" href="#fold-belichtung" data-fold-link="belichtung">⏱️ Belichtungs-Helfer</a><button class="chip ghost" type="button" data-fold-all="astrofoto" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+<article class="lesson" id="lektion-handy-foto" data-lesson="handy-foto" data-level="2" data-min="4" data-icon="📱" data-aliases="astrofoto fold-foto-schritte" aria-labelledby="lt-handy-foto">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 19 · ca. 4 Min.</span></p>
+    <h2 id="lt-handy-foto"><span class="lesson-ic" aria-hidden="true">📱</span> Astrofotografie mit dem Handy: Grundlagen</h2>
+    <p class="muted lesson-intro">Dein Smartphone kann mehr, als du denkst. Mit Stativ und den richtigen Einstellungen gelingen schon in der ersten Nacht schöne Sternenfotos.</p>
+  </header>
+  <div class="lesson-body">
+        <ol class="af-steps"><li class="glass af-step reveal"><span class="af-num">1</span><span class="af-ic" aria-hidden="true">🧱</span><div><h4>Stativ</h4><p class="small">Ohne Stativ geht nachts nichts: Jede Belichtung dauert Sekunden. Ein kleines Handy-Stativ mit Halteklammer reicht – zur Not lehnst du das Handy fest an einen Stein oder Rucksack.</p></div></li><li class="glass af-step reveal"><span class="af-num">2</span><span class="af-ic" aria-hidden="true">🌙</span><div><h4>Nachtmodus oder Pro-Modus</h4><p class="small">Der Nachtmodus vieler Handys sammelt automatisch viele Einzelbilder (auf dem Stativ teils bis 30 s, beim Google Pixel im Astro-Modus mehrere Minuten). Mehr Kontrolle gibt der „Pro“- oder „Manuell“-Modus.</p></div></li><li class="glass af-step reveal"><span class="af-num">3</span><span class="af-ic" aria-hidden="true">🎚️</span><div><h4>ISO</h4><p class="small">ISO ist die Empfindlichkeit. Für Sterne und Milchstraße ISO 800–3200, für den hellen Mond ISO 50–100. Höher = heller, aber auch mehr Bildrauschen.</p></div></li><li class="glass af-step reveal"><span class="af-num">4</span><span class="af-ic" aria-hidden="true">⏱️</span><div><h4>Belichtungszeit</h4><p class="small">Sterne: so lange, bis sie Striche ziehen würden – der Belichtungs-Helfer unten rechnet es aus (beim Handy oft 10–20 s). Mond: sehr kurz, etwa 1/125–1/500 s, sonst ist er nur ein weißer Fleck.</p></div></li><li class="glass af-step reveal"><span class="af-num">5</span><span class="af-ic" aria-hidden="true">♾️</span><div><h4>Fokus auf unendlich</h4><p class="small">Der Autofokus findet nachts nichts. Stelle im Pro-Modus den manuellen Fokus auf ∞ oder tippe auf einen hellen Stern bzw. den Mond und sperre den Fokus (AE/AF-Sperre). Prüfe mit der Lupe am Display.</p></div></li><li class="glass af-step reveal"><span class="af-num">6</span><span class="af-ic" aria-hidden="true">⏲️</span><div><h4>Selbstauslöser</h4><p class="small">Schon das Antippen wackelt. Nutze 3–10 s Selbstauslöser, eine Bluetooth-Fernbedienung oder die Lautstärketaste am Kopfhörerkabel.</p></div></li><li class="glass af-step reveal"><span class="af-num">7</span><span class="af-ic" aria-hidden="true">🗂️</span><div><h4>RAW speichern</h4><p class="small">Im RAW-Format (DNG, bei iPhones ProRAW) bleiben viel mehr Helligkeits- und Farbinfos erhalten – ideal für die Bearbeitung. Die Dateien sind dafür deutlich größer.</p></div></li></ol>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-foto-schritte" data-fold="foto-schritte" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-foto-schritte" aria-expanded="true" aria-controls="fb-foto-schritte"><span class="fold-title">📋 Schritt für Schritt zum ersten Sternenfoto</span><span class="fold-sum">Stativ, Modus, ISO, Belichtung, Fokus, Auslöser, RAW</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-foto-schritte" role="region" aria-labelledby="fh-foto-schritte"><div class="fold-inner">
-    <ol class="af-steps"><li class="glass af-step reveal"><span class="af-num">1</span><span class="af-ic" aria-hidden="true">🧱</span><div><h4>Stativ</h4><p class="small">Ohne Stativ geht nachts nichts: Jede Belichtung dauert Sekunden. Ein kleines Handy-Stativ mit Halteklammer reicht – zur Not lehnst du das Handy fest an einen Stein oder Rucksack.</p></div></li><li class="glass af-step reveal"><span class="af-num">2</span><span class="af-ic" aria-hidden="true">🌙</span><div><h4>Nachtmodus oder Pro-Modus</h4><p class="small">Der Nachtmodus vieler Handys sammelt automatisch viele Einzelbilder (auf dem Stativ teils bis 30 s, beim Google Pixel im Astro-Modus mehrere Minuten). Mehr Kontrolle gibt der „Pro“- oder „Manuell“-Modus.</p></div></li><li class="glass af-step reveal"><span class="af-num">3</span><span class="af-ic" aria-hidden="true">🎚️</span><div><h4>ISO</h4><p class="small">ISO ist die Empfindlichkeit. Für Sterne und Milchstraße ISO 800–3200, für den hellen Mond ISO 50–100. Höher = heller, aber auch mehr Bildrauschen.</p></div></li><li class="glass af-step reveal"><span class="af-num">4</span><span class="af-ic" aria-hidden="true">⏱️</span><div><h4>Belichtungszeit</h4><p class="small">Sterne: so lange, bis sie Striche ziehen würden – der Belichtungs-Helfer unten rechnet es aus (beim Handy oft 10–20 s). Mond: sehr kurz, etwa 1/125–1/500 s, sonst ist er nur ein weißer Fleck.</p></div></li><li class="glass af-step reveal"><span class="af-num">5</span><span class="af-ic" aria-hidden="true">♾️</span><div><h4>Fokus auf unendlich</h4><p class="small">Der Autofokus findet nachts nichts. Stelle im Pro-Modus den manuellen Fokus auf ∞ oder tippe auf einen hellen Stern bzw. den Mond und sperre den Fokus (AE/AF-Sperre). Prüfe mit der Lupe am Display.</p></div></li><li class="glass af-step reveal"><span class="af-num">6</span><span class="af-ic" aria-hidden="true">⏲️</span><div><h4>Selbstauslöser</h4><p class="small">Schon das Antippen wackelt. Nutze 3–10 s Selbstauslöser, eine Bluetooth-Fernbedienung oder die Lautstärketaste am Kopfhörerkabel.</p></div></li><li class="glass af-step reveal"><span class="af-num">7</span><span class="af-ic" aria-hidden="true">🗂️</span><div><h4>RAW speichern</h4><p class="small">Im RAW-Format (DNG, bei iPhones ProRAW) bleiben viel mehr Helligkeits- und Farbinfos erhalten – ideal für die Bearbeitung. Die Dateien sind dafür deutlich größer.</p></div></li></ol>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-foto-motive" data-fold="foto-motive" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-foto-motive" aria-expanded="true" aria-controls="fb-foto-motive"><span class="fold-title">🌕 Motive: Mond, Milchstraße, Sternspuren &amp; Bearbeitung</span><span class="fold-sum">Mit animierter Afokal-Methode</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-foto-motive" role="region" aria-labelledby="fh-foto-motive"><div class="fold-inner">
-    <div class="grid af-motive">
+<article class="lesson" id="lektion-foto-motive" data-lesson="foto-motive" data-level="2" data-min="4" data-icon="🌕" data-aliases="fold-foto-motive" aria-labelledby="lt-foto-motive">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 20 · ca. 4 Min.</span></p>
+    <h2 id="lt-foto-motive"><span class="lesson-ic" aria-hidden="true">🌕</span> Motive: Mond, Milchstraße & Sternspuren</h2>
+    <p class="muted lesson-intro">Vom Mond durchs Okular bis zu kreisenden Sternspuren – und wie du deine Bilder danach bearbeitest.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="grid af-motive">
       <div class="card glass af-card reveal">
         <svg class="af-art afocal" viewBox="0 0 320 170" aria-hidden="true">
           <rect x="18" y="70" width="190" height="34" rx="8" class="af-tube"/><rect x="200" y="62" width="22" height="50" rx="5" class="af-tube-end"/>
@@ -525,13 +584,91 @@
         <p class="small">Schon wenige Regler machen viel aus: Weißabgleich etwas kühler (ca. 3.800–4.500 K), Kontrast und „Struktur/Klarheit“ leicht hoch, Lichter runter, Rauschreduzierung behutsam. Gut geeignet sind z. B. <i>Snapseed</i> oder <i>Lightroom Mobile</i>. Mehrere gleiche Aufnahmen zu stapeln („Stacking“) senkt das Rauschen deutlich.</p>
       </div>
     </div>
-    </div></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-belichtung" data-fold="belichtung" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-belichtung" aria-expanded="true" aria-controls="fb-belichtung"><span class="fold-title">⏱️ Belichtungs-Helfer: 500er- und NPF-Regel</span><span class="fold-sum">Wie lange belichten, bevor Sterne zu Strichen werden?</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-belichtung" role="region" aria-labelledby="fh-belichtung"><div class="fold-inner">
-    <div class="calc-layout ex-layout">
+<article class="lesson" id="lektion-dunkle-orte" data-lesson="dunkle-orte" data-level="2" data-min="3" data-icon="🗺️" data-aliases="fold-dunkle-orte" aria-labelledby="lt-dunkle-orte">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 21 · ca. 3 Min.</span></p>
+    <h2 id="lt-dunkle-orte"><span class="lesson-ic" aria-hidden="true">🗺️</span> Dunkle Orte finden</h2>
+    <p class="muted lesson-intro">Schon ein paar Kilometer machen einen riesigen Unterschied. So findest du einen guten Beobachtungsplatz in deiner Nähe.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="grid cards-3">
+      <div class="card glass tip reveal lpm-card"><div class="tip-ic">🗺️</div><h4>Lichtverschmutzungskarte</h4><p class="small">Auf der Karte von <b>lightpollutionmap.info</b> siehst du, wo es um dich herum dunkel ist. Suche grüne, blaue oder graue Flecken – je dunkler, desto besser.</p><a class="btn btn-primary lpm-btn" href="https://www.lightpollutionmap.info/" target="_blank" rel="noopener">🌍 Karte öffnen <span aria-hidden="true">↗</span></a></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🚗</div><h4>Raus aus der Lichtglocke</h4><p class="small">Schon 20–40 km Abstand von einer Großstadt machen einen riesigen Unterschied. Fahre möglichst so, dass die Stadt hinter dir (im Norden) liegt – dann ist der Süden dunkel.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⛰️</div><h4>Höhe &amp; freie Sicht</h4><p class="small">Hügel, Felder und Mittelgebirge über dem Dunst sind ideal. Meide Täler mit Nebel, Straßenlaternen und beleuchtete Gewächshäuser – und prüfe vorher, ob du dort nachts sein darfst.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Mond &amp; Wetter beachten</h4><p class="small">Der dunkelste Ort hilft wenig bei Vollmond. Plane um Neumond herum und prüfe den Beobachtungs-Score auf <a href="heute.html#wetter">„Heute sichtbar“</a>.</p></div>
+    </div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-sternenparks" data-lesson="sternenparks" data-level="2" data-min="3" data-icon="🌲" data-aliases="fold-sternenparks" aria-labelledby="lt-sternenparks">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv2">Stufe 2 · Fortgeschritten</span><span class="ls-meta">Lektion 22 · ca. 3 Min.</span></p>
+    <h2 id="lt-sternenparks"><span class="lesson-ic" aria-hidden="true">🌲</span> Sternenparks in Deutschland</h2>
+    <p class="muted lesson-intro">Einige Regionen schützen ihre Nacht ganz offiziell – dort ist der Himmel besonders dunkel.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="grid cards-3 parks" data-more-mobile="3" data-more-label="Sternenparks"><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Westhavelland</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Erstes Lichtschutzgebiet Deutschlands, ca. 70 km westlich von Berlin – mit Beobachtungsplatz bei Gülpe/Parey.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Nationalpark Eifel</h4><p class="muted small">Nordrhein-Westfalen</p></div></div><p class="small">Rund um Vogelsang und den Nationalpark; regelmäßige Sternführungen.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Biosphärenreservat Rhön</h4><p class="muted small">Bayern · Hessen · Thüringen</p></div></div><p class="small">Weite Hochflächen mit freiem Horizont, z. B. Wasserkuppe und Lange Rhön.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Winklmoosalm</h4><p class="muted small">Bayern (Reit im Winkl)</p></div></div><p class="small">Auf rund 1.200 m in den Chiemgauer Alpen – Bergkulisse und kaum Lichtglocken.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2018</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Bayerischer Wald</h4><p class="muted small">Bayern</p></div></div><p class="small">Nationalpark Bayerischer Wald und Teile des Naturparks – ein großes, sehr dunkles Waldgebiet an der Grenze zu Tschechien.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2025</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Kyritz-Ruppiner Heide</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Ehemaliger Truppenübungsplatz, heute weite Heidelandschaft unter dunklem Himmel.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2026</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Naturpark Nossentiner/Schwinzer Heide</h4><p class="muted small">Mecklenburg-Vorpommern</p></div></div><p class="small">Erster zertifizierter Sternenpark in Mecklenburg-Vorpommern – Seen, Wälder und Heide.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2025/26</span></div></article></div>
+    <div class="glass park-comm reveal"><h4>✨ Dazu kommen „Dark Sky Communities“ – Orte, die ihre Beleuchtung sternfreundlich umgestellt haben:</h4><ul><li><b>Fulda</b> <span class="muted">(Hessen, seit 2019)</span> – erste „Sternenstadt“ Deutschlands</li><li><b>Spiekeroog</b> <span class="muted">(Niedersachsen, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Pellworm</b> <span class="muted">(Schleswig-Holstein, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Eiweiler</b> <span class="muted">(Saarland, seit 2024)</span> – Sternendorf</li></ul>
+    <p class="muted small">Stand: 2026, ohne Gewähr. Die aktuelle offizielle Liste findest du bei <a href="https://darksky.org/locations/germany/" target="_blank" rel="noopener">DarkSky International ↗</a>. Viele Parks bieten Führungen an – oft mit Teleskopen zum Durchschauen.</p></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-okular-rechner" data-lesson="okular-rechner" data-level="3" data-min="7" data-icon="🧮" data-aliases="rechner fold-okular-rechner" aria-labelledby="lt-okular-rechner">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv3">Stufe 3 · Experte</span><span class="ls-meta">Lektion 23 · ca. 7 Min.</span></p>
+    <h2 id="lt-okular-rechner"><span class="lesson-ic" aria-hidden="true">🧮</span> Okular-Rechner: Austrittspupille, Auflösung & Co.</h2>
+    <p class="muted lesson-intro">Jetzt wird gerechnet: Gib Brennweite und Öffnung deines Teleskops ein und wähle ein Okular. Der Rechner zeigt Vergrößerung, Gesichtsfeld, Austrittspupille, Grenzgröße und Auflösung – und warnt bei zu viel Vergrößerung.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="calc-layout">
+      <form class="glass calc-form" id="ocForm" autocomplete="off" onsubmit="return false">
+        <label class="field">Teleskop-Vorlage
+          <select id="ocPreset"></select>
+        </label>
+        <div class="field-row">
+          <label class="field">Brennweite Teleskop (mm)<input id="ocF" type="number" inputmode="decimal" min="100" max="5000" step="1" value="1200"></label>
+          <label class="field">Öffnung (mm)<input id="ocD" type="number" inputmode="decimal" min="20" max="1000" step="1" value="150"></label>
+        </div>
+        <div class="field-row">
+          <label class="field">Okular-Brennweite (mm)<input id="ocE" type="number" inputmode="decimal" min="2" max="60" step="0.5" value="25"></label>
+          <label class="field">Eigenes Gesichtsfeld (°)<input id="ocA" type="number" inputmode="decimal" min="30" max="120" step="1" value="52"></label>
+        </div>
+        <div class="oc-chips" id="ocEyes" aria-label="Okular schnell wählen"></div>
+        <label class="field">Barlowlinse
+          <select id="ocB"><option value="1">keine</option><option value="1.5">1,5×</option><option value="2">2×</option><option value="2.5">2,5×</option><option value="3">3×</option><option value="5">5×</option></select>
+        </label>
+      </form>
+      <div class="glass calc-out">
+        <div class="oc-res" id="ocRes" aria-live="polite"></div>
+        <div class="oc-warn" id="ocWarn" aria-live="polite"></div>
+      </div>
+      <div class="glass oc-view">
+        <div class="oc-view-head"><h4>👁️ So groß erscheint es im Okular</h4><div class="oc-obj" id="ocObj" role="tablist" aria-label="Objekt wählen"></div></div>
+        <div class="oc-svg-wrap"><svg id="ocSvg" viewBox="0 0 300 300" role="img" aria-label="Simuliertes Gesichtsfeld im Okular"></svg></div>
+        <p class="muted small" id="ocViewTxt"></p>
+      </div>
+    </div>
+    <h3 class="lesson-sub">📖 Die Fachbegriffe</h3>
+    <div class="grid cards-3">
+      <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Austrittspupille</h4><p class="small">Der Lichtkreis hinter dem Okular: Öffnung ÷ Vergrößerung. 2–4 mm passen für fast alles, 5–7 mm für großflächige Nebel. Über ~7 mm verschenkst du Licht, denn größer wird die Pupille im Dunkeln kaum (mit dem Alter eher 5–6 mm).</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">➗</div><h4>Öffnungsverhältnis</h4><p class="small">Brennweite ÷ Öffnung, z. B. f/8. Kleine Zahl („schnell“, f/4–f/5) = großes Feld, gut für Deep-Sky und Fotos. Große Zahl (f/10–f/15) = hohe Vergrößerung mit bequemen Okularen, ideal für Mond und Planeten.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⭐</div><h4>Grenzgröße &amp; Auflösung</h4><p class="small">Mehr Öffnung = mehr Licht (schwächere Sterne) und feinere Details. Die Werte hier sind Faustformeln für einen dunklen Himmel und ruhige Luft – in der Stadt siehst du 1–3 Größenklassen weniger.</p></div>
+    </div>
+    <div class="glass lesson-check" data-why="Genau – als Faustregel etwa das Doppelte der Öffnung in mm: 2 × 130 = 260×."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Ein Teleskop hat 130 mm Öffnung. Wie hoch ist die maximal sinnvolle Vergrößerung ungefähr?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">etwa 65×</button><button class="quiz-opt" type="button" data-ok="1">etwa 260×</button><button class="quiz-opt" type="button" data-ok="0">etwa 1000×</button></div><p class="lc-msg" aria-live="polite"></p></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-belichtung" data-lesson="belichtung" data-level="3" data-min="5" data-icon="⏱️" data-aliases="fold-belichtung" aria-labelledby="lt-belichtung">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv3">Stufe 3 · Experte</span><span class="ls-meta">Lektion 24 · ca. 5 Min.</span></p>
+    <h2 id="lt-belichtung"><span class="lesson-ic" aria-hidden="true">⏱️</span> Belichtungszeit: 500er- und NPF-Regel</h2>
+    <p class="muted lesson-intro">Wie lange darfst du belichten, bevor die Erddrehung die Sterne zu Strichen zieht? Die 500er-Regel ist die grobe Faustformel, die NPF-Regel die genauere für moderne Sensoren.</p>
+  </header>
+  <div class="lesson-body">
+        <div class="calc-layout ex-layout">
       <form class="glass calc-form" id="exForm" autocomplete="off" onsubmit="return false">
         <label class="field">Kamera-Vorlage<select id="exPreset"></select></label>
         <div class="field-row">
@@ -557,63 +694,71 @@
         <p class="small" id="exVerdict" aria-live="polite"></p>
       </div>
     </div>
-    </div></div>
   </div>
+</article>
 
-</section>
-
-
-<!-- LICHTVERSCHMUTZUNG -->
-<section class="section" id="dunkler-himmel">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">07</span>Lichtverschmutzung &amp; dunkle Orte</p>
-    <h2>Wie dunkel ist <span class="grad">dein Himmel</span>?</h2>
-    <p class="muted">In Großstädten siehst du oft nur ein paar Dutzend Sterne, unter einem wirklich dunklen Himmel Tausende. Die Bortle-Skala beschreibt, wie hell der Nachthimmel ist – probier sie aus.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-bortle" data-fold-link="bortle">🎚️ Bortle-Skala</a><a class="chip" href="#fold-dunkle-orte" data-fold-link="dunkle-orte">🧭 Dunkle Orte finden</a><a class="chip" href="#fold-sternenparks" data-fold-link="sternenparks">🌲 Sternenparks</a><button class="chip ghost" type="button" data-fold-all="dunkler-himmel" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="fold reveal" id="fold-bortle" data-fold="bortle" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-bortle" aria-expanded="true" aria-controls="fb-bortle"><span class="fold-title">🎚️ Die Bortle-Skala zum Ausprobieren</span><span class="fold-sum">Von 1 (perfekt dunkel) bis 9 (Innenstadt)</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-bortle" role="region" aria-labelledby="fh-bortle"><div class="fold-inner">
-    <div class="bortle-layout">
-      <div class="glass bortle-stage">
-        <canvas id="bortleCanvas" aria-label="Simulierter Nachthimmel je nach Bortle-Klasse" role="img"></canvas>
-        <div class="bortle-badge" id="bortleBadge"></div>
+<article class="lesson" id="lektion-bau-puzzle" data-lesson="bau-puzzle" data-level="3" data-min="4" data-icon="🧩" data-aliases="fold-games games" aria-labelledby="lt-bau-puzzle">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv3">Stufe 3 · Experte</span><span class="ls-meta">Lektion 25 · ca. 4 Min.</span></p>
+    <h2 id="lt-bau-puzzle"><span class="lesson-ic" aria-hidden="true">🧩</span> Bau-Puzzle: Beschrifte das Teleskop</h2>
+    <p class="muted lesson-intro">Kennst du alle Bauteile? Ordne die Begriffe den richtigen Nummern zu – ohne Spickzettel.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass game" id="dndGame">
+      <h3>🧩 Bau-Spiel: Beschrifte das Teleskop</h3>
+      <p class="muted small">Ziehe die Begriffe auf die passenden Nummern (am Handy: antippen und dann Zielnummer antippen).</p>
+      <div class="dnd-area">
+        <div class="dnd-figure">
+          <svg viewBox="0 0 600 460" class="dnd-svg" aria-hidden="true">
+            <use href="#scopeClone"/>
+          </svg>
+          <div class="dnd-targets" id="dndTargets"></div>
+        </div>
+        <div class="dnd-bank" id="dndBank"></div>
       </div>
-      <div class="glass bortle-info">
-        <label class="field bortle-slider">Bortle-Klasse: <b id="bortleVal">4</b>
-          <input id="bortleRange" type="range" min="1" max="9" step="1" value="4" aria-label="Bortle-Klasse von 1 bis 9">
-        </label>
-        <div class="bortle-ticks" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
-        <div id="bortleText" aria-live="polite"></div>
-      </div>
+      <div class="game-foot"><span id="dndScore">0 / 7 richtig</span><button class="chip" id="dndReset">Neu starten</button></div>
     </div>
-    </div></div>
   </div>
+</article>
 
-  <div class="fold reveal" id="fold-dunkle-orte" data-fold="dunkle-orte" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-dunkle-orte" aria-expanded="true" aria-controls="fb-dunkle-orte"><span class="fold-title">🧭 Dunkle Orte finden &amp; Augen anpassen</span><span class="fold-sum">Lichtverschmutzungskarte, Tipps, Dunkeladaption</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-dunkle-orte" role="region" aria-labelledby="fh-dunkle-orte"><div class="fold-inner">
+<article class="lesson" id="lektion-profi-tipps" data-lesson="profi-tipps" data-level="3" data-min="3" data-icon="🌙" data-aliases="fold-pro-tipps" aria-labelledby="lt-profi-tipps">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv3">Stufe 3 · Experte</span><span class="ls-meta">Lektion 26 · ca. 3 Min.</span></p>
+    <h2 id="lt-profi-tipps"><span class="lesson-ic" aria-hidden="true">🌙</span> Profi-Tipps fürs Star-Hopping</h2>
+    <p class="muted lesson-intro">So arbeiten erfahrene Beobachter: systematisch, Jahreszeit für Jahreszeit – und mit Stift und Papier.</p>
+  </header>
+  <div class="lesson-body">
     <div class="grid cards-3">
-      <div class="card glass tip reveal lpm-card"><div class="tip-ic">🗺️</div><h4>Lichtverschmutzungskarte</h4><p class="small">Auf der Karte von <b>lightpollutionmap.info</b> siehst du, wo es um dich herum dunkel ist. Suche grüne, blaue oder graue Flecken – je dunkler, desto besser.</p><a class="btn btn-primary lpm-btn" href="https://www.lightpollutionmap.info/" target="_blank" rel="noopener">🌍 Karte öffnen <span aria-hidden="true">↗</span></a></div>
-      <div class="card glass tip reveal"><div class="tip-ic">🚗</div><h4>Raus aus der Lichtglocke</h4><p class="small">Schon 20–40 km Abstand von einer Großstadt machen einen riesigen Unterschied. Fahre möglichst so, dass die Stadt hinter dir (im Norden) liegt – dann ist der Süden dunkel.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">⛰️</div><h4>Höhe &amp; freie Sicht</h4><p class="small">Hügel, Felder und Mittelgebirge über dem Dunst sind ideal. Meide Täler mit Nebel, Straßenlaternen und beleuchtete Gewächshäuser – und prüfe vorher, ob du dort nachts sein darfst.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Mond &amp; Wetter beachten</h4><p class="small">Der dunkelste Ort hilft wenig bei Vollmond. Plane um Neumond herum und prüfe den Beobachtungs-Score auf <a href="heute.html#wetter">„Heute sichtbar“</a>.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Dunkeladaption: 20–30 Minuten</h4><p class="small">So lange brauchen deine Augen, bis sie richtig empfindlich sind. Nutze nur <b>rotes Licht</b> (Stirnlampe oder Rotlicht-Modus), dimme das Handy maximal – ein einziger weißer Lichtblitz kostet dich viele Minuten.</p><button class="btn btn-ghost red-btn" type="button" data-red-toggle>🔴 Rotlicht-Modus</button></div>
-      <div class="card glass tip reveal"><div class="tip-ic">👀</div><h4>Indirektes Sehen</h4><p class="small">Schau bei lichtschwachen Objekten knapp daneben: Am Rand der Netzhaut sitzen die lichtempfindlichen Stäbchen. Ein Nebel, den du direkt nicht siehst, taucht so plötzlich auf.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🧭</div><h4>Vom Bekannten zum Unbekannten</h4><p>Lerne nie ein Sternbild isoliert. Hangle dich immer von einem bekannten Wegweiser zum nächsten – das nennt man <b>Star-Hopping</b>.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">📅</div><h4>Eine Jahreszeit nach der anderen</h4><p>Jeden Monat gehen Sterne etwa 2 Stunden früher auf. Lerne pro Jahreszeit 2–3 Sternbilder – nach einem Jahr kennst du den ganzen Himmel.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">✏️</div><h4>Zeichnen statt Fotografieren</h4><p>Skizziere, was du siehst. Beim Zeichnen prägen sich Muster und Abstände viel besser ein als beim Knipsen.</p></div>
     </div>
-    </div></div>
+  </div>
+</article>
+
+<article class="lesson" id="lektion-himmelshelligkeit" data-lesson="himmelshelligkeit" data-level="3" data-min="4" data-icon="📏" data-aliases="" aria-labelledby="lt-himmelshelligkeit">
+  <header class="lesson-head">
+    <p class="eyebrow"><span class="lv-badge lv3">Stufe 3 · Experte</span><span class="ls-meta">Lektion 27 · ca. 4 Min.</span></p>
+    <h2 id="lt-himmelshelligkeit"><span class="lesson-ic" aria-hidden="true">📏</span> Himmelshelligkeit messen: NELM & SQM</h2>
+    <p class="muted lesson-intro">Wie dunkel ein Himmel ist, lässt sich auch in Zahlen ausdrücken. So vergleichen Astronomen Beobachtungsorte weltweit.</p>
+  </header>
+  <div class="lesson-body">
+    <div class="glass lesson-note"><div class="lesson-points">
+    <div><span>⭐</span><p><b>NELM (Naked Eye Limiting Magnitude):</b> die Helligkeit des schwächsten Sterns, den du mit bloßem Auge gerade noch siehst. Je größer die Zahl, desto dunkler der Himmel: In der Innenstadt ≈ 4 mag, unter perfektem Himmel bis ≈ 8 mag. Tipp: Zähle die Sterne in einem bekannten Sternbild und vergleiche mit einer Sternkarte.</p></div>
+    <div><span>📟</span><p><b>SQM (Sky Quality Meter):</b> ein kleines Messgerät, das die Himmelshelligkeit in „Größenklassen pro Quadratbogensekunde“ (mag/″²) misst. Auch hier gilt: größer = dunkler. 22,0 ist ein praktisch perfekter Himmel, unter 18 ein Stadthimmel.</p></div>
+    <div><span>🧮</span><p><b>Magnituden sind logarithmisch:</b> 5 Größenklassen entsprechen einem Faktor 100 in der Helligkeit, eine Größenklasse ≈ Faktor 2,5. Ein Himmel mit SQM 19 ist also rund 16-mal heller als einer mit SQM 22.</p></div>
+  </div></div>
+    <div class="glass st-table-wrap"><div class="bortle-table" id="bortleTable" role="table" aria-label="Bortle-Klassen mit Grenzgröße und SQM"></div></div>
+    <p class="muted small center-note">Nach John E. Bortle (Sky &amp; Telescope, 2001); Werte gerundet. <a href="#lektion-bortle" data-lesson-link="bortle">← Zur Bortle-Simulation</a></p>
+  </div>
+</article>
   </div>
 
-  <div class="fold reveal" id="fold-sternenparks" data-fold="sternenparks" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-sternenparks" aria-expanded="true" aria-controls="fb-sternenparks"><span class="fold-title">🌲 Sternenparks in Deutschland</span><span class="fold-sum">Offiziell anerkannt von DarkSky International</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-sternenparks" role="region" aria-labelledby="fh-sternenparks"><div class="fold-inner">
-    <div class="grid cards-3 parks" data-more-mobile="3" data-more-label="Sternenparks"><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Westhavelland</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Erstes Lichtschutzgebiet Deutschlands, ca. 70 km westlich von Berlin – mit Beobachtungsplatz bei Gülpe/Parey.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Nationalpark Eifel</h4><p class="muted small">Nordrhein-Westfalen</p></div></div><p class="small">Rund um Vogelsang und den Nationalpark; regelmäßige Sternführungen.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Biosphärenreservat Rhön</h4><p class="muted small">Bayern · Hessen · Thüringen</p></div></div><p class="small">Weite Hochflächen mit freiem Horizont, z. B. Wasserkuppe und Lange Rhön.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2014</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Winklmoosalm</h4><p class="muted small">Bayern (Reit im Winkl)</p></div></div><p class="small">Auf rund 1.200 m in den Chiemgauer Alpen – Bergkulisse und kaum Lichtglocken.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2018</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Sternenpark Bayerischer Wald</h4><p class="muted small">Bayern</p></div></div><p class="small">Nationalpark Bayerischer Wald und Teile des Naturparks – ein großes, sehr dunkles Waldgebiet an der Grenze zu Tschechien.</p><div class="park-tags"><span class="pill ok">Dark Sky Reserve</span><span class="pill park-year">seit 2025</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Kyritz-Ruppiner Heide</h4><p class="muted small">Brandenburg</p></div></div><p class="small">Ehemaliger Truppenübungsplatz, heute weite Heidelandschaft unter dunklem Himmel.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2026</span></div></article><article class="card glass park reveal"><div class="park-top"><span class="park-ic" aria-hidden="true">🌌</span><div><h4>Naturpark Nossentiner/Schwinzer Heide</h4><p class="muted small">Mecklenburg-Vorpommern</p></div></div><p class="small">Erster zertifizierter Sternenpark in Mecklenburg-Vorpommern – Seen, Wälder und Heide.</p><div class="park-tags"><span class="pill ok">Dark Sky Park</span><span class="pill park-year">seit 2025/26</span></div></article></div>
-    <div class="glass park-comm reveal"><h4>✨ Dazu kommen „Dark Sky Communities“ – Orte, die ihre Beleuchtung sternfreundlich umgestellt haben:</h4><ul><li><b>Fulda</b> <span class="muted">(Hessen, seit 2019)</span> – erste „Sternenstadt“ Deutschlands</li><li><b>Spiekeroog</b> <span class="muted">(Niedersachsen, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Pellworm</b> <span class="muted">(Schleswig-Holstein, seit 2021)</span> – Sterneninsel im Wattenmeer</li><li><b>Eiweiler</b> <span class="muted">(Saarland, seit 2024)</span> – Sternendorf</li></ul>
-    <p class="muted small">Stand: 2026, ohne Gewähr. Die aktuelle offizielle Liste findest du bei <a href="https://darksky.org/locations/germany/" target="_blank" rel="noopener">DarkSky International ↗</a>. Viele Parks bieten Führungen an – oft mit Teleskopen zum Durchschauen.</p></div>
-    </div></div>
-  </div>
-
+  <nav class="lesson-nav glass" id="lessonNav" aria-label="Lektionen blättern" hidden>
+    <button class="btn btn-ghost ln-prev" type="button" id="lnPrev">← <span>Zurück</span></button>
+    <button class="chip ln-done" type="button" id="lnDone" aria-pressed="false">○ Als erledigt markieren</button>
+    <button class="btn btn-primary ln-next" type="button" id="lnNext"><span>Weiter</span> →</button>
+  </nav>
 </section>
 
 </main>
@@ -647,23 +792,23 @@
   </div>
 </div>
 <button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
-<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#sterne-lesen" data-spy="sterne-lesen"><span>Sterne lesen</span></a><a href="#einsteiger" data-spy="einsteiger"><span>Teleskop</span></a><a href="#ratgeber" data-spy="ratgeber"><span>Ratgeber</span></a><a href="#rechner" data-spy="rechner"><span>Okular-Rechner</span></a><a href="#himmelsobjekte" data-spy="himmelsobjekte"><span>Himmelsobjekte</span></a><a href="#astrofoto" data-spy="astrofoto"><span>Astrofoto</span></a><a href="#dunkler-himmel" data-spy="dunkler-himmel"><span>Dunkler Himmel</span></a></nav>
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=9"></script>
-<script src="js/data/sky-data.js?v=9"></script>
-<script src="js/data/constellation-info.js?v=9"></script>
-<script src="js/data/cities.js?v=9"></script>
-<script src="js/core.js?v=9"></script>
-<script src="js/background.js?v=9"></script>
-<script src="js/telescope.js?v=9"></script>
-<script src="js/learn.js?v=9"></script>
-<script src="js/ratgeber.js?v=9"></script>
-<script src="js/rechner.js?v=9"></script>
-<script src="js/objekte.js?v=9"></script>
-<script src="js/bortle.js?v=9"></script>
-<script src="js/ux.js?v=9"></script>
-<script src="js/main.js?v=9"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=10"></script>
+<script src="js/data/sky-data.js?v=10"></script>
+<script src="js/data/constellation-info.js?v=10"></script>
+<script src="js/data/cities.js?v=10"></script>
+<script src="js/core.js?v=10"></script>
+<script src="js/background.js?v=10"></script>
+<script src="js/course.js?v=10"></script>
+<script src="js/telescope.js?v=10"></script>
+<script src="js/learn.js?v=10"></script>
+<script src="js/ratgeber.js?v=10"></script>
+<script src="js/rechner.js?v=10"></script>
+<script src="js/objekte.js?v=10"></script>
+<script src="js/bortle.js?v=10"></script>
+<script src="js/ux.js?v=10"></script>
+<script src="js/main.js?v=10"></script>
 </body>
 </html>
