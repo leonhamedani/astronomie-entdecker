@@ -829,3 +829,128 @@ html,body{overflow-x:clip}
 @media (max-width:1180px){.nav-links{background:rgba(10,12,34,.97)}}
 @media (max-width:1180px){.nav-links{background:linear-gradient(180deg,#0d1030,#090b22);backdrop-filter:none;-webkit-backdrop-filter:none}}
 @media (pointer:coarse){.part-pills .chip{min-height:46px;height:46px}}
+
+/* ===================== v7: Unterseiten ===================== */
+/* Kopfbereich der Unterseiten */
+.page-hero{padding:6.6rem clamp(1rem,4vw,3rem) 0;max-width:1080px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.page-hero-inner{padding:1.7rem clamp(1.2rem,4vw,3rem) 1.5rem;border-radius:28px}
+.page-hero h1{font-size:clamp(2.1rem,4.8vw,3.5rem);font-weight:900;margin-bottom:.3em;text-shadow:0 0 50px rgba(124,156,255,.3)}
+.page-hero .lead{margin:0 auto 1.1rem;font-size:clamp(1rem,1.7vw,1.15rem);max-width:720px}
+.page-hero .eyebrow{margin-bottom:.6em}
+.page-hero + .section{padding-top:clamp(1.4rem,3vw,2.2rem)}
+.page-hero .sec-links{margin-top:1rem}
+.page-subnav .chip.active{background:rgba(138,255,214,.16);border-color:rgba(138,255,214,.5);box-shadow:0 0 16px -6px var(--acc2)}
+
+/* Standort-Leiste & -Panel */
+.loc-bar{display:inline-flex;align-items:center;gap:.8rem;padding:.45rem .5rem .45rem .9rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--glass-b);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);text-align:left;max-width:100%}
+.loc-bar-ic{font-size:1.25rem}
+.loc-bar-txt{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.loc-bar-txt b{font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loc-bar-txt small{color:var(--muted);font-size:.78rem}
+.loc-panel{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.loc-panel .loc-bar{border-radius:18px;padding:.6rem 1.1rem}
+.loc-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.loc-actions .btn{padding:.7rem 1.2rem}
+.loc-status:empty{display:none}
+.loc-panel p{margin:0}
+
+/* Startseite: Kacheln zu den Unterseiten */
+.page-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+.page-card{display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:var(--ink);padding:1.6rem 1.4rem 1.4rem;overflow:hidden;--pc:#7c9cff}
+.page-card.pc-sky{--pc:#7c9cff}.page-card.pc-tonight{--pc:#ffd76a}.page-card.pc-planets{--pc:#ff9a6a}.page-card.pc-learn{--pc:#8affd6}
+.page-card h3{font-size:1.3rem;margin:.4rem 0 0}
+.page-card p{margin:0;color:#cfd6f7;font-size:.95rem}
+.pc-orb{width:68px;height:68px;border-radius:22px;display:grid;place-items:center;font-size:2rem;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 45%),linear-gradient(150deg,color-mix(in srgb,var(--pc) 55%,transparent),rgba(20,24,60,.6));border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 30px -10px var(--pc),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.page-card:hover .pc-orb{transform:translateY(-3px) rotate(-6deg) scale(1.06)}
+.pc-list{list-style:none;margin:.3rem 0 0;padding:0;display:grid;gap:.3rem;font-size:.86rem;color:var(--muted)}
+.pc-list li::before{content:"✦";color:var(--pc);margin-right:.45rem;font-size:.75rem}
+.pc-go{margin-top:auto;padding-top:.8rem;font-weight:700;color:var(--pc);display:inline-flex;gap:.4rem;align-items:center}
+.pc-go span{transition:transform .25s}
+.page-card:hover .pc-go span{transform:translateX(5px)}
+.page-card:focus-visible{outline:2px solid var(--acc2);outline-offset:3px}
+.page-card::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--pc) 30%,transparent),transparent 70%);pointer-events:none}
+
+/* Startseite: Heute Nacht auf einen Blick */
+.glance{display:grid;grid-template-columns:1.25fr 1fr;gap:1.4rem;padding:1.5rem}
+.gl-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.gl-tile{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--glass-b)}
+.gl-ic{font-size:1.8rem;line-height:1}
+.gl-tile b{display:block;font-size:1.15rem;color:var(--gold);margin:.15rem 0}
+.gl-l{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.gl-tile small{display:block;font-size:.82rem;color:#c8d0f5}
+.gl-side h3{font-size:1.15rem;margin-bottom:.7rem}
+.gl-list{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.5rem}
+.gl-list li{display:grid;grid-template-columns:auto 1fr;column-gap:.7rem;align-items:center;padding:.55rem .75rem;border-radius:12px;background:rgba(255,255,255,.035)}
+.gl-list li>span{grid-column:2;font-size:.85rem;color:var(--muted)}
+.gl-list li .gl-pos{color:#cfd6f7}
+.gl-list .pl-dot.sm{width:22px;height:22px;grid-row:span 3}
+.gl-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.gl-actions .btn{padding:.7rem 1.1rem;font-size:.95rem}
+
+/* Footer */
+.foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem .9rem;margin-bottom:1rem;font-weight:600}
+.foot-nav a,.footer a{color:var(--ink);text-decoration:none}
+.footer p a{text-decoration:underline;text-decoration-color:rgba(160,185,255,.4);text-underline-offset:2px}
+.foot-nav a:hover,.footer a:hover{color:var(--acc2)}
+.foot-nav a[aria-current]{color:var(--acc2)}
+.footer p{max-width:900px;margin-left:auto;margin-right:auto}
+.center-note{text-align:center;margin-top:1rem}
+.center-note a{color:var(--acc2)}
+
+@media (max-width:1100px){.page-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:980px){.glance{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .page-hero{padding:5.6rem .8rem 0;text-align:left}
+  .page-hero-inner{padding:1.3rem 1.1rem;border-radius:22px}
+  .page-hero h1{font-size:clamp(1.8rem,8vw,2.3rem)}
+  .page-hero .lead{margin-left:0;font-size:1rem}
+  .page-hero .sec-links{margin-right:-1.1rem}
+  .loc-panel{align-items:stretch}
+  .loc-actions{flex-direction:column}
+  .loc-actions .btn{width:100%}
+  .page-cards{grid-template-columns:1fr;gap:.9rem}
+  .page-card{padding:1.2rem 1.1rem;display:grid;grid-template-columns:auto 1fr;column-gap:1rem;row-gap:.35rem}
+  .page-card .pc-orb{grid-row:span 2;width:56px;height:56px;font-size:1.6rem;border-radius:18px}
+  .page-card h3{margin:0;align-self:end}
+  .page-card p{grid-column:2}
+  .page-card .pc-list{grid-column:1/-1}
+  .page-card .pc-go{grid-column:1/-1;padding-top:.4rem}
+  .glance{padding:1rem}
+  .gl-tiles{grid-template-columns:1fr 1fr;gap:.6rem}
+  .gl-tile{flex-direction:column;gap:.4rem;padding:.8rem}
+  .gl-tile b{font-size:1rem}
+  .gl-actions .btn{flex:1 1 100%}
+}
+/* v7: leerer Toast ragt nicht mehr ins Bild */
+.toast{transform:translate(-50%,calc(100% + 3rem));visibility:hidden;transition:transform .4s cubic-bezier(.2,.9,.3,1.3),visibility 0s .4s}
+.toast.show{visibility:visible;transform:translate(-50%,0);transition:transform .4s cubic-bezier(.2,.9,.3,1.3)}
+/* v7: Sternkarte – kompakter Kopf, damit die Karte gleich sichtbar ist */
+@media (min-width:761px){
+  .page-sternkarte .page-hero-inner{display:grid;grid-template-columns:1fr auto;column-gap:2rem;align-items:center;text-align:left;padding:1.3rem 2rem}
+  .page-sternkarte .page-hero-inner>.eyebrow,.page-sternkarte .page-hero-inner>h1{grid-column:1/-1}
+  .page-sternkarte .page-hero .lead{margin:0;max-width:none}
+  .page-sternkarte .page-hero h1{font-size:clamp(2rem,4vw,3rem)}
+}
+/* v7: Planeten-Seite – 3D-Bühne bleibt beim Lesen der Steckbriefe im Blick */
+@media (min-width:981px){
+  .page-planeten .planet-layout{align-items:start}
+  .page-planeten .planet-stage{position:sticky;top:84px;height:min(620px,calc(100vh - 110px));min-height:460px}
+}
+@media (min-width:981px){
+  .page-planeten .page-hero-inner{padding:1.1rem 2rem 1.2rem}
+  .page-planeten .page-hero h1{font-size:clamp(2rem,3.6vw,2.8rem)}
+  .page-planeten .page-hero .lead{margin-bottom:0}
+  .page-planeten .page-hero + .section{padding-top:1.3rem}
+  .page-planeten .planet-tabs{margin-bottom:1rem}
+  .page-planeten .planet-stage{height:min(540px,calc(100vh - 110px))}
+}
+/* v7: Seitenköpfe auf dem Desktop kompakter – Inhalte rücken nach oben */
+@media (min-width:761px){
+  .page-hero{padding-top:6.2rem}
+  .page-hero-inner{padding:1.2rem 2rem 1.3rem}
+  .page-hero h1{font-size:clamp(2rem,3.8vw,2.9rem)}
+  .page-hero .lead{margin-bottom:.9rem}
+  .page-hero .sec-links{margin-top:.8rem}
+  .page-heute .loc-panel{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.7rem 1rem}
+  .page-heute .loc-panel>p{flex-basis:100%;text-align:center}
+}

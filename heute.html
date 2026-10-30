@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Heute sichtbar – Astronomie Entdecker</title>
+<meta name="description" content="Was ist heute Nacht am Himmel zu sehen? Planeten, helle Sterne, Mond, Wetter-Score und ISS-Überflüge für deinen Standort.">
+<meta name="theme-color" content="#05060f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body class="page-heute">
+<canvas id="bg-stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
+    <a href="index.html"><span class="nl-ic" aria-hidden="true">🏠</span>Start</a>
+    <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
+    <a href="heute.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
+    <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernen &amp; Teleskop</a>
+  </nav>
+  <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
+  <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+</header>
+
+<main id="inhalt">
+<div class="page-hero">
+  <div class="page-hero-inner glass reveal">
+    <p class="eyebrow">Heute sichtbar</p>
+    <h1>Was leuchtet <span class="grad">heute Nacht</span>?</h1>
+    <p class="lead">Wähle einmal deinen Standort – dann siehst du, was heute über dir steht, ob das Wetter mitspielt und wann die ISS vorbeizieht.</p>
+    <div class="loc-panel">
+      <div class="loc-bar" role="group" aria-label="Standort">
+        <span class="loc-bar-ic" aria-hidden="true">📍</span>
+        <span class="loc-bar-txt"><small>Dein Beobachtungsort</small><b data-loc-name>Berlin</b><small data-loc-coords>52,52° N, 13,41° O</small></span>
+      </div>
+      <div class="loc-actions">
+        <button class="btn btn-primary" type="button" data-loc-geo>🛰️ Meinen Standort verwenden</button>
+        <button class="btn btn-ghost" type="button" data-loc-open>🏙️ Stadt oder Koordinaten</button>
+      </div>
+      <p class="muted small loc-status" data-loc-status aria-live="polite"></p>
+      <p class="muted small" data-loc-hint hidden>Noch nichts gewählt – wir zeigen den Himmel über Berlin. Dein Ort wird gespeichert und gilt auch für die Sternkarte.</p>
+    </div>
+    <div class="sec-links page-subnav" aria-label="Auf dieser Seite"><a class="chip" href="#heute-nacht" data-spy-sub="heute-nacht">🌙 Heute Nacht</a><a class="chip" href="#wetter" data-spy-sub="wetter">☁️ Wetter-Check</a><a class="chip" href="#iss" data-spy-sub="iss">🛰️ ISS-Überflüge</a></div>
+  </div>
+</div>
+
+<!-- HEUTE NACHT -->
+<section class="section" id="heute-nacht">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">01</span>Beobachtungsplaner</p>
+    <h2>Heute Nacht <span class="grad">sichtbar</span></h2>
+    <p class="muted" id="tonightSub">Alle Zeiten in deiner Ortszeit.</p>
+    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-hn-planets" data-fold-link="hn-planets">🪐 Planeten</a><a class="chip" href="#fold-hn-stars" data-fold-link="hn-stars">⭐ Helle Sterne</a><a class="chip" href="sternkarte.html#sternbilder">✨ Sternbilder → Sternkarte</a><button class="chip ghost" type="button" data-fold-all="heute-nacht" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
+  </div>
+  <div class="tonight-top">
+    <div class="card glass reveal" id="sunCard"></div>
+    <div class="card glass reveal" id="moonCard"></div>
+  </div>
+  <div class="fold reveal" id="fold-hn-planets" data-fold="hn-planets" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hn-planets" aria-expanded="true" aria-controls="fb-hn-planets"><span class="fold-title">🪐 Planeten</span><span class="fold-sum">Wo und wann du sie heute findest</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-hn-planets" role="region" aria-labelledby="fh-hn-planets"><div class="fold-inner">
+    <div class="grid cards-3" id="planetGrid"></div>
+    </div></div>
+  </div>
+  <div class="fold reveal" id="fold-hn-stars" data-fold="hn-stars" data-open="0" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hn-stars" aria-expanded="false" aria-controls="fb-hn-stars"><span class="fold-title">⭐ Helle Sterne</span><span class="fold-sum">Die hellsten Wegweiser über dem Horizont</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-hn-stars" role="region" aria-labelledby="fh-hn-stars"><div class="fold-inner">
+    <div class="grid cards-4" id="starGrid" data-more="8" data-more-mobile="4" data-more-label="Sterne"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- WETTER -->
+<section class="section" id="wetter">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">02</span>Wetter- &amp; Sichtbarkeits-Check</p>
+    <h2>Lohnt sich <span class="grad">heute Nacht</span>?</h2>
+    <p class="muted">Wolken, Feuchte, Wind, Mondlicht und Dunkelheit – zusammengefasst in einem Beobachtungs-Score für deinen Standort.</p>
+  </div>
+  <div class="weather-top">
+    <div class="glass score-card reveal" id="scoreCard"><div class="wx-loading">⏳ Wetterdaten werden geladen …</div></div>
+    <div class="glass wx-tips reveal" id="wxTips" data-more-mobile="3" data-more-of=".wx-tip-list" data-more-label="Tipps"></div>
+  </div>
+  <div class="fold reveal" id="fold-wx-timeline" data-fold="wx-timeline" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-wx-timeline" aria-expanded="true" aria-controls="fb-wx-timeline"><span class="fold-title">🕒 Stunde für Stunde</span><span class="fold-sum">Score, Wolken, Mond &amp; Temperatur je Stunde</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-wx-timeline" role="region" aria-labelledby="fh-wx-timeline"><div class="fold-inner">
+    <div class="glass wx-timeline-card">
+      <div class="wx-legend"><span><i class="lg lg-good"></i>gut</span><span><i class="lg lg-mid"></i>mittel</span><span><i class="lg lg-bad"></i>schlecht</span><span>☁️ tief · mittel · hoch</span><span>🌙 Mond über Horizont</span></div>
+      <div class="wx-timeline" id="wxTimeline"></div>
+    </div>
+    </div></div>
+  </div>
+  <p class="muted small credit" id="wxSource">Wetterdaten: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0)</p>
+</section>
+
+<!-- ISS -->
+<section class="section" id="iss">
+  <div class="section-head reveal">
+    <p class="eyebrow"><span class="sec-num">03</span>Internationale Raumstation</p>
+    <h2>Die <span class="grad">ISS</span> über dir</h2>
+    <p class="muted">Die ISS rast mit rund 28.000 km/h um die Erde. Wenn sie von der Sonne angestrahlt wird, während es bei dir schon dunkel ist, siehst du sie als hellen, ruhig ziehenden Lichtpunkt – ganz ohne Teleskop.</p>
+  </div>
+  <div class="iss-layout">
+    <div class="glass iss-map-card reveal">
+      <div class="iss-map-wrap"><canvas id="issMap" aria-label="Live-Position der ISS auf der Weltkarte" role="img"></canvas></div>
+      <div class="iss-live" id="issLive">⏳ Bahndaten werden geladen …</div>
+    </div>
+    <div class="glass iss-next reveal" id="issNext"></div>
+  </div>
+  <div class="fold reveal" id="fold-iss-passes" data-fold="iss-passes" data-open="1" data-open-mobile="1">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-iss-passes" aria-expanded="true" aria-controls="fb-iss-passes"><span class="fold-title">📋 Alle Überflüge (10 Tage)</span><span class="fold-sum">Zeiten, Richtung, Höhe &amp; Helligkeit</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-iss-passes" role="region" aria-labelledby="fh-iss-passes"><div class="fold-inner">
+    <div class="iss-controls">
+      <label class="switch"><input type="checkbox" id="issAll"><span class="sw"></span> Auch nicht sichtbare Überflüge zeigen</label>
+      <span class="muted small" id="issTleInfo"></span>
+    </div>
+    <div class="grid cards-3" id="issPasses" data-more="6" data-more-mobile="2" data-more-label="Überflüge"></div>
+    </div></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html" aria-current="page">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernen &amp; Teleskop</a></nav>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
+  <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
+  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
+</footer>
+
+<!-- STANDORT -->
+<div class="modal" id="locModal" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card glass">
+    <button class="modal-close" data-close aria-label="Schließen">×</button>
+    <h3 id="locTitle">📍 Wo stehst du?</h3>
+    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er gilt für alle Seiten und bleibt in deinem Browser – nichts wird gesendet.</p>
+    <button class="btn btn-primary wide" id="btnGeo">🛰️ Meinen Standort verwenden</button>
+    <p class="geo-status" id="geoStatus"></p>
+    <div class="or"><span>oder</span></div>
+    <label class="field">Stadt auswählen
+      <select id="citySelect"></select>
+    </label>
+    <div class="field-row">
+      <label class="field">Breite (°)<input id="latInput" type="number" step="0.001" min="-90" max="90" placeholder="52.52"></label>
+      <label class="field">Länge (°)<input id="lonInput" type="number" step="0.001" min="-180" max="180" placeholder="13.40"></label>
+    </div>
+    <p class="muted small">Nord = positive Breite, Ost = positive Länge. Bei eigenen Koordinaten wird die Zeitzone deines Browsers verwendet.</p>
+    <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
+  </div>
+</div>
+<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#heute-nacht" data-spy="heute-nacht"><span>Heute Nacht</span></a><a href="#wetter" data-spy="wetter"><span>Wetter</span></a><a href="#iss" data-spy="iss"><span>ISS</span></a></nav>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/astronomy.browser.min.js?v=7"></script>
+<script src="js/vendor/satellite.min.js?v=7"></script>
+<script src="js/data/sky-data.js?v=7"></script>
+<script src="js/data/cities.js?v=7"></script>
+<script src="js/data/iss-tle.js?v=7"></script>
+<script src="js/core.js?v=7"></script>
+<script src="js/background.js?v=7"></script>
+<script src="js/tonight.js?v=7"></script>
+<script src="js/weather.js?v=7"></script>
+<script src="js/iss.js?v=7"></script>
+<script src="js/ux.js?v=7"></script>
+<script src="js/main.js?v=7"></script>
+</body>
+</html>

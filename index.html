@@ -4,32 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Astronomie Entdecker – Dein Fenster zum Sternenhimmel</title>
-<meta name="description" content="Interaktive Sternkarte, Sternbilder, Planeten und Teleskop-Grundlagen – alles auf Deutsch.">
+<meta name="description" content="Interaktive Sternkarte, „Heute sichtbar“-Planer, Planeten in 3D und Sterne lesen lernen – alles auf Deutsch.">
 <meta name="theme-color" content="#05060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=6">
+<script>
+/* Alte Sprungmarken des One-Pagers (index.html#…) auf die neuen Unterseiten umleiten */
+(function () {
+  var h = decodeURIComponent(location.hash.slice(1)); if (!h) return;
+  var m = { 'himmelskarte': 'sternkarte.html', 'fold-sternbilder': 'sternkarte.html#fold-sternbilder', 'sternbilder': 'sternkarte.html#sternbilder',
+    'heute-nacht': 'heute.html#heute-nacht', 'fold-hn-planets': 'heute.html#fold-hn-planets', 'fold-hn-stars': 'heute.html#fold-hn-stars',
+    'wetter': 'heute.html#wetter', 'fold-wx-timeline': 'heute.html#fold-wx-timeline', 'iss': 'heute.html#iss', 'fold-iss-passes': 'heute.html#fold-iss-passes',
+    'planeten': 'planeten.html',
+    'sterne-lesen': 'lernen.html#sterne-lesen', 'fold-hand': 'lernen.html#fold-hand', 'fold-find': 'lernen.html#fold-find', 'fold-pro-tipps': 'lernen.html#fold-pro-tipps', 'fold-apps': 'lernen.html#fold-apps',
+    'einsteiger': 'lernen.html#einsteiger', 'fold-compare': 'lernen.html#fold-compare', 'fold-games': 'lernen.html#fold-games', 'fold-obs-tipps': 'lernen.html#fold-obs-tipps' };
+  if (m[h]) location.replace(m[h]);
+})();
+</script>
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
-<body>
+<body class="page-start">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
 <div class="nebula" aria-hidden="true"><span></span><span></span><span></span></div>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#start"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
-  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  <a class="brand" href="index.html"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   <nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
-    <a href="#himmelskarte" data-spy="himmelskarte"><span class="nl-ic" aria-hidden="true">🗺️</span>Himmelskarte</a>
-    <a href="#wetter" data-spy="wetter"><span class="nl-ic" aria-hidden="true">☁️</span>Wetter</a>
-    <a href="#heute-nacht" data-spy="heute-nacht"><span class="nl-ic" aria-hidden="true">🌙</span>Heute Nacht</a>
-    <a href="#iss" data-spy="iss"><span class="nl-ic" aria-hidden="true">🛰️</span>ISS</a>
-    <a href="#planeten" data-spy="planeten"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten</a>
-    <a href="#sterne-lesen" data-spy="sterne-lesen"><span class="nl-ic" aria-hidden="true">🧭</span>Sterne lesen</a>
-    <a href="#einsteiger" data-spy="einsteiger"><span class="nl-ic" aria-hidden="true">🔭</span>Einsteiger</a>
+    <a href="index.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🏠</span>Start</a>
+    <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
+    <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
+    <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernen &amp; Teleskop</a>
   </nav>
-  <button class="loc-chip" id="locChip" title="Standort ändern">📍 <span id="locChipText">Standort wählen</span></button>
+  <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
   <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
 </header>
 
-<main>
+<main id="inhalt">
 <!-- HERO -->
 <section class="hero" id="start">
   <div class="hero-orbit" aria-hidden="true">
@@ -43,17 +54,84 @@
     <h1 class="reveal">Astronomie <span class="grad">Entdecker</span></h1>
     <p class="lead reveal">Finde heraus, welche Sterne, Sternbilder und Planeten <strong>heute Nacht</strong> über dir leuchten – mit exakter Himmelsrichtung, Höhe und bester Beobachtungszeit.</p>
     <div class="hero-cta reveal">
-      <a class="btn btn-primary" href="#himmelskarte">✨ Himmel erkunden</a>
-      <a class="btn btn-ghost" href="#einsteiger">🔭 Teleskop verstehen</a>
+      <a class="btn btn-primary" href="sternkarte.html">✨ Himmel erkunden</a>
+      <a class="btn btn-ghost" href="heute.html">🌙 Was ist heute sichtbar?</a>
     </div>
     <div class="hero-stats reveal" id="heroStats">
-      <div class="stat"><b id="statStars">4.000+</b><span>echte Sterne</span></div>
+      <div class="stat"><b id="statStars">4.086</b><span>echte Sterne</span></div>
       <div class="stat"><b>88</b><span>Sternbilder</span></div>
       <div class="stat"><b id="statMoon">🌙</b><span id="statMoonTxt">Mondphase</span></div>
     </div>
   </div>
-  <a class="scroll-hint" href="#himmelskarte" aria-label="Weiter nach unten"><span></span></a>
+  <a class="scroll-hint" href="#ueberblick" aria-label="Weiter nach unten"><span></span></a>
 </section>
+
+<!-- ÜBERBLICK -->
+<section class="section" id="ueberblick">
+  <div class="section-head reveal">
+    <p class="eyebrow">Dein Startpunkt</p>
+    <h2>Was möchtest du <span class="grad">entdecken</span>?</h2>
+    <p class="muted">Vier Bereiche, ein Himmel: Wähle aus, womit du anfangen willst. Dein Standort gilt automatisch auf allen Seiten.</p>
+  </div>
+  <div class="page-cards">
+    <a class="card glass page-card reveal pc-sky" href="sternkarte.html">
+      <span class="pc-orb" aria-hidden="true">🗺️</span>
+      <h3>Live-Sternkarte</h3>
+      <p>Der echte Himmel über deinem Standort – jetzt oder zu jeder Uhrzeit der Nacht.</p>
+      <ul class="pc-list"><li>4.086 Sterne, Planeten, Mond &amp; ISS</li><li>Alle 88 Sternbilder mit Mythologie</li><li>Zeitraffer, Zoom &amp; Vollbild</li></ul>
+      <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="card glass page-card reveal pc-tonight" href="heute.html">
+      <span class="pc-orb" aria-hidden="true">🌙</span>
+      <h3>Heute sichtbar</h3>
+      <p>Was du heute Nacht siehst – mit Himmelsrichtung, Höhe und bester Uhrzeit.</p>
+      <ul class="pc-list"><li>Planeten, helle Sterne, Mond &amp; Dämmerung</li><li>Wetter- &amp; Sichtbarkeits-Score</li><li>ISS-Überflüge mit Countdown</li></ul>
+      <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="card glass page-card reveal pc-planets" href="planeten.html">
+      <span class="pc-orb" aria-hidden="true">🪐</span>
+      <h3>Planeten in 3D</h3>
+      <p>Dreh die Planeten mit Maus oder Finger und vergleiche ihre Größen.</p>
+      <ul class="pc-list"><li>8 Planeten + Mond als 3D-Modell</li><li>Steckbriefe &amp; Fun Facts</li><li>Größenvergleich im echten Maßstab</li></ul>
+      <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="card glass page-card reveal pc-learn" href="lernen.html">
+      <span class="pc-orb" aria-hidden="true">🧭</span>
+      <h3>Sterne lesen &amp; Teleskop</h3>
+      <p>Vom ersten Stern zum Himmelsnavigator – und spielerisch das Teleskop verstehen.</p>
+      <ul class="pc-list"><li>Lernpfad mit 8 Stationen &amp; Mini-Spiel</li><li>Animiertes Teleskop zum Antippen</li><li>Bau-Puzzle, Quiz &amp; Profi-Tipps</li></ul>
+      <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- HEUTE NACHT AUF EINEN BLICK -->
+<section class="section" id="auf-einen-blick">
+  <div class="section-head reveal">
+    <p class="eyebrow">Kurz &amp; knapp</p>
+    <h2>Heute Nacht <span class="grad">auf einen Blick</span></h2>
+    <p class="muted" id="glanceSub">Für deinen Standort</p>
+  </div>
+  <div class="glass glance reveal" id="glance">
+    <div class="gl-tiles" id="glanceTiles"><p class="muted">⏳ Wird berechnet …</p></div>
+    <div class="gl-side">
+      <h3>✨ Hellste Planeten heute</h3>
+      <ul class="gl-list" id="glanceList"></ul>
+      <div class="gl-actions">
+        <a class="btn btn-primary" href="heute.html">🌙 Alles für heute Nacht</a>
+        <button class="btn btn-ghost" type="button" data-loc-open>📍 <span data-loc-name>Berlin</span> ändern</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html" aria-current="page">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernen &amp; Teleskop</a></nav>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
+  <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
+  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
+</footer>
 
 <!-- STANDORT -->
 <div class="modal" id="locModal" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
@@ -61,7 +139,7 @@
   <div class="modal-card glass">
     <button class="modal-close" data-close aria-label="Schließen">×</button>
     <h3 id="locTitle">📍 Wo stehst du?</h3>
-    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er bleibt in deinem Browser – nichts wird gesendet.</p>
+    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er gilt für alle Seiten und bleibt in deinem Browser – nichts wird gesendet.</p>
     <button class="btn btn-primary wide" id="btnGeo">🛰️ Meinen Standort verwenden</button>
     <p class="geo-status" id="geoStatus"></p>
     <div class="or"><span>oder</span></div>
@@ -76,502 +154,15 @@
     <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
   </div>
 </div>
-
-<!-- HIMMELSKARTE -->
-<section class="section" id="himmelskarte">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">01</span>Live-Sternkarte</p>
-    <h2>Der Himmel über <span class="grad" id="skyPlace">dir</span></h2>
-    <p class="muted">Ziehen zum Schwenken, Mausrad oder zwei Finger zum Zoomen. Tippe auf einen Stern (oder fahre mit der Maus darüber) für Details – ein Sternbild verrät dir seine Geschichte.</p>
-  </div>
-  <div class="sky-wrap glass reveal">
-    <div class="sky-toolbar">
-      <div class="tb-group">
-        <button class="chip active" data-toggle="lines" aria-pressed="true">Sternbildlinien</button>
-        <button class="chip active" data-toggle="conNames" aria-pressed="true">Sternbildnamen</button>
-        <button class="chip active" data-toggle="starNames" aria-pressed="true">Sternnamen</button>
-        <button class="chip active" data-toggle="planets" aria-pressed="true">Planeten</button>
-        <button class="chip" data-toggle="grid" aria-pressed="false">Koordinatennetz</button>
-      </div>
-      <div class="tb-group">
-        <button class="chip" data-view="zenith" title="Ganzer Himmel">⊙ Ganzer Himmel</button>
-        <button class="chip" data-view="0">N</button>
-        <button class="chip" data-view="90">O</button>
-        <button class="chip" data-view="180">S</button>
-        <button class="chip" data-view="270">W</button>
-        <button class="chip icon" id="zoomIn" aria-label="Hineinzoomen">＋</button>
-        <button class="chip icon" id="zoomOut" aria-label="Herauszoomen">－</button>
-        <button class="chip icon" id="fullscreenBtn" aria-label="Vollbild">⛶</button>
-      </div>
-    </div>
-    <div class="sky-stage" id="skyStage">
-      <canvas id="skyCanvas" aria-label="Interaktive Sternkarte" role="img"></canvas>
-      <div class="sky-tooltip" id="skyTip" hidden></div>
-      <div class="sky-info" id="skyInfo"></div>
-    </div>
-    <div class="time-bar">
-      <button class="btn-round" id="playBtn" aria-label="Zeitraffer abspielen">▶</button>
-      <div class="time-slider-wrap">
-        <input type="range" id="timeSlider" min="0" max="840" step="5" value="0" aria-label="Uhrzeit wählen">
-        <div class="time-ticks" id="timeTicks"></div>
-      </div>
-      <div class="time-readout"><b id="timeLabel">--:--</b><span id="dateLabel"></span></div>
-      <button class="chip live" id="liveBtn">● Jetzt</button>
-    </div>
-  </div>
-</section>
-
-<!-- WETTER -->
-<section class="section" id="wetter">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">02</span>Wetter- &amp; Sichtbarkeits-Check</p>
-    <h2>Lohnt sich <span class="grad">heute Nacht</span>?</h2>
-    <p class="muted">Wolken, Feuchte, Wind, Mondlicht und Dunkelheit – zusammengefasst in einem Beobachtungs-Score für deinen Standort.</p>
-  </div>
-  <div class="weather-top">
-    <div class="glass score-card reveal" id="scoreCard"><div class="wx-loading">⏳ Wetterdaten werden geladen …</div></div>
-    <div class="glass wx-tips reveal" id="wxTips" data-more-mobile="3" data-more-of=".wx-tip-list" data-more-label="Tipps"></div>
-  </div>
-  <div class="fold reveal" id="fold-wx-timeline" data-fold="wx-timeline" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-wx-timeline" aria-expanded="true" aria-controls="fb-wx-timeline"><span class="fold-title">🕒 Stunde für Stunde</span><span class="fold-sum">Score, Wolken, Mond &amp; Temperatur je Stunde</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-wx-timeline" role="region" aria-labelledby="fh-wx-timeline"><div class="fold-inner">
-    <div class="glass wx-timeline-card">
-      <div class="wx-legend"><span><i class="lg lg-good"></i>gut</span><span><i class="lg lg-mid"></i>mittel</span><span><i class="lg lg-bad"></i>schlecht</span><span>☁️ tief · mittel · hoch</span><span>🌙 Mond über Horizont</span></div>
-      <div class="wx-timeline" id="wxTimeline"></div>
-    </div>
-    </div></div>
-  </div>
-  <p class="muted small credit" id="wxSource">Wetterdaten: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0)</p>
-</section>
-
-<!-- HEUTE NACHT -->
-<section class="section" id="heute-nacht">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">03</span>Beobachtungsplaner</p>
-    <h2>Heute Nacht sichtbar</h2>
-    <p class="muted" id="tonightSub">Alle Zeiten in deiner Ortszeit.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-hn-planets" data-fold-link="hn-planets">🪐 Planeten</a><a class="chip" href="#fold-hn-stars" data-fold-link="hn-stars">⭐ Helle Sterne</a><a class="chip" href="#fold-sternbilder" data-fold-link="sternbilder">✨ Sternbilder</a><button class="chip ghost" type="button" data-fold-all="heute-nacht" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-  <div class="tonight-top">
-    <div class="card glass reveal" id="sunCard"></div>
-    <div class="card glass reveal" id="moonCard"></div>
-  </div>
-  <div class="fold reveal" id="fold-hn-planets" data-fold="hn-planets" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hn-planets" aria-expanded="true" aria-controls="fb-hn-planets"><span class="fold-title">🪐 Planeten</span><span class="fold-sum">Wo und wann du sie heute findest</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-hn-planets" role="region" aria-labelledby="fh-hn-planets"><div class="fold-inner">
-    <div class="grid cards-3" id="planetGrid"></div>
-    </div></div>
-  </div>
-  <div class="fold reveal" id="fold-hn-stars" data-fold="hn-stars" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hn-stars" aria-expanded="false" aria-controls="fb-hn-stars"><span class="fold-title">⭐ Helle Sterne</span><span class="fold-sum">Die hellsten Wegweiser über dem Horizont</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-hn-stars" role="region" aria-labelledby="fh-hn-stars"><div class="fold-inner">
-    <div class="grid cards-4" id="starGrid" data-more="8" data-more-mobile="4" data-more-label="Sterne"></div>
-    </div></div>
-  </div>
-  <div class="fold reveal" id="fold-sternbilder" data-fold="sternbilder" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-sternbilder" aria-expanded="true" aria-controls="fb-sternbilder"><span class="fold-title">✨ Sternbilder heute Nacht</span><span class="fold-sum">Antippen für Mythologie &amp; hellste Sterne</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-sternbilder" role="region" aria-labelledby="fh-sternbilder"><div class="fold-inner">
-    <div class="grid cards-4" id="conGrid" data-more="8" data-more-mobile="6" data-more-label="Sternbilder"></div>
-    </div></div>
-  </div>
-</section>
-
-<!-- ISS -->
-<section class="section" id="iss">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">04</span>Internationale Raumstation</p>
-    <h2>Die <span class="grad">ISS</span> über dir</h2>
-    <p class="muted">Die ISS rast mit rund 28.000 km/h um die Erde. Wenn sie von der Sonne angestrahlt wird, während es bei dir schon dunkel ist, siehst du sie als hellen, ruhig ziehenden Lichtpunkt – ganz ohne Teleskop.</p>
-  </div>
-  <div class="iss-layout">
-    <div class="glass iss-map-card reveal">
-      <div class="iss-map-wrap"><canvas id="issMap" aria-label="Live-Position der ISS auf der Weltkarte" role="img"></canvas></div>
-      <div class="iss-live" id="issLive">⏳ Bahndaten werden geladen …</div>
-    </div>
-    <div class="glass iss-next reveal" id="issNext"></div>
-  </div>
-  <div class="fold reveal" id="fold-iss-passes" data-fold="iss-passes" data-open="1" data-open-mobile="1">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-iss-passes" aria-expanded="true" aria-controls="fb-iss-passes"><span class="fold-title">📋 Alle Überflüge (10 Tage)</span><span class="fold-sum">Zeiten, Richtung, Höhe &amp; Helligkeit</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-iss-passes" role="region" aria-labelledby="fh-iss-passes"><div class="fold-inner">
-    <div class="iss-controls">
-      <label class="switch"><input type="checkbox" id="issAll"><span class="sw"></span> Auch nicht sichtbare Überflüge zeigen</label>
-      <span class="muted small" id="issTleInfo"></span>
-    </div>
-    <div class="grid cards-3" id="issPasses" data-more="6" data-more-mobile="2" data-more-label="Überflüge"></div>
-    </div></div>
-  </div>
-</section>
-
-<!-- PLANETEN 3D -->
-<section class="section" id="planeten">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">05</span>Planeten-Steckbriefe</p>
-    <h2>Unser Sonnensystem in <span class="grad">3D</span></h2>
-    <p class="muted">Dreh die Planeten mit dem Finger oder der Maus, zoome hinein und vergleiche ihre Größen.</p>
-  </div>
-  <div class="planet-tabs reveal" id="planetTabs" role="tablist"></div>
-  <div class="planet-layout">
-    <div class="glass planet-stage reveal">
-      <canvas id="planetCanvas" aria-label="Drehbares 3D-Modell des Planeten" role="img"></canvas>
-      <div class="size-labels" id="sizeLabels"></div>
-      <div class="planet-loading" id="planetLoading">🪐 3D-Modell wird geladen …</div>
-      <div class="planet-stage-bar"><button class="chip" id="sizeToggle" aria-pressed="false">⚖️ Größenvergleich</button><span class="muted small">Ziehen = drehen · Mausrad/Pinch = zoomen</span></div>
-    </div>
-    <div class="glass planet-facts reveal" id="planetFacts" aria-live="polite"></div>
-  </div>
-  <p class="muted small credit">Planetentexturen: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0, verkleinert) · 3D: three.js (MIT)</p>
-</section>
-
-<!-- STERNE LESEN LERNEN -->
-<section class="section" id="sterne-lesen">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">06</span>Sterne lesen lernen</p>
-    <h2>Vom ersten Stern zum <span class="grad">Himmelsnavigator</span></h2>
-    <p class="muted">Der Himmel ist wie eine Landkarte: Wer ein paar Wegweiser kennt, findet sich überall zurecht. Folge dem Lernpfad – Schritt für Schritt, Sternbild für Sternbild.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-hand" data-fold-link="hand">✋ Hand-Trick</a><a class="chip" href="#fold-find" data-fold-link="find">🎯 Mini-Spiel</a><a class="chip" href="#fold-pro-tipps" data-fold-link="pro-tipps">🌙 Profi-Tipps</a><a class="chip" href="#fold-apps" data-fold-link="apps">📱 Apps</a><button class="chip ghost" type="button" data-fold-all="sterne-lesen" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="glass learn-progress reveal">
-    <div class="lp-rank"><span class="rank-ic" id="rankIc">🌱</span><div><b id="rankName">Sternenneuling</b><span class="muted small" id="rankTxt">0 von 8 Stationen am echten Himmel gefunden</span></div></div>
-    <div class="progress-bar"><span id="learnBar"></span></div>
-    <button class="chip" id="learnReset" title="Fortschritt zurücksetzen">↺ Zurücksetzen</button>
-  </div>
-
-  <div class="learn-layout">
-    <ol class="learn-steps" id="learnSteps" aria-label="Lernpfad"></ol>
-    <div class="glass learn-stage reveal">
-      <div class="learn-canvas-wrap">
-        <canvas id="learnCanvas" aria-label="Animierte Sternkarte zum Star-Hopping" role="img"></canvas>
-        <button class="btn-round replay" id="learnReplay" aria-label="Animation wiederholen">↻</button>
-        <span class="learn-hint" id="learnHint"></span>
-      </div>
-      <div class="learn-text" id="learnText" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <div class="fold reveal" id="fold-hand" data-fold="hand" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-hand" aria-expanded="false" aria-controls="fb-hand"><span class="fold-title">✋ Der Hand-Trick</span><span class="fold-sum">Winkel am Himmel mit der Hand messen</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-hand" role="region" aria-labelledby="fh-hand"><div class="fold-inner">
-  <div class="glass hand-box">
-    <div class="hand-canvas-wrap"><canvas id="handCanvas" aria-label="Hand am ausgestreckten Arm vor dem Großen Wagen" role="img"></canvas></div>
-    <div class="hand-side">
-      <p>Strecke deinen Arm ganz aus – dann wird deine Hand zum Winkelmesser. Das klappt bei fast allen Menschen, weil längere Arme meist auch größere Hände haben.</p>
-      <div class="hand-tabs" id="handTabs" role="tablist"></div>
-      <div class="hand-info" id="handInfo"></div>
-    </div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-find" data-fold="find" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-find" aria-expanded="false" aria-controls="fb-find"><span class="fold-title">🎯 Mini-Spiel: Finde das Sternbild</span><span class="fold-sum">Teste dein Wissen – mit Rekord</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-find" role="region" aria-labelledby="fh-find"><div class="fold-inner">
-  <div class="glass game find-game" id="findGame">
-    <div class="find-layout">
-      <div class="learn-canvas-wrap find-canvas-wrap"><canvas id="findCanvas" aria-label="Sternfeld eines gesuchten Sternbilds" role="img"></canvas></div>
-      <div class="find-side">
-        <p class="muted small">Welches Sternbild versteckt sich in diesem Ausschnitt? Die hellsten Sterne verraten es!</p>
-        <div class="find-opts" id="findOpts"></div>
-        <p class="find-msg" id="findMsg"></p>
-        <div class="game-foot"><span id="findScore">Punkte: 0 · Serie: 0 · Rekord: 0</span><button class="chip" id="findNext">Nächstes Sternbild →</button></div>
-      </div>
-    </div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-pro-tipps" data-fold="pro-tipps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-pro-tipps" aria-expanded="false" aria-controls="fb-pro-tipps"><span class="fold-title">🌙 Profi-Tipps für deine Sternennacht</span><span class="fold-sum">Dunkeladaption, Rotlicht, Star-Hopping …</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-pro-tipps" role="region" aria-labelledby="fh-pro-tipps"><div class="fold-inner">
-  <div class="grid cards-3" data-more-mobile="3" data-more-label="Tipps">
-    <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Dunkeladaption</h4><p>Die Stäbchen in deiner Netzhaut brauchen 20–30 Minuten, bis sie voll lichtempfindlich sind. Ein einziger Blick aufs helle Handy setzt die Uhr zurück!</p><p class="small muted">Trick: Schau schwache Objekte leicht <b>seitlich</b> an („indirektes Sehen“) – am Rand der Netzhaut sitzen mehr Stäbchen.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" id="redBtn">🔴 Rotlicht-Modus testen</button></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🗺️</div><h4>Sternkarte richtig halten</h4><p>Halte die Karte über den Kopf und drehe sie so, dass die Himmelsrichtung, in die du schaust, unten liegt. Dann passt sie genau zum Himmel.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🧭</div><h4>Vom Bekannten zum Unbekannten</h4><p>Lerne nie ein Sternbild isoliert. Hangle dich immer von einem bekannten Wegweiser zum nächsten – das nennt man <b>Star-Hopping</b>.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">📅</div><h4>Eine Jahreszeit nach der anderen</h4><p>Jeden Monat gehen Sterne etwa 2 Stunden früher auf. Lerne pro Jahreszeit 2–3 Sternbilder – nach einem Jahr kennst du den ganzen Himmel.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">✏️</div><h4>Zeichnen statt Fotografieren</h4><p>Skizziere, was du siehst. Beim Zeichnen prägen sich Muster und Abstände viel besser ein als beim Knipsen.</p></div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-apps" data-fold="apps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-apps" aria-expanded="false" aria-controls="fb-apps"><span class="fold-title">📱 Apps &amp; Sternkarten für den Start</span><span class="fold-sum">Stellarium, Sky-Apps, drehbare Sternkarte …</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-apps" role="region" aria-labelledby="fh-apps"><div class="fold-inner">
-  <div class="grid cards-3 apps">
-    <div class="card glass app reveal"><span class="app-ic">🌌</span><div><h4>Stellarium</h4><p class="small">Kostenloses Planetarium für PC, Mac und Linux (auch als App). Perfekt, um eine Nacht vorab zu „proben“.</p><span class="pill ok">kostenlos</span></div></div>
-    <div class="card glass app reveal"><span class="app-ic">📱</span><div><h4>Sky-Apps (z. B. SkySafari, Star Walk, Sky Tonight)</h4><p class="small">Handy an den Himmel halten – die App zeigt, was du siehst. Tipp: Nachtmodus (rot) einschalten!</p><span class="pill ok">ideal für unterwegs</span></div></div>
-    <div class="card glass app reveal"><span class="app-ic">🗺️</span><div><h4>Drehbare Sternkarte</h4><p class="small">Der Klassiker aus Pappe: Datum und Uhrzeit einstellen – fertig. Braucht keinen Akku und blendet nicht.</p><span class="pill ok">ohne Strom</span></div></div>
-    <div class="card glass app reveal"><span class="app-ic">📘</span><div><h4>Astronomisches Jahrbuch</h4><p class="small">Jahrbücher wie das „Kosmos Himmelsjahr“ listen Monat für Monat Planeten, Finsternisse und Sternschnuppen.</p><span class="pill ok">Monatsplaner</span></div></div>
-    <div class="card glass app reveal"><span class="app-ic">🔭</span><div><h4>Sternwarten &amp; Vereine</h4><p class="small">Viele Volkssternwarten bieten öffentliche Beobachtungsabende – dort darfst du oft durch große Teleskope schauen.</p><span class="pill ok">Gemeinschaft</span></div></div>
-    <div class="card glass app reveal"><span class="app-ic">✨</span><div><h4>Diese Website</h4><p class="small">Nutze die Himmelskarte oben mit dem Zeitregler, um dir vor der Nacht anzusehen, wo deine Wegweiser stehen.</p><a class="pill ok" href="#himmelskarte">zur Himmelskarte</a></div></div>
-  </div>
-    </div></div>
-  </div>
-</section>
-
-<!-- EINSTEIGER -->
-<section class="section" id="einsteiger">
-  <div class="section-head reveal">
-    <p class="eyebrow"><span class="sec-num">07</span>Einsteiger-Bereich</p>
-    <h2>Wie funktioniert ein <span class="grad">Teleskop</span>?</h2>
-    <p class="muted">Fahre über die Bauteile oder tippe sie an – und lerne dein erstes Teleskop kennen.</p>
-    <div class="sec-links" aria-label="Schnellzugriff"><a class="chip" href="#fold-compare" data-fold-link="compare">⚖️ Linse oder Spiegel</a><a class="chip" href="#fold-games" data-fold-link="games">🎮 Spiele</a><a class="chip" href="#fold-obs-tipps" data-fold-link="obs-tipps">🌌 Tipps</a><button class="chip ghost" type="button" data-fold-all="einsteiger" aria-label="Alle Bereiche in diesem Abschnitt auf- oder zuklappen">⊕ Alle aufklappen</button></div>
-  </div>
-
-  <div class="scope-layout">
-    <div class="glass scope-svg-wrap reveal">
-      <svg id="scopeSvg" viewBox="0 0 600 460" role="img" aria-label="Teleskop mit anklickbaren Bauteilen">
-        <defs>
-          <linearGradient id="tubeGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#e9eefc"/><stop offset=".5" stop-color="#9aa8d6"/><stop offset="1" stop-color="#4a5683"/>
-          </linearGradient>
-          <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#5b6480"/><stop offset="1" stop-color="#262b40"/>
-          </linearGradient>
-          <radialGradient id="lensGrad" cx=".4" cy=".35" r=".7">
-            <stop offset="0" stop-color="#c9f2ff"/><stop offset=".6" stop-color="#4fb3ff"/><stop offset="1" stop-color="#1a3f8f"/>
-          </radialGradient>
-          <linearGradient id="sheenGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-          </linearGradient>
-          <radialGradient id="phG"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#ffe27a"/><stop offset="1" stop-color="#ffd34a" stop-opacity="0"/></radialGradient>
-          <clipPath id="tubeClip"><rect x="140" y="195" width="300" height="52" rx="8"/></clipPath>
-          <filter id="glowF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <g class="scope-light" aria-hidden="true">
-          <line x1="560" y1="20" x2="470" y2="80"/><line x1="580" y1="45" x2="490" y2="105"/><line x1="540" y1="5" x2="450" y2="62"/>
-        </g>
-        <!-- Stativ -->
-        <g class="part" data-part="stativ" tabindex="0">
-          <path class="leg leg-l" d="M300 300 L190 440" stroke="url(#metalGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
-          <path class="leg leg-r" d="M300 300 L410 440" stroke="url(#metalGrad)" stroke-width="12" stroke-linecap="round" fill="none"/>
-          <path class="leg leg-c" d="M300 300 L300 445" stroke="#3a4260" stroke-width="12" stroke-linecap="round" fill="none"/>
-          <g class="spreader"><path d="M235 385 L365 385" stroke="#3a4260" stroke-width="5"/><polygon points="250,382 350,382 300,395" fill="#2b3150" opacity=".8"/></g>
-        </g>
-        <!-- Montierung -->
-        <g class="part" data-part="montierung" tabindex="0">
-          <ellipse class="az-ring" cx="300" cy="300" rx="62" ry="13" fill="none" stroke="#8affd6" stroke-width="2.5" stroke-dasharray="14 10"/>
-          <rect x="270" y="255" width="60" height="50" rx="10" fill="url(#metalGrad)"/>
-          <rect x="284" y="225" width="32" height="40" rx="6" fill="#3d4566"/>
-          <circle cx="300" cy="232" r="16" fill="#555f86" stroke="#9aa8d6" stroke-width="2"/>
-          <path class="alt-ring" d="M300 186 A46 46 0 0 1 346 232" fill="none" stroke="#8affd6" stroke-width="2.5" stroke-dasharray="10 8"/>
-          <path d="M330 280 q40 10 40 40" stroke="#9aa8d6" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <circle cx="370" cy="322" r="7" fill="#9aa8d6"/>
-        </g>
-        <g id="ota">
-          <!-- Tubus -->
-          <g class="part" data-part="tubus" tabindex="0">
-            <g transform="rotate(-28 300 220)">
-              <rect class="tube-body" x="140" y="195" width="300" height="52" rx="8" fill="url(#tubeGrad)"/>
-              <g clip-path="url(#tubeClip)"><rect class="tube-sheen" x="100" y="195" width="60" height="52" fill="url(#sheenGrad)"/></g>
-              <rect x="200" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
-              <rect x="360" y="191" width="18" height="60" rx="4" fill="#2b3150"/>
-            </g>
-          </g>
-          <!-- Objektiv -->
-          <g class="part" data-part="objektiv" tabindex="0">
-            <g transform="rotate(-28 300 220)">
-              <rect x="440" y="188" width="50" height="66" rx="8" fill="#20263f"/>
-              <ellipse class="lens" cx="490" cy="221" rx="9" ry="31" fill="url(#lensGrad)" filter="url(#glowF)"/>
-            </g>
-          </g>
-          <!-- Sucher -->
-          <g class="part" data-part="sucher" tabindex="0">
-            <g transform="rotate(-28 300 220)">
-              <g class="finder-beam"><line x1="376" y1="165" x2="596" y2="165"/><circle class="finder-target" cx="600" cy="165" r="6"/><path class="finder-cross" d="M600 150 V180 M585 165 H615"/></g>
-              <rect x="300" y="168" width="10" height="26" fill="#3d4566"/>
-              <rect x="260" y="156" width="110" height="18" rx="6" fill="#c7d0f0"/>
-              <ellipse cx="370" cy="165" rx="4" ry="9" fill="url(#lensGrad)"/>
-            </g>
-          </g>
-          <!-- Fokussierer -->
-          <g class="part" data-part="fokussierer" tabindex="0">
-            <g transform="rotate(-28 300 220)">
-              <rect x="105" y="203" width="40" height="36" rx="4" fill="#3d4566"/>
-              <g class="knob"><circle cx="125" cy="250" r="10" fill="#8a96c4" stroke="#20263f" stroke-width="3"/><rect x="123.5" y="241" width="3" height="7" fill="#20263f"/><circle cx="125" cy="250" r="3" fill="#20263f"/></g>
-            </g>
-          </g>
-          <!-- Okular -->
-          <g class="part" data-part="okular" tabindex="0">
-            <g transform="rotate(-28 300 220)">
-              <g class="focus-slide">
-                <rect x="72" y="207" width="36" height="28" rx="4" fill="#1b1f33"/>
-                <rect x="60" y="211" width="14" height="20" rx="3" fill="#ffcf5a"/>
-              </g>
-            </g>
-          </g>
-          <!-- Animierter Lichtweg -->
-          <g class="anim-rays" aria-hidden="true" transform="rotate(-28 300 220)">
-            <path class="ray-base" d="M640 203 L490 203 L74 221"/>
-            <path class="ray-base" d="M640 221 L74 221"/>
-            <path class="ray-base" d="M640 239 L490 239 L74 221"/>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" repeatCount="indefinite" path="M640 203 L490 203 L74 221"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-0.7s" repeatCount="indefinite" path="M640 221 L74 221"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.4s" repeatCount="indefinite" path="M640 239 L490 239 L74 221"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.1s" repeatCount="indefinite" path="M640 203 L490 203 L74 221"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="2.2s" begin="-1.8s" repeatCount="indefinite" path="M640 239 L490 239 L74 221"/></circle>
-            <circle class="eye-glow" cx="62" cy="221" r="9"/>
-          </g>
-        </g>
-      </svg>
-      <div class="part-pills" id="partPills"></div>
-    </div>
-    <div class="glass part-info reveal" id="partInfo" aria-live="polite">
-      <div class="part-emoji">🔭</div>
-      <h3>Wähle ein Bauteil</h3>
-      <p>Jedes Teil deines Teleskops hat eine wichtige Aufgabe. Fahre mit der Maus über die Zeichnung oder tippe auf die Schaltflächen darunter.</p>
-    </div>
-  </div>
-
-  <div class="fold reveal" id="fold-compare" data-fold="compare" data-open="1" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-compare" aria-expanded="true" aria-controls="fb-compare"><span class="fold-title">⚖️ Linsenteleskop oder Spiegelteleskop?</span><span class="fold-sum">Refraktor vs. Reflektor – mit animiertem Lichtweg</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-compare" role="region" aria-labelledby="fh-compare"><div class="fold-inner">
-  <!-- Linsen vs Spiegel -->
-  <div class="glass compare">
-    <div class="compare-head">
-      <p class="muted small compare-lead">Wähle eine Bauart und verfolge den Lichtweg:</p>
-      <div class="seg" role="tablist">
-        <button class="seg-btn active" data-type="refraktor" role="tab" aria-selected="true">Refraktor (Linse)</button>
-        <button class="seg-btn" data-type="reflektor" role="tab" aria-selected="false">Reflektor (Newton)</button>
-      </div>
-    </div>
-    <div class="compare-body">
-      <div class="lightpath">
-        <svg id="lpRefr" viewBox="0 0 600 200" class="lp active" aria-label="Lichtweg im Refraktor">
-          <rect x="80" y="55" width="420" height="90" rx="10" class="lp-tube"/>
-          <ellipse cx="490" cy="100" rx="10" ry="44" class="lp-lens"/>
-          <rect x="40" y="88" width="45" height="24" rx="4" class="lp-eye"/>
-          <path class="ray" d="M600 66 L490 66 L95 100"/>
-          <path class="ray" d="M600 100 L95 100"/>
-          <path class="ray" d="M600 134 L490 134 L95 100"/>
-          <g class="photons">
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 66 L490 66 L95 100"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 100 L95 100"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" repeatCount="indefinite" path="M600 134 L490 134 L95 100"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 66 L490 66 L95 100"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 100 L95 100"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="3s" begin="-1.5s" repeatCount="indefinite" path="M600 134 L490 134 L95 100"/></circle>
-          </g>
-          <circle cx="95" cy="100" r="6" class="focus"/>
-          <g class="lp-step"><circle cx="575" cy="40" r="11"/><text x="575" y="44">1</text></g>
-          <g class="lp-step"><circle cx="490" cy="170" r="11"/><text x="490" y="174">2</text></g>
-          <g class="lp-step"><circle cx="95" cy="140" r="11"/><text x="95" y="144">3</text></g>
-          <text x="420" y="30" class="lp-t">① Sternenlicht trifft ein</text>
-          <text x="300" y="190" class="lp-t">② Linse bricht &amp; bündelt</text>
-          <text x="112" y="172" class="lp-t">③ Brennpunkt → Okular</text>
-        </svg>
-        <svg id="lpRefl" viewBox="0 0 600 200" class="lp" aria-label="Lichtweg im Newton-Spiegelteleskop">
-          <rect x="60" y="55" width="460" height="90" rx="10" class="lp-tube"/>
-          <path d="M70 52 Q86 100 70 148" class="lp-mirror"/>
-          <line x1="430" y1="88" x2="452" y2="110" class="lp-mirror2"/>
-          <rect x="428" y="20" width="26" height="35" rx="4" class="lp-eye"/>
-          <path class="ray" d="M600 70 L78 70 L441 99 L441 34"/>
-          <path class="ray" d="M600 100 L80 100 L441 99 L441 34"/>
-          <path class="ray" d="M600 130 L78 130 L441 99 L441 34"/>
-          <g class="photons">
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 70 L78 70 L441 99 L441 34"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 100 L80 100 L441 99 L441 34"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" repeatCount="indefinite" path="M600 130 L78 130 L441 99 L441 34"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 70 L78 70 L441 99 L441 34"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 100 L80 100 L441 99 L441 34"/></circle>
-            <circle r="7" fill="url(#phG)"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M600 130 L78 130 L441 99 L441 34"/></circle>
-          </g>
-          <circle cx="441" cy="34" r="6" class="focus"/>
-          <g class="lp-step"><circle cx="575" cy="40" r="11"/><text x="575" y="44">1</text></g>
-          <g class="lp-step"><circle cx="40" cy="100" r="11"/><text x="40" y="104">2</text></g>
-          <g class="lp-step"><circle cx="476" cy="99" r="11"/><text x="476" y="103">3</text></g>
-          <text x="90" y="178" class="lp-t">② Hohlspiegel bündelt das Licht</text>
-          <text x="250" y="18" class="lp-t">③ Fangspiegel lenkt zum Okular</text>
-          <text x="470" y="178" class="lp-t">① Sternenlicht</text>
-        </svg>
-      </div>
-      <div class="compare-text" id="compareText"></div>
-    </div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-games" data-fold="games" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-games" aria-expanded="false" aria-controls="fb-games"><span class="fold-title">🎮 Spiele: Bau-Puzzle &amp; Sternen-Quiz</span><span class="fold-sum">Beschrifte das Teleskop und teste dein Wissen</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-games" role="region" aria-labelledby="fh-games"><div class="fold-inner">
-  <!-- Spiele -->
-  <div class="games">
-    <div class="glass game" id="dndGame">
-      <h3>🧩 Bau-Spiel: Beschrifte das Teleskop</h3>
-      <p class="muted small">Ziehe die Begriffe auf die passenden Nummern (am Handy: antippen und dann Zielnummer antippen).</p>
-      <div class="dnd-area">
-        <div class="dnd-figure">
-          <svg viewBox="0 0 600 460" class="dnd-svg" aria-hidden="true">
-            <use href="#scopeClone"/>
-          </svg>
-          <div class="dnd-targets" id="dndTargets"></div>
-        </div>
-        <div class="dnd-bank" id="dndBank"></div>
-      </div>
-      <div class="game-foot"><span id="dndScore">0 / 7 richtig</span><button class="chip" id="dndReset">Neu starten</button></div>
-    </div>
-    <div class="glass game" id="quiz">
-      <h3>🧠 Sternen-Quiz</h3>
-      <div id="quizBody"></div>
-    </div>
-  </div>
-    </div></div>
-  </div>
-
-  <div class="fold reveal" id="fold-obs-tipps" data-fold="obs-tipps" data-open="0" data-open-mobile="0">
-    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-obs-tipps" aria-expanded="false" aria-controls="fb-obs-tipps"><span class="fold-title">🌌 Tipps für deine erste Beobachtungsnacht</span><span class="fold-sum">9 Tipps vom Fernglas bis zum Tagebuch</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
-    <div class="fold-body" id="fb-obs-tipps" role="region" aria-labelledby="fh-obs-tipps"><div class="fold-inner">
-  <div class="grid cards-3 tips" data-more="6" data-more-mobile="3" data-more-label="Tipps">
-    <div class="card glass tip reveal"><div class="tip-ic">🕶️</div><h4>Augen an die Dunkelheit gewöhnen</h4><p>Deine Augen brauchen 20–30 Minuten, um sich voll anzupassen. Nutze Rotlicht – weißes Handylicht macht alles wieder zunichte.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔭</div><h4>Mit dem Fernglas starten</h4><p>Ein 10×50-Fernglas zeigt Mondkrater, Jupitermonde und Sternhaufen – günstig, leicht und perfekt zum Lernen.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🌑</div><h4>Neumond nutzen</h4><p>Rund um Neumond ist der Himmel am dunkelsten. Der Mond selbst ist aber zum Halbmond hin am spannendsten: Schatten am Terminator!</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🏞️</div><h4>Raus aus der Stadt</h4><p>Schon 20 km außerhalb siehst du ein Vielfaches an Sternen. Suche dir einen Ort mit freiem Blick nach Süden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🌡️</div><h4>Teleskop auskühlen lassen</h4><p>Stell dein Teleskop 30–60 Minuten vorher nach draußen, damit Luftschlieren im Tubus verschwinden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🔍</div><h4>Geringe Vergrößerung zuerst</h4><p>Beginne mit dem Okular mit der größten Brennweite. Vergrößerung = Teleskop-Brennweite ÷ Okular-Brennweite.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">🧥</div><h4>Warm anziehen</h4><p>Auch im Sommer wird es nachts kühl. Thermoskanne, Decke und Campingstuhl machen die Nacht gemütlich.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">☀️</div><h4>Niemals in die Sonne!</h4><p>Schau nie ohne zertifizierten Sonnenfilter durch Fernglas oder Teleskop in die Sonne – das führt sofort zu bleibenden Augenschäden.</p></div>
-    <div class="card glass tip reveal"><div class="tip-ic">📓</div><h4>Beobachtungstagebuch</h4><p>Notiere Datum, Ort, Wetter und was du gesehen hast. So erkennst du deinen Fortschritt – und es macht riesig Spaß!</p></div>
-  </div>
-    </div></div>
-  </div>
-</section>
-</main>
-
-<footer class="footer">
-  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Texturen von <em>Solar System Scope</em> (CC BY 4.0), Wetter von <em>Open-Meteo</em> (CC BY 4.0), ISS-Bahndaten von <em>CelesTrak</em>. Keine Anmeldung, keine API-Schlüssel.</p>
-  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
-</footer>
-
-<!-- Sternbild-Infokarte -->
-<div class="modal" id="conModal" role="dialog" aria-modal="true" aria-labelledby="conTitle" hidden>
-  <div class="modal-backdrop" data-close></div>
-  <div class="modal-card glass con-card">
-    <button class="modal-close" data-close aria-label="Schließen">×</button>
-    <div id="conBody"></div>
-  </div>
-</div>
-
-<button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
-<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#himmelskarte" data-spy="himmelskarte"><span>Himmelskarte</span></a><a href="#wetter" data-spy="wetter"><span>Wetter</span></a><a href="#heute-nacht" data-spy="heute-nacht"><span>Heute Nacht</span></a><a href="#iss" data-spy="iss"><span>ISS</span></a><a href="#planeten" data-spy="planeten"><span>Planeten</span></a><a href="#sterne-lesen" data-spy="sterne-lesen"><span>Sterne lesen</span></a><a href="#einsteiger" data-spy="einsteiger"><span>Einsteiger</span></a></nav>
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=6"></script>
-<script src="js/vendor/satellite.min.js?v=6"></script>
-<script src="js/data/sky-data.js?v=6"></script>
-<script src="js/data/constellation-info.js?v=6"></script>
-<script src="js/data/cities.js?v=6"></script>
-<script src="js/data/iss-tle.js?v=6"></script>
-<script src="js/core.js?v=6"></script>
-<script src="js/background.js?v=6"></script>
-<script src="js/skymap.js?v=6"></script>
-<script src="js/tonight.js?v=6"></script>
-<script src="js/telescope.js?v=6"></script>
-<script src="js/learn.js?v=6"></script>
-<script src="js/weather.js?v=6"></script>
-<script src="js/iss.js?v=6"></script>
-<script src="js/planets3d.js?v=6"></script>
-<script src="js/ux.js?v=6"></script>
-<script src="js/main.js?v=6"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=7"></script>
+<script src="js/data/cities.js?v=7"></script>
+<script src="js/core.js?v=7"></script>
+<script src="js/background.js?v=7"></script>
+<script src="js/glance.js?v=7"></script>
+<script src="js/ux.js?v=7"></script>
+<script src="js/main.js?v=7"></script>
 </body>
 </html>

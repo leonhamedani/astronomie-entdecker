@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live-Sternkarte – Astronomie Entdecker</title>
+<meta name="description" content="Interaktive Live-Sternkarte für deinen Standort mit 4.086 Sternen, Planeten, Mond, ISS und allen 88 Sternbildern.">
+<meta name="theme-color" content="#05060f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body class="page-sternkarte">
+<canvas id="bg-stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
+    <a href="index.html"><span class="nl-ic" aria-hidden="true">🏠</span>Start</a>
+    <a href="sternkarte.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
+    <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
+    <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernen &amp; Teleskop</a>
+  </nav>
+  <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
+  <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+</header>
+
+<main id="inhalt">
+<div class="page-hero">
+  <div class="page-hero-inner glass reveal">
+    <p class="eyebrow">Live-Sternkarte · Sternbilder erkennen</p>
+    <h1>Der Himmel über <span class="grad" id="skyPlace">dir</span></h1>
+    <p class="lead">Ziehen zum Schwenken, Mausrad oder zwei Finger zum Zoomen. Tippe auf einen Stern für Details – ein Sternbild verrät dir seine Geschichte.</p>
+    <div class="loc-bar" role="group" aria-label="Standort">
+      <span class="loc-bar-ic" aria-hidden="true">📍</span>
+      <span class="loc-bar-txt"><b data-loc-name>Berlin</b><small data-loc-coords>52,52° N, 13,41° O</small></span>
+      <button class="chip" type="button" data-loc-open>Standort ändern</button>
+    </div>
+  </div>
+</div>
+
+<!-- HIMMELSKARTE -->
+<section class="section" id="himmelskarte">
+  <div class="sky-wrap glass reveal">
+    <div class="sky-toolbar">
+      <div class="tb-group">
+        <button class="chip active" data-toggle="lines" aria-pressed="true">Sternbildlinien</button>
+        <button class="chip active" data-toggle="conNames" aria-pressed="true">Sternbildnamen</button>
+        <button class="chip active" data-toggle="starNames" aria-pressed="true">Sternnamen</button>
+        <button class="chip active" data-toggle="planets" aria-pressed="true">Planeten</button>
+        <button class="chip" data-toggle="grid" aria-pressed="false">Koordinatennetz</button>
+      </div>
+      <div class="tb-group">
+        <button class="chip" data-view="zenith" title="Ganzer Himmel">⊙ Ganzer Himmel</button>
+        <button class="chip" data-view="0">N</button>
+        <button class="chip" data-view="90">O</button>
+        <button class="chip" data-view="180">S</button>
+        <button class="chip" data-view="270">W</button>
+        <button class="chip icon" id="zoomIn" aria-label="Hineinzoomen">＋</button>
+        <button class="chip icon" id="zoomOut" aria-label="Herauszoomen">－</button>
+        <button class="chip icon" id="fullscreenBtn" aria-label="Vollbild">⛶</button>
+      </div>
+    </div>
+    <div class="sky-stage" id="skyStage">
+      <canvas id="skyCanvas" aria-label="Interaktive Sternkarte" role="img"></canvas>
+      <div class="sky-tooltip" id="skyTip" hidden></div>
+      <div class="sky-info" id="skyInfo"></div>
+    </div>
+    <div class="time-bar">
+      <button class="btn-round" id="playBtn" aria-label="Zeitraffer abspielen">▶</button>
+      <div class="time-slider-wrap">
+        <input type="range" id="timeSlider" min="0" max="840" step="5" value="0" aria-label="Uhrzeit wählen">
+        <div class="time-ticks" id="timeTicks"></div>
+      </div>
+      <div class="time-readout"><b id="timeLabel">--:--</b><span id="dateLabel"></span></div>
+      <button class="chip live" id="liveBtn">● Jetzt</button>
+    </div>
+  </div>
+</section>
+
+<!-- STERNBILDER -->
+<section class="section" id="sternbilder">
+  <div class="section-head reveal">
+    <p class="eyebrow">Sternbilder erkennen</p>
+    <h2>Welche Figuren stehen <span class="grad">heute Nacht</span> am Himmel?</h2>
+    <p class="muted">Antippen für Mythologie, hellste Sterne und beste Jahreszeit – „Auf der Karte zeigen“ dreht die Sternkarte direkt dorthin.</p>
+  </div>
+  <div class="fold reveal" id="fold-sternbilder" data-fold="sternbilder" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-sternbilder" aria-expanded="true" aria-controls="fb-sternbilder"><span class="fold-title">✨ Sternbilder heute Nacht</span><span class="fold-sum">Antippen für Mythologie &amp; hellste Sterne</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-sternbilder" role="region" aria-labelledby="fh-sternbilder"><div class="fold-inner">
+    <div class="grid cards-4" id="conGrid" data-more="8" data-more-mobile="6" data-more-label="Sternbilder"></div>
+    </div></div>
+  </div>
+  <div class="fold reveal" id="fold-erkennen" data-fold="erkennen" data-open="1" data-open-mobile="0">
+    <h3 class="fold-h"><button class="fold-btn" type="button" id="fh-erkennen" aria-expanded="true" aria-controls="fb-erkennen"><span class="fold-title">🧭 So erkennst du Sternbilder</span><span class="fold-sum">Vier Tricks für die Karte – und für den echten Himmel</span><span class="fold-chev" aria-hidden="true"></span></button></h3>
+    <div class="fold-body" id="fb-erkennen" role="region" aria-labelledby="fh-erkennen"><div class="fold-inner">
+    <div class="grid cards-4">
+      <div class="card glass tip reveal"><div class="tip-ic">👆</div><h4>Antippen &amp; erkennen</h4><p class="small">Fahre mit der Maus über die Karte oder tippe sie an: Das Sternbild unter dem Finger leuchtet auf, ein Klick öffnet seine Infokarte.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⭐</div><h4>Erst die hellen Sterne</h4><p class="small">Schalte die Sternbildlinien aus und such nur die hellsten Punkte. Wer Wega, Arktur oder Beteigeuze kennt, findet die Figuren drumherum.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🧭</div><h4>Richtung wählen</h4><p class="small">Mit N, O, S und W blickst du wie draußen zum Horizont. Halte das Handy in diese Richtung – dann passt die Karte zum Himmel.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">⏩</div><h4>Zeitraffer nutzen</h4><p class="small">Mit ▶ läuft die Nacht im Zeitraffer: Du siehst, wie alles um den Polarstern kreist und wann ein Sternbild am höchsten steht.</p></div>
+    </div>
+    <p class="muted small center-note">Lust auf mehr? Im <a href="lernen.html#sterne-lesen">Lernpfad „Sterne lesen“</a> hangelst du dich Schritt für Schritt von Sternbild zu Sternbild.</p>
+    </div></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html" aria-current="page">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernen &amp; Teleskop</a></nav>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
+  <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
+  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
+</footer>
+
+<!-- STANDORT -->
+<div class="modal" id="locModal" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card glass">
+    <button class="modal-close" data-close aria-label="Schließen">×</button>
+    <h3 id="locTitle">📍 Wo stehst du?</h3>
+    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er gilt für alle Seiten und bleibt in deinem Browser – nichts wird gesendet.</p>
+    <button class="btn btn-primary wide" id="btnGeo">🛰️ Meinen Standort verwenden</button>
+    <p class="geo-status" id="geoStatus"></p>
+    <div class="or"><span>oder</span></div>
+    <label class="field">Stadt auswählen
+      <select id="citySelect"></select>
+    </label>
+    <div class="field-row">
+      <label class="field">Breite (°)<input id="latInput" type="number" step="0.001" min="-90" max="90" placeholder="52.52"></label>
+      <label class="field">Länge (°)<input id="lonInput" type="number" step="0.001" min="-180" max="180" placeholder="13.40"></label>
+    </div>
+    <p class="muted small">Nord = positive Breite, Ost = positive Länge. Bei eigenen Koordinaten wird die Zeitzone deines Browsers verwendet.</p>
+    <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
+  </div>
+</div>
+<!-- Sternbild-Infokarte -->
+<div class="modal" id="conModal" role="dialog" aria-modal="true" aria-labelledby="conTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card glass con-card">
+    <button class="modal-close" data-close aria-label="Schließen">×</button>
+    <div id="conBody"></div>
+  </div>
+</div>
+<nav class="sec-rail" id="secRail" aria-label="Abschnitte"><a href="#himmelskarte" data-spy="himmelskarte"><span>Sternkarte</span></a><a href="#sternbilder" data-spy="sternbilder"><span>Sternbilder</span></a></nav>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/astronomy.browser.min.js?v=7"></script>
+<script src="js/vendor/satellite.min.js?v=7"></script>
+<script src="js/data/sky-data.js?v=7"></script>
+<script src="js/data/constellation-info.js?v=7"></script>
+<script src="js/data/cities.js?v=7"></script>
+<script src="js/data/iss-tle.js?v=7"></script>
+<script src="js/core.js?v=7"></script>
+<script src="js/background.js?v=7"></script>
+<script src="js/skymap.js?v=7"></script>
+<script src="js/tonight.js?v=7"></script>
+<script src="js/iss.js?v=7"></script>
+<script src="js/ux.js?v=7"></script>
+<script src="js/main.js?v=7"></script>
+</body>
+</html>

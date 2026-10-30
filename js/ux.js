@@ -111,20 +111,22 @@
   links.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(false); });
 
   /* ---------- Scroll-Spy, Fortschritt, Nach oben ---------- */
-  var secs = ['himmelskarte', 'wetter', 'heute-nacht', 'iss', 'planeten', 'sterne-lesen', 'einsteiger'].map($).filter(Boolean);
+  // Jede Unterseite hat eigene Abschnitte; die Hauptnavigation markiert die aktive Seite fest im HTML
+  var secs = Array.prototype.slice.call(document.querySelectorAll('main > section.section[id]'));
   var spyLinks = document.querySelectorAll('[data-spy]'), toTop = $('toTop'), rail = $('secRail'), prog = $('navProgress'), current = null, ticking = false;
   function onScroll() {
     ticking = false;
     var y = window.scrollY, vh = window.innerHeight, line = y + vh * 0.35, cur = null;
     secs.forEach(function (s) { if (s.offsetTop <= line) cur = s.id; });
-    if (y < vh * 0.5) cur = null;
+    if (y < vh * 0.25) cur = null;
     if (cur !== current) {
       current = cur;
       spyLinks.forEach(function (a) { var on = a.getAttribute('data-spy') === cur; a.classList.toggle('active', on); if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      document.querySelectorAll('[data-spy-sub]').forEach(function (a) { a.classList.toggle('active', a.getAttribute('data-spy-sub') === cur); });
     }
     var show = y > vh * 1.2;
     if (toTop.hidden === show) { toTop.hidden = !show; }
-    rail.classList.toggle('show', y > vh * 0.6);
+    if (rail) rail.classList.toggle('show', y > vh * 0.4);
     var max = document.documentElement.scrollHeight - vh; prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });

@@ -1,6 +1,7 @@
 /* Interaktive Live-Sternkarte (stereografische Projektion, Horizontsystem) */
 (function () {
   'use strict';
+  if (!document.getElementById('skyCanvas')) return; // nur auf der Sternkarte
   var A = window.Astronomy, D2R = AE.D2R, R2D = AE.R2D;
   var stage = document.getElementById('skyStage');
   var cv = document.getElementById('skyCanvas');
@@ -20,12 +21,7 @@
   var projStars = [], projBodies = [], projCons = [], projSegs = [];
   var dirty = false;
 
-  var PLANETS = [
-    { id: 'Mercury', de: 'Merkur', col: '#c9b9a6', e: '☿' }, { id: 'Venus', de: 'Venus', col: '#fff3c4', e: '♀' },
-    { id: 'Mars', de: 'Mars', col: '#ff8a5c', e: '♂' }, { id: 'Jupiter', de: 'Jupiter', col: '#ffe0b0', e: '♃' },
-    { id: 'Saturn', de: 'Saturn', col: '#f3d58b', e: '♄' }, { id: 'Uranus', de: 'Uranus', col: '#a8f0ff', e: '⛢' },
-    { id: 'Neptune', de: 'Neptun', col: '#7fa6ff', e: '♆' }];
-  AE.PLANETS = PLANETS;
+  var PLANETS = AE.PLANETS;
 
   function resize() {
     var r = stage.getBoundingClientRect();

@@ -25,6 +25,18 @@
     AE.emit('location', loc);
   };
   AE.observer = function () { return new A.Observer(AE.loc.lat, AE.loc.lon, 0); };
+  // Standort in einem anderen Tab/einer anderen Unterseite geändert → hier übernehmen
+  window.addEventListener('storage', function (e) {
+    if (e.key !== 'ae-location' || !e.newValue) return;
+    try { var l = JSON.parse(e.newValue); if (l && isFinite(l.lat) && isFinite(l.lon)) { AE.loc = l; AE.emit('location', l); } } catch (x) {}
+  });
+
+  /* ---------- Planeten (gemeinsam für Karte, Planer, Startseite) ---------- */
+  AE.PLANETS = [
+    { id: 'Mercury', de: 'Merkur', col: '#c9b9a6', e: '☿' }, { id: 'Venus', de: 'Venus', col: '#fff3c4', e: '♀' },
+    { id: 'Mars', de: 'Mars', col: '#ff8a5c', e: '♂' }, { id: 'Jupiter', de: 'Jupiter', col: '#ffe0b0', e: '♃' },
+    { id: 'Saturn', de: 'Saturn', col: '#f3d58b', e: '♄' }, { id: 'Uranus', de: 'Uranus', col: '#a8f0ff', e: '⛢' },
+    { id: 'Neptune', de: 'Neptun', col: '#7fa6ff', e: '♆' }];
 
   /* ---------- Zeitformatierung (Zeitzone des Standorts) ---------- */
   function tzOpt(o) { o = o || {}; if (AE.loc.tz) o.timeZone = AE.loc.tz; return o; }
@@ -152,7 +164,8 @@
   };
 
   /* ---------- Daten aufbereiten ---------- */
-  var SKY = window.AE_SKY;
+  // Sterndaten werden nur auf Unterseiten geladen, die sie brauchen (Karte, Heute, Lernen)
+  var SKY = window.AE_SKY || { stars: [], constellations: [], lines: {} };
   AE.stars = SKY.stars.map(function (s) {
     return { ra: s[0], dec: s[1], mag: s[2], bv: s[3], name: s[4], desig: s[5], con: s[6], v: AE.toVec(s[0], s[1]), col: AE.bvColor(s[3]) };
   });
@@ -177,7 +190,7 @@
   AE.circumpolar = function (dec) { return AE.loc.lat >= 0 ? dec > 90 - AE.loc.lat : dec < -90 - AE.loc.lat; };
   AE.neverRises = function (dec) { return AE.loc.lat >= 0 ? dec < AE.loc.lat - 90 : dec > AE.loc.lat + 90; };
 
-  AE.V = '6';
+  AE.V = '7';
   var loaded = {};
   AE.loadScript = function (src) {
     if (loaded[src]) return loaded[src];

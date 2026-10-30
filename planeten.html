@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Planeten in 3D – Astronomie Entdecker</title>
+<meta name="description" content="Alle 8 Planeten und der Mond als drehbare 3D-Modelle mit Steckbriefen, Fun Facts und Größenvergleich.">
+<meta name="theme-color" content="#05060f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body class="page-planeten">
+<canvas id="bg-stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
+    <a href="index.html"><span class="nl-ic" aria-hidden="true">🏠</span>Start</a>
+    <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
+    <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
+    <a href="planeten.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernen &amp; Teleskop</a>
+  </nav>
+  <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
+  <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+</header>
+
+<main id="inhalt">
+<div class="page-hero">
+  <div class="page-hero-inner glass reveal">
+    <p class="eyebrow">Planeten-Steckbriefe</p>
+    <h1>Unser Sonnensystem in <span class="grad">3D</span></h1>
+    <p class="lead">Dreh die Planeten mit dem Finger oder der Maus, zoome hinein und vergleiche ihre Größen – mit „Heute sichtbar?“ für deinen Standort.</p>
+  </div>
+</div>
+
+<!-- PLANETEN 3D -->
+<section class="section" id="planeten">
+  <div class="planet-tabs reveal" id="planetTabs" role="tablist"></div>
+  <div class="planet-layout">
+    <div class="glass planet-stage reveal">
+      <canvas id="planetCanvas" aria-label="Drehbares 3D-Modell des Planeten" role="img"></canvas>
+      <div class="size-labels" id="sizeLabels"></div>
+      <div class="planet-loading" id="planetLoading">🪐 3D-Modell wird geladen …</div>
+      <div class="planet-stage-bar"><button class="chip" id="sizeToggle" aria-pressed="false">⚖️ Größenvergleich</button><span class="muted small">Ziehen = drehen · Mausrad/Pinch = zoomen</span></div>
+    </div>
+    <div class="glass planet-facts reveal" id="planetFacts" aria-live="polite"></div>
+  </div>
+  <p class="muted small credit">Planetentexturen: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0, verkleinert) · 3D: three.js (MIT)</p>
+</section>
+</main>
+
+<footer class="footer">
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html" aria-current="page">Planeten 3D</a> · <a href="lernen.html">Lernen &amp; Teleskop</a></nav>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
+  <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
+  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
+</footer>
+
+<!-- STANDORT -->
+<div class="modal" id="locModal" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card glass">
+    <button class="modal-close" data-close aria-label="Schließen">×</button>
+    <h3 id="locTitle">📍 Wo stehst du?</h3>
+    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er gilt für alle Seiten und bleibt in deinem Browser – nichts wird gesendet.</p>
+    <button class="btn btn-primary wide" id="btnGeo">🛰️ Meinen Standort verwenden</button>
+    <p class="geo-status" id="geoStatus"></p>
+    <div class="or"><span>oder</span></div>
+    <label class="field">Stadt auswählen
+      <select id="citySelect"></select>
+    </label>
+    <div class="field-row">
+      <label class="field">Breite (°)<input id="latInput" type="number" step="0.001" min="-90" max="90" placeholder="52.52"></label>
+      <label class="field">Länge (°)<input id="lonInput" type="number" step="0.001" min="-180" max="180" placeholder="13.40"></label>
+    </div>
+    <p class="muted small">Nord = positive Breite, Ost = positive Länge. Bei eigenen Koordinaten wird die Zeitzone deines Browsers verwendet.</p>
+    <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
+  </div>
+</div>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/astronomy.browser.min.js?v=7"></script>
+<script src="js/data/cities.js?v=7"></script>
+<script src="js/core.js?v=7"></script>
+<script src="js/background.js?v=7"></script>
+<script src="js/planets3d.js?v=7"></script>
+<script src="js/ux.js?v=7"></script>
+<script src="js/main.js?v=7"></script>
+</body>
+</html>

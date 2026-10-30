@@ -80,7 +80,7 @@
       (best.alt > 0 ? '<div class="best"><span class="badge">Beste Zeit ' + AE.fmtTime(best.time) + ' Uhr</span>' + posLine(best.alt, best.az) + showBtn(best.alt, best.az, best.time) + '</div>'
         : '<p class="note">🌑 Der Mond steht heute Nacht während der Dunkelheit unter dem Horizont – perfekt für lichtschwache Objekte!</p>') +
       '<p class="note small">' + (lit > 70 ? 'Heller Mond überstrahlt schwache Sterne – ideal, um Mondkrater am Rand zu beobachten.' : lit < 25 ? 'Wenig Mondlicht – beste Bedingungen für die Milchstraße.' : 'Tipp: Entlang der Licht-Schatten-Grenze (Terminator) wirken Krater im Teleskop besonders plastisch.') + '</p>';
-    $('statMoon').textContent = ph.emoji; $('statMoonTxt').textContent = ph.name + ' · ' + lit + ' %';
+    if ($('statMoon')) { $('statMoon').textContent = ph.emoji; $('statMoonTxt').textContent = ph.name + ' · ' + lit + ' %'; }
   }
 
   var PL_INFO = {
@@ -193,24 +193,21 @@
     requestAnimationFrame(function () { drawConFigure($('conFig'), c); });
   };
 
+  // „Auf der Karte zeigen“ ([data-show]) wird seitenübergreifend in main.js behandelt
   document.addEventListener('click', function (e) {
-    var s = e.target.closest('[data-show]');
-    if (s) {
-      var p = s.getAttribute('data-show').split(',').map(Number);
-      AE.closeModals();
-      AE._sky.setTime(new Date(p[2]), false);
-      AE.skyLookAt(p[0], p[1]);
-      AE.toast('Karte springt auf ' + AE.fmtTime(new Date(p[2])) + ' Uhr – Blick nach ' + AE.dirName(p[1]));
-      return;
-    }
     var t = e.target.closest('.con-tile[data-con]');
     if (t) AE.openConstellation(t.getAttribute('data-con'));
   });
 
   AE.renderTonight = function () {
     var n = compute();
-    $('tonightSub').textContent = 'Für ' + (AE.loc.name || 'deinen Standort') + ' – alle Zeiten in Ortszeit (' + AE.tzLabel() + '). Beobachtungsfenster: ' + AE.fmtTime(n.darkFrom) + ' – ' + AE.fmtTime(n.darkTo) + ' Uhr.';
-    sunCard(n); moonCard(n); planetCards(n); starCards(); conCards();
+    if ($('tonightSub')) $('tonightSub').textContent = 'Für ' + (AE.loc.name || 'deinen Standort') + ' – alle Zeiten in Ortszeit (' + AE.tzLabel() + '). Beobachtungsfenster: ' + AE.fmtTime(n.darkFrom) + ' – ' + AE.fmtTime(n.darkTo) + ' Uhr.';
+    // Jede Unterseite enthält nur einen Teil der Karten – fehlende Bereiche überspringen
+    if ($('sunCard')) sunCard(n);
+    if ($('moonCard')) moonCard(n);
+    if ($('planetGrid')) planetCards(n);
+    if ($('starGrid')) starCards();
+    if ($('conGrid')) conCards();
     if (AE.revealScan) AE.revealScan();
   };
   AE.on('location', function () { AE.renderTonight(); });

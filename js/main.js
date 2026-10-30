@@ -1,4 +1,4 @@
-/* Astronomie Entdecker – Initialisierung, Navigation, Standortwahl, Effekte */
+/* Astronomie Entdecker – Initialisierung (alle Unterseiten), Navigation, Standortwahl, Effekte */
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
@@ -71,11 +71,24 @@
   /* ---------- Standort ---------- */
   var sel = $('citySelect');
   sel.innerHTML = '<option value="">– Stadt wählen –</option>' + AE_CITIES.map(function (c, i) { return '<option value="' + i + '">' + c.n + '</option>'; }).join('');
+  function coordText(l) {
+    return AE.fmtNum(Math.abs(l.lat), 2) + '° ' + (l.lat >= 0 ? 'N' : 'S') + ', ' + AE.fmtNum(Math.abs(l.lon), 2) + '° ' + (l.lon >= 0 ? 'O' : 'W');
+  }
   function updateChip() {
-    $('locChipText').textContent = AE.loc.name || (AE.fmtNum(AE.loc.lat, 1) + '°, ' + AE.fmtNum(AE.loc.lon, 1) + '°');
+    var name = AE.loc.name || (AE.fmtNum(AE.loc.lat, 1) + '°, ' + AE.fmtNum(AE.loc.lon, 1) + '°');
+    $('locChipText').textContent = name;
     $('latInput').value = (+AE.loc.lat).toFixed(3); $('lonInput').value = (+AE.loc.lon).toFixed(3);
+    // Standort-Leisten auf den Unterseiten
+    document.querySelectorAll('[data-loc-name]').forEach(function (el) { el.textContent = name; });
+    document.querySelectorAll('[data-loc-coords]').forEach(function (el) { el.textContent = coordText(AE.loc); });
+    document.querySelectorAll('[data-loc-hint]').forEach(function (el) { el.hidden = AE.loc.source !== 'default'; });
   }
   $('locChip').addEventListener('click', function () { AE.openModal('locModal'); });
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-loc-open]')) { e.preventDefault(); AE.openModal('locModal'); return; }
+    var g = e.target.closest('[data-loc-geo]');
+    if (g) { e.preventDefault(); useGeo(document.querySelector('[data-loc-status]'), false); }
+  });
   sel.addEventListener('change', function () {
     var c = AE_CITIES[+sel.value]; if (!c || sel.value === '') return;
     AE.setLocation({ name: c.n, lat: c.lat, lon: c.lon, tz: c.tz, source: 'city' });
@@ -95,30 +108,57 @@
     });
     return best && bd < 40 ? 'bei ' + best.n : 'Eigener Standort';
   }
-  $('btnGeo').addEventListener('click', function () {
-    var st = $('geoStatus');
+  function useGeo(st, inModal) {
+    st = st || { textContent: '' };
     if (!navigator.geolocation) { st.textContent = 'Dein Browser unterstützt keine Standortabfrage – bitte Stadt oder Koordinaten wählen.'; return; }
     st.textContent = '🛰️ Suche Standort …';
     navigator.geolocation.getCurrentPosition(function (pos) {
       var lat = pos.coords.latitude, lon = pos.coords.longitude;
       AE.setLocation({ name: nearestName(lat, lon), lat: lat, lon: lon, tz: AE.browserTz, source: 'geo' });
       st.textContent = '✅ Gefunden: ' + AE.fmtNum(lat, 3) + '°, ' + AE.fmtNum(lon, 3) + '°';
-      setTimeout(AE.closeModals, 600); AE.toast('📍 Standort ermittelt');
+      if (inModal) setTimeout(AE.closeModals, 600);
+      AE.toast('📍 Standort ermittelt – gilt jetzt auf allen Seiten');
     }, function (err) {
       st.textContent = err.code === 1 ? '🚫 Zugriff verweigert. Wähle einfach eine Stadt oder gib Koordinaten ein.' : '⚠️ Standort nicht verfügbar (' + err.message + '). Bitte manuell wählen.';
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
-  });
+  }
+  $('btnGeo').addEventListener('click', function () { useGeo($('geoStatus'), true); });
   AE.on('location', updateChip);
+
+  /* ---------- „Auf der Karte zeigen“ (auch von anderen Unterseiten) ---------- */
+  function showOnSky(alt, az, t) {
+    AE.closeModals();
+    AE._sky.setTime(new Date(t), false);
+    AE.skyLookAt(alt, az);
+    AE.toast('Karte springt auf ' + AE.fmtTime(new Date(t)) + ' Uhr – Blick nach ' + AE.dirName(az));
+  }
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('[data-show]'); if (!s) return;
+    var p = s.getAttribute('data-show').split(',').map(Number);
+    if (AE._sky && AE.skyLookAt) { showOnSky(p[0], p[1], p[2]); return; }
+    location.href = 'sternkarte.html?zeige=' + encodeURIComponent(p[0] + ',' + p[1] + ',' + p[2]);
+  });
+  function showFromUrl() {
+    var m = /[?&]zeige=([^&#]+)/.exec(location.search); if (!m || !AE._sky) return;
+    var p = decodeURIComponent(m[1]).split(',').map(Number);
+    if (p.length < 3 || !p.every(isFinite)) return;
+    setTimeout(function () { showOnSky(p[0], p[1], p[2]); }, 350);
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+  }
 
   /* ---------- Start ---------- */
   function init() {
     updateChip();
-    $('statStars').textContent = AE.stars.length.toLocaleString('de-DE');
-    AE.initSky();
-    AE.renderTonight();
+    if ($('statStars') && AE.stars.length) $('statStars').textContent = AE.stars.length.toLocaleString('de-DE');
+    if (AE.initSky) AE.initSky();
+    if (AE.renderTonight) AE.renderTonight();
+    if (AE.renderGlance) AE.renderGlance();
     AE.revealScan();
-    document.querySelectorAll('.hero .reveal').forEach(function (el) { el.classList.add('in'); });
-    if (AE.loc.source === 'default') setTimeout(function () { AE.toast('📍 Standard-Standort Berlin – tippe oben auf 📍, um deinen Ort zu wählen.'); }, 1200);
+    document.querySelectorAll('.hero .reveal, .page-hero .reveal').forEach(function (el) { el.classList.add('in'); });
+    showFromUrl();
+    // Hinweis auf den Standard-Standort nur einmal pro Sitzung (nicht auf jeder Unterseite)
+    var hinted = false; try { hinted = sessionStorage.getItem('ae-loc-hint') === '1'; sessionStorage.setItem('ae-loc-hint', '1'); } catch (e) {}
+    if (AE.loc.source === 'default' && !hinted) setTimeout(function () { AE.toast('📍 Standard-Standort Berlin – tippe oben auf 📍, um deinen Ort zu wählen.'); }, 1200);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

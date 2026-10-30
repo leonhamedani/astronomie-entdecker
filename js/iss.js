@@ -6,6 +6,8 @@
   var TLE_URL = 'https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=TLE';
   var iss = { satrec: null, source: '', epoch: null, passes: [] };
   if (!S) { console.warn('satellite.js fehlt'); return; }
+  // Auf der Sternkarte läuft nur die Bahnrechnung (ISS am Himmel), die Bedienoberfläche gibt es auf „Heute sichtbar“
+  var UI = !!$('iss');
 
   function parseTLE(txt) {
     var l = String(txt).split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean);
@@ -145,8 +147,10 @@
       (age > 14 ? ' · <b class="warn">⚠️ Bahndaten veraltet – Zeiten können stark abweichen!</b>' : age > 4 ? ' · <b class="warn">⚠️ Bahndaten ' + Math.round(age) + ' Tage alt – Zeiten können um Minuten abweichen.</b>' : '');
     if (AE.revealScan) AE.revealScan();
   }
-  $('issPasses').addEventListener('click', function (e) { var b = e.target.closest('[data-ics]'); if (b) icsFor(iss.passes[+b.getAttribute('data-ics')]); });
-  $('issAll').addEventListener('change', renderPasses);
+  if (UI) {
+    $('issPasses').addEventListener('click', function (e) { var b = e.target.closest('[data-ics]'); if (b) icsFor(iss.passes[+b.getAttribute('data-ics')]); });
+    $('issAll').addEventListener('change', renderPasses);
+  }
 
   function renderNext() {
     var now = Date.now(), nx = iss.passes.filter(function (p) { return p.visible && p.vEnd > now; })[0];
@@ -167,8 +171,9 @@
   }
 
   /* ---------- Live-Karte ---------- */
-  var mapCv = $('issMap'), mctx = mapCv.getContext('2d'), mapImg = null, MW = 0, MH = 0;
+  var mapCv = $('issMap'), mctx = mapCv ? mapCv.getContext('2d') : null, mapImg = null, MW = 0, MH = 0;
   function mapResize() {
+    if (!mapCv) return;
     var r = mapCv.parentNode.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
     MW = r.width; MH = r.width / 2; mapCv.style.height = MH + 'px';
     mapCv.width = Math.round(MW * dpr); mapCv.height = Math.round(MH * dpr); mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -180,7 +185,7 @@
     return { lat: g.latitude * R2D, lon: ((g.longitude * R2D + 540) % 360) - 180, h: g.height, v: Math.hypot(pv.velocity.x, pv.velocity.y, pv.velocity.z) * 3600 };
   }
   function drawMap() {
-    if (!MW || !iss.satrec) return;
+    if (!mctx || !MW || !iss.satrec) return;
     var now = new Date(), c = mctx;
     c.fillStyle = '#0a1638'; c.fillRect(0, 0, MW, MH);
     if (mapImg) { c.globalAlpha = 0.9; c.drawImage(mapImg, 0, 0, MW, MH); c.globalAlpha = 1; }
@@ -257,6 +262,7 @@
   var timer = null, visible = false;
   function compute() {
     if (!iss.satrec) return;
+    if (!UI) { AE.emit('iss', iss); return; }
     setTimeout(function () {
       var t = performance.now();
       iss.passes = computePasses(10);
@@ -267,10 +273,11 @@
   function tick() { drawMap(); if (iss.passes.length) renderNext(); }
   loadTLE().then(function () {
     compute();
+    if (!UI) return;
     AE.loadTexture('earth').then(function (src) { var im = new Image(); im.onload = function () { mapImg = im; drawMap(); }; im.src = src; }).catch(function () {});
     mapResize(); drawMap();
   });
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible && !timer) timer = setInterval(tick, 1000); if (!visible && timer) { clearInterval(timer); timer = null; } }).observe($('iss'));
+  if (UI && 'IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible && !timer) timer = setInterval(tick, 1000); if (!visible && timer) { clearInterval(timer); timer = null; } }).observe($('iss'));
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { mapResize(); drawMap(); }, 150); });
   AE.on('location', function () { compute(); drawMap(); });
   AE._iss = iss;
