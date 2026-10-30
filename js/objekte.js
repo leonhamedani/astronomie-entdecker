@@ -33,15 +33,19 @@
     var g = rnd(id.length * 97 + 13), s = '', i;
     var bg = ''; for (i = 0; i < 26; i++) bg += '<circle cx="' + (g() * 200).toFixed(1) + '" cy="' + (g() * 130).toFixed(1) + '" r="' + (0.3 + g() * 0.8).toFixed(2) + '" class="ob-bg"/>';
     switch (id) {
-      case 'stern': s = '<circle cx="70" cy="66" r="22" class="ob-red ob-pulse"/><circle cx="70" cy="66" r="34" class="ob-glow-r"/><circle cx="148" cy="58" r="10" class="ob-blue ob-pulse d2"/><circle cx="148" cy="58" r="20" class="ob-glow-b"/>'; break;
-      case 'doppel': s = '<g class="ob-orbit"><circle cx="78" cy="65" r="9" class="ob-gold"/><circle cx="122" cy="65" r="6" class="ob-blue"/></g><ellipse cx="100" cy="65" rx="24" ry="8" class="ob-path"/>'; break;
-      case 'offen': for (i = 0; i < 16; i++) s += '<circle cx="' + (60 + g() * 80).toFixed(1) + '" cy="' + (30 + g() * 70).toFixed(1) + '" r="' + (1 + g() * 3).toFixed(1) + '" class="ob-blue ob-tw" style="--d:' + (g() * 3).toFixed(2) + 's"/>'; s += '<ellipse cx="100" cy="66" rx="48" ry="36" class="ob-haze"/>'; break;
+      case 'stern': s = '<circle cx="70" cy="66" r="34" class="ob-glow-r"/><circle cx="148" cy="58" r="20" class="ob-glow-b"/><circle cx="70" cy="66" r="22" class="ob-red ob-pulse"/><circle cx="148" cy="58" r="10" class="ob-blue ob-pulse d2"/>'; break;
+      case 'doppel': s = '<ellipse cx="100" cy="65" rx="24" ry="8" class="ob-path"/><g class="ob-orbit"><circle cx="78" cy="65" r="9" class="ob-gold"/><circle cx="122" cy="65" r="6" class="ob-blue"/></g>'; break;
+      case 'offen': s = '<ellipse cx="100" cy="66" rx="48" ry="36" class="ob-haze"/>'; var gr = ['', '', '']; for (i = 0; i < 16; i++) gr[i % 3] += '<circle cx="' + (60 + g() * 80).toFixed(1) + '" cy="' + (30 + g() * 70).toFixed(1) + '" r="' + (1 + g() * 3).toFixed(1) + '" class="ob-blue"/>'; s += gr.map(function (x, k) { return '<g class="tw tw' + (k + 1) + '">' + x + '</g>'; }).join(''); break;
       case 'kugel': s = '<circle cx="100" cy="65" r="44" class="ob-glob"/>'; for (i = 0; i < 120; i++) { var a = g() * 6.283, r = Math.pow(g(), 1.8) * 42; s += '<circle cx="' + (100 + Math.cos(a) * r).toFixed(1) + '" cy="' + (65 + Math.sin(a) * r).toFixed(1) + '" r="' + (0.5 + g() * 0.9).toFixed(2) + '" class="ob-gold"/>'; } break;
-      case 'nebel': s = '<g class="ob-drift"><ellipse cx="80" cy="70" rx="56" ry="34" class="ob-neb1"/><ellipse cx="112" cy="58" rx="38" ry="26" class="ob-neb2"/></g><circle cx="155" cy="78" r="13" class="ob-ring"/><circle cx="155" cy="78" r="2" class="ob-blue"/><circle cx="84" cy="66" r="2.5" class="ob-white"/>'; break;
-      case 'galaxie': s = '<g class="ob-spin"><ellipse cx="100" cy="65" rx="70" ry="22" class="ob-gal"/><path d="M100 65 C130 40 165 52 160 66 M100 65 C70 90 35 78 40 64" class="ob-arm"/></g><ellipse cx="100" cy="65" rx="13" ry="7" class="ob-core"/>'; break;
+      case 'nebel': s = '<circle cx="155" cy="78" r="13" class="ob-ring"/><circle cx="155" cy="78" r="2" class="ob-blue"/><g class="ob-drift"><ellipse cx="80" cy="70" rx="56" ry="34" class="ob-neb1"/><ellipse cx="112" cy="58" rx="38" ry="26" class="ob-neb2"/><circle cx="84" cy="66" r="2.5" class="ob-white"/></g>'; break;
+      case 'galaxie': s = '<g class="ob-spin"><ellipse cx="100" cy="65" rx="70" ry="22" class="ob-gal"/><path d="M100 65 C130 40 165 52 160 66 M100 65 C70 90 35 78 40 64" class="ob-arm"/><ellipse cx="100" cy="65" rx="13" ry="7" class="ob-core"/></g>'; break;
       case 'komet': s = '<path d="M150 30 Q100 50 20 60 Q100 64 150 36 Z" class="ob-tail"/><circle cx="152" cy="32" r="6" class="ob-white"/><line x1="40" y1="20" x2="10" y2="38" class="ob-met"/><line x1="180" y1="86" x2="150" y2="104" class="ob-met d2"/>'; break;
     }
-    return '<svg viewBox="0 0 200 130" class="obj-art" aria-hidden="true">' + bg + s + '</svg>';
+    var defs = '';
+    if (id === 'nebel') defs = '<radialGradient id="obNebP"><stop offset="0" stop-color="#ff6ea0" stop-opacity=".5"/><stop offset=".6" stop-color="#ff6ea0" stop-opacity=".22"/><stop offset="1" stop-color="#ff6ea0" stop-opacity="0"/></radialGradient><radialGradient id="obNebB"><stop offset="0" stop-color="#78dcff" stop-opacity=".45"/><stop offset=".6" stop-color="#78dcff" stop-opacity=".18"/><stop offset="1" stop-color="#78dcff" stop-opacity="0"/></radialGradient>';
+    if (id === 'galaxie') defs = '<radialGradient id="obGal"><stop offset="0" stop-color="#d8d8ff" stop-opacity=".5"/><stop offset=".55" stop-color="#c8c8ff" stop-opacity=".22"/><stop offset="1" stop-color="#c8c8ff" stop-opacity="0"/></radialGradient><radialGradient id="obCore"><stop offset="0" stop-color="#fffaf0"/><stop offset=".5" stop-color="#fff4d8" stop-opacity=".8"/><stop offset="1" stop-color="#fff4d8" stop-opacity="0"/></radialGradient>';
+    if (id === 'komet') defs = '<linearGradient id="obTail" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe6ff" stop-opacity=".6"/><stop offset="1" stop-color="#a0dcff" stop-opacity="0"/></linearGradient>';
+    return '<svg viewBox="0 0 200 130" class="obj-art" aria-hidden="true">' + (defs ? '<defs>' + defs + '</defs>' : '') + bg + s + '</svg>';
   }
 
   var night = null;
@@ -63,7 +67,7 @@
   function render() {
     night = null;
     grid.innerHTML = O.map(function (o) {
-      return '<article class="card glass obj-card reveal" id="obj-' + o.id + '"><div class="obj-pic">' + art(o.id) + '<span class="obj-tag">' + o.e + '</span></div>' +
+      return '<article class="card glass obj-card reveal" id="obj-' + o.id + '"><div class="obj-pic"><span class="obj-tag">' + o.e + '</span>' + art(o.id) + '</div>' +
         '<h4>' + o.n + '</h4><p class="small">' + o.what + '</p>' +
         '<p class="small obj-honest"><b>👁️ So siehst du es wirklich:</b> ' + o.eye + '</p>' +
         '<ul class="obj-ex">' + o.ex.map(function (x) { return '<li><div><b>' + x.n + '</b><small>' + x.m + ' · beste Zeit: ' + x.s + '</small></div>' + exBtn(x) + '</li>'; }).join('') + '</ul>' +

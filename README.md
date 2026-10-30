@@ -73,7 +73,7 @@ Seit v7 ist die Website kein One-Pager mehr, sondern besteht aus fünf Unterseit
 - Wetter: [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, ohne Schlüssel). ISS-Bahndaten: [CelesTrak](https://celestrak.org/).
 - Lizenztexte in `licenses/`.
 - Jede Seite bindet nur die Skripte ein, die sie braucht. Gemeinsam: `core.js` (Standort, Zeit, Koordinaten), `background.js` (Sternenhintergrund), `ux.js` (Aufklappen, „Mehr anzeigen“, Scroll-Spy, Menü) und `main.js` (Initialisierung, Standortwahl, Seitenübergänge). Seitenspezifisch: `glance.js` (Start), `skymap.js` + `tonight.js` + `iss.js` (Sternkarte), `tonight.js` + `weather.js` + `iss.js` (Heute sichtbar), `planets3d.js` (Planeten), `learn.js` + `telescope.js` + `ratgeber.js` + `rechner.js` + `objekte.js` + `bortle.js` (Lernen). Die Module prüfen selbst, ob ihre Elemente auf der Seite vorhanden sind.
-- Cache-Busting: alle CSS/JS-Verweise tragen `?v=…` (aktuell `?v=8`) (Version in `AE.V` in `js/core.js` und in allen fünf HTML-Seiten gemeinsam erhöhen).
+- Cache-Busting: alle CSS/JS-Verweise tragen `?v=…` (aktuell `?v=9`) (Version in `AE.V` in `js/core.js` und in allen fünf HTML-Seiten gemeinsam erhöhen).
 
 ## Hinweise / Grenzen
 

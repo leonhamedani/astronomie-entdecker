@@ -91,7 +91,7 @@
       ctx.restore();
     }
     // Sterne
-    var tw = AE.reduceMotion ? 0 : performance.now() / 600;
+    var tw = 0;
     for (var i = 0; i < stars.length; i++) {
       var st = stars[i]; if (st.m > lim) continue;
       var x = cx + st.p[0] * s, y = cy - st.p[1] * s; if (x < -4 || x > W + 4 || y < -4 || y > H) continue;
@@ -127,8 +127,8 @@
     var d = target - cur;
     if (Math.abs(d) > 0.01) cur += d * 0.16; else cur = target;
     draw(cur);
-    var visible = cv.getBoundingClientRect(), onScreen = visible.bottom > 0 && visible.top < innerHeight && visible.width > 0;
-    if ((cur !== target || (!AE.reduceMotion && onScreen)) && !document.hidden) raf = requestAnimationFrame(loop);
+    // Nur während des Übergangs zwischen zwei Klassen animieren – danach steht das Bild (kein Dauer-Neuzeichnen)
+    if (cur !== target && !document.hidden) raf = requestAnimationFrame(loop);
   }
   function kick() { if (!raf) raf = requestAnimationFrame(loop); }
   function text(k) {
@@ -144,8 +144,7 @@
   }
   range.addEventListener('input', function () { target = +range.value; text(target); kick(); });
   window.addEventListener('resize', function () { size(); });
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { if (en[0].isIntersecting) { size(); kick(); } }).observe(cv);
-  document.addEventListener('visibilitychange', kick);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { if (en[0].isIntersecting && cv.width !== Math.round(Math.max(280, cv.getBoundingClientRect().width) * Math.min(2, window.devicePixelRatio || 1))) size(); }).observe(cv);
   AE.on && AE.on('fold', function () { setTimeout(size, 50); });
   document.addEventListener('click', function (e) { if (e.target.closest('#fh-bortle')) setTimeout(function () { size(); kick(); }, 380); });
   AE._bortle = { set: function (k) { range.value = k; target = cur = k; text(k); draw(k); }, data: B };

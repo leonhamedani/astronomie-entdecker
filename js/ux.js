@@ -134,6 +134,25 @@
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: AE.reduceMotion ? 'auto' : 'smooth' }); var b = document.querySelector('.brand'); if (b) b.focus({ preventScroll: true }); });
   onScroll();
 
+  /* ---------- Animationen außerhalb des Bildschirms anhalten (spart Rechenzeit, v. a. am PC) ---------- */
+  if ('IntersectionObserver' in window) {
+    var offIO = new IntersectionObserver(function (en) { en.forEach(function (e) { e.target.classList.toggle('ae-off', !e.isIntersecting); }); }, { rootMargin: '150px 0px' });
+    document.querySelectorAll('main > section, .page-hero, .hero, .footer').forEach(function (el) { offIO.observe(el); });
+  }
+  document.addEventListener('visibilitychange', function () { document.documentElement.classList.toggle('ae-hidden', document.hidden); });
+  // Während des Scrollens schmückende Endlos-Animationen kurz anhalten (CSS + SMIL in SVGs) – das Scrollen bleibt flüssig,
+  // ~0,2 s nach dem Scrollen laufen sie weiter
+  var root = document.documentElement, scrollT = 0, smil = null;
+  function smilSvgs() { if (!smil) smil = Array.prototype.filter.call(document.querySelectorAll('svg'), function (s) { return !s.closest('svg svg') && s.querySelector('animate,animateMotion,animateTransform'); }); return smil; }
+  function scrollEnd() { scrollT = 0; root.classList.remove('ae-scrolling'); smilSvgs().forEach(function (s) { if (s.__aePaused) { s.__aePaused = false; try { s.unpauseAnimations(); } catch (e) {} } }); }
+  window.addEventListener('scroll', function () {
+    if (!scrollT) {
+      root.classList.add('ae-scrolling'); smil = null;
+      smilSvgs().forEach(function (s) { try { s.pauseAnimations(); s.__aePaused = true; } catch (e) {} });
+    } else clearTimeout(scrollT);
+    scrollT = setTimeout(scrollEnd, 200);
+  }, { passive: true });
+
   /* ---------- Leichtere Effekte auf schwachen Geräten ---------- */
   var lite = mqMobile.matches || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.matchMedia('(pointer: coarse)').matches;
   if (lite) document.documentElement.classList.add('fx-lite');

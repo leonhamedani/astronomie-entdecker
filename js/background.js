@@ -7,7 +7,7 @@
   var reduce = window.AE && AE.reduceMotion;
   // Handy/Tablet: weniger Sterne, 30 fps, seltener Sternschnuppen (schont Akku)
   var lite = window.innerWidth <= 760 || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
-  var lastW = 0, lastH = 0;
+  var lastW = 0, lastH = 0, activeAt = 0;
 
   function resize() {
     // Mobile Browser feuern beim Ein-/Ausblenden der Adressleiste „resize“ – dann nicht neu würfeln
@@ -42,7 +42,9 @@
   }
   var last = 0, nextShoot = 1500;
   function frame(t) {
-    if (lite && t - last < 30) { if (!document.hidden) requestAnimationFrame(frame); return; }
+    // Handy: 30 fps. PC: 60 fps nur, solange gescrollt oder die Maus bewegt wird (Parallaxe), sonst 30 fps fürs Funkeln
+    var minDt = (lite || t - activeAt > 400) ? 30 : 0;
+    if (t - last < minDt) { if (!document.hidden) requestAnimationFrame(frame); return; }
     var dt = Math.min(50, t - last); last = t;
     mx += (tmx - mx) * 0.05; my += (tmy - my) * 0.05;
     ctx.clearRect(0, 0, W, H);
@@ -83,8 +85,8 @@
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) { last = performance.now(); requestAnimationFrame(frame); } });
   window.addEventListener('resize', resize);
-  window.addEventListener('scroll', function () { scrollY = window.scrollY; }, { passive: true });
-  window.addEventListener('pointermove', function (e) { tmx = (e.clientX / W - 0.5) * 2; tmy = (e.clientY / H - 0.5) * 2; }, { passive: true });
+  window.addEventListener('scroll', function () { scrollY = window.scrollY; activeAt = performance.now(); }, { passive: true });
+  window.addEventListener('pointermove', function (e) { activeAt = performance.now(); tmx = (e.clientX / W - 0.5) * 2; tmy = (e.clientY / H - 0.5) * 2; }, { passive: true });
   resize();
   requestAnimationFrame(frame);
 })();

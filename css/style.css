@@ -1190,3 +1190,81 @@ html,body{overflow-x:clip}
 @media (max-width:980px){.calc-out,.calc-layout>.oc-view{grid-column:auto;grid-row:auto}}
 .bortle-stage>.bortle-badge{position:absolute;z-index:2}
 @media (max-width:560px){.calc-form .field-row{flex-direction:row;gap:.6rem}.calc-form .field{font-size:.8rem}}
+
+/* ===================== v9: Performance (Desktop) =====================
+   Ursache des Ruckelns: Dutzende backdrop-filter-Flächen über einem bewegten Hintergrund
+   (Nebel mit filter:blur(60px) + animiertes Sternfeld) mussten in jedem Frame neu weichgezeichnet werden –
+   auf großen Desktop-Fenstern sehr teuer. Jetzt: vorab „gefrostete“, halbtransparente Flächen statt Live-Blur;
+   Live-Blur nur noch für die Kopfzeile und kurzlebige Overlays (Modal, Tooltip, Toast). */
+.nebula{filter:none}
+.nebula span{will-change:transform;opacity:.75}
+.nebula span:nth-child(1){background:radial-gradient(circle,rgba(75,42,154,.95) 0%,rgba(75,42,154,.45) 30%,rgba(75,42,154,.12) 52%,transparent 70%)}
+.nebula span:nth-child(2){background:radial-gradient(circle,rgba(15,90,138,.95) 0%,rgba(15,90,138,.45) 30%,rgba(15,90,138,.12) 52%,transparent 70%)}
+.nebula span:nth-child(3){background:radial-gradient(circle,rgba(138,42,106,.95) 0%,rgba(138,42,106,.45) 30%,rgba(138,42,106,.12) 52%,transparent 70%)}
+.glass{backdrop-filter:none;-webkit-backdrop-filter:none;
+  background:linear-gradient(155deg,rgba(255,255,255,.10) 0%,rgba(120,140,255,.06) 38%,rgba(10,12,36,.42) 100%),rgba(16,20,52,.5)}
+.glass:not(.sky-wrap):not(.modal-card)::after{mix-blend-mode:normal;background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 22%),linear-gradient(115deg,transparent 35%,rgba(255,255,255,.07) 48%,rgba(255,255,255,.015) 55%,transparent 62%);background-size:100% 100%,260% 100%;background-position:0 0,130% 0}
+.glass:not(.sky-wrap):not(.modal-card):hover::after{background-position:0 0,-30% 0}
+.fold-btn{backdrop-filter:none;-webkit-backdrop-filter:none;background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(120,140,255,.04) 45%,rgba(10,12,36,.35)),rgba(16,20,52,.45)}
+.fold-btn:hover{background:linear-gradient(155deg,rgba(255,255,255,.1),rgba(120,140,255,.08) 45%,rgba(10,12,36,.35)),rgba(16,20,52,.45)}
+.chip,.loc-chip,.btn-ghost,.stat,.to-top,.glass-orb,.learn-hint,.sky-info,.bortle-badge{backdrop-filter:none;-webkit-backdrop-filter:none}
+.chip,.loc-chip{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.03)),rgba(14,18,46,.45)}
+.btn-ghost{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03)),rgba(14,18,46,.45)}
+.stat{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02)),rgba(14,18,46,.4)}
+.to-top{background:linear-gradient(155deg,rgba(255,255,255,.16),rgba(40,50,120,.55)),rgba(14,18,46,.6)}
+.chip.active{background:rgba(124,156,255,.3)}
+.page-subnav .chip.active{background:rgba(138,255,214,.16)}
+.fx-lite .glass,.fx-lite .fold-btn{backdrop-filter:none;-webkit-backdrop-filter:none}
+/* Animationen außerhalb des Bildschirms anhalten (Klasse setzt ux.js per IntersectionObserver) */
+.ae-off,.ae-off *,.ae-off *::before,.ae-off *::after{animation-play-state:paused!important}
+.ae-hidden *,.ae-hidden *::before,.ae-hidden *::after{animation-play-state:paused!important}
+.nebula span{mix-blend-mode:normal}
+.nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:linear-gradient(180deg,rgba(14,18,48,.55),rgba(8,10,30,.3))}
+.nav.scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background:linear-gradient(180deg,rgba(16,20,54,.96),rgba(8,10,30,.92))}
+/* Glüh-Effekte in animierten SVGs: statt teurer Weichzeichner-Filter (die bei jeder Animation das ganze SVG neu
+   filtern) ein weicher, halbtransparenter Rand – sieht fast gleich aus, kostet aber kaum etwas */
+#scopeSvg .lens{filter:none;stroke:rgba(143,214,255,.45);stroke-width:5}
+.eye-glow{filter:none;stroke:rgba(255,215,106,.35);stroke-width:7;paint-order:stroke}
+.finder-target{filter:none;stroke:rgba(255,255,255,.3);stroke-width:6;paint-order:stroke}
+.lp-lens{filter:none;stroke-width:3;stroke:rgba(143,214,255,.9)}
+.lp-mirror{filter:none;stroke:#dde8ff;stroke-width:6}
+.ray{filter:none}
+.focus{filter:none;stroke:rgba(255,211,74,.4);stroke-width:7;paint-order:stroke}
+.lp .photons circle{filter:none;stroke:rgba(255,211,74,.35);stroke-width:6;paint-order:stroke}
+@keyframes lensGlow{0%,10%,40%,100%{stroke:rgba(143,214,255,.9);stroke-width:3}20%{stroke:#dff6ff;stroke-width:6}}
+@keyframes mirrorGlow{0%,35%,60%,100%{stroke:#dde8ff;stroke-width:6}47%{stroke:#fff;stroke-width:9}}
+.arc-dot{filter:none;stroke:rgba(138,255,214,.4);stroke-width:5;paint-order:stroke}
+.oc-star{filter:none}
+.ex-st{filter:none}
+.af-moon circle:first-child{filter:none;stroke:rgba(255,240,200,.25);stroke-width:6;paint-order:stroke}
+.af-mw-band{animation:none}
+/* Objekt-Illustrationen: Farbverläufe statt Blur-Filter */
+.ob-neb1,.ob-neb2,.ob-gal,.ob-arm,.ob-core,.ob-tail,.ob-ring{filter:none}
+.ob-neb1{fill:url(#obNebP)}.ob-neb2{fill:url(#obNebB)}.ob-gal{fill:url(#obGal)}.ob-core{fill:url(#obCore)}.ob-tail{fill:url(#obTail)}
+.ob-arm{stroke:rgba(200,210,255,.22);stroke-width:7}
+.ob-ring{stroke:rgba(138,255,214,.7);stroke-width:4.5}
+/* Pulsierende Leuchtschatten: Schatten fest, nur die Deckkraft/Größe einer Ebene animieren (läuft auf der Grafikkarte) */
+.sun-ic{animation:none;position:relative}
+.sun-ic::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 45px #ffb547cc,0 0 90px #ff6a3d77;opacity:0;animation:glowFade 4s ease-in-out infinite;pointer-events:none}
+@keyframes glowFade{50%{opacity:1}}
+.live-dot{animation:none;position:relative;box-shadow:none}
+.live-dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(93,242,176,.55);animation:livePing 1.4s ease-out infinite;pointer-events:none}
+@keyframes livePing{0%{transform:scale(1);opacity:.8}100%{transform:scale(3.3);opacity:0}}
+@media (prefers-reduced-motion:reduce){.sun-ic::after,.live-dot::after{animation:none}}
+.ae-scrolling main *,.ae-scrolling main *::before,.ae-scrolling main *::after{animation-play-state:paused!important}
+.af-trails circle{transform:none;animation:none}
+.af-trails circle:not(.af-polaris){transform:initial}
+.af-rot{animation:afRot 40s linear infinite}
+@keyframes afRot{to{transform:rotate(360deg)}}
+.obj-art{position:relative}
+.obj-tag{z-index:0}
+@media (prefers-reduced-motion:reduce){.af-rot{animation:none}}
+/* Sternspuren: eine gemeinsam drehende Gruppe statt 26 einzeln animierter Kreise (weniger Grafik-Ebenen) */
+.af-trails circle{animation:none}
+.af-rot{animation:afRot 40s linear infinite}
+@keyframes afRot{to{transform:rotate(360deg)}}
+.obj-art{position:relative}
+@media (prefers-reduced-motion:reduce){.af-rot{animation:none}}
+.af-stars circle{animation:none}
+.tw{animation:obTw 3.2s ease-in-out infinite}.tw2{animation-delay:-1.1s}.tw3{animation-delay:-2.2s;animation-duration:2.6s}
+@media (prefers-reduced-motion:reduce){.tw{animation:none}}

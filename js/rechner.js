@@ -158,8 +158,10 @@
   (function () {
     function rnd(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
     var g = rnd(11), s = '';
-    document.querySelectorAll('.af-stars').forEach(function (el) { s = ''; for (var i = 0; i < 70; i++) s += '<circle cx="' + (g() * 320).toFixed(1) + '" cy="' + (g() * 140).toFixed(1) + '" r="' + (0.4 + g() * 1.1).toFixed(2) + '" style="--d:' + (g() * 3).toFixed(2) + 's"/>'; el.innerHTML = s; });
-    document.querySelectorAll('.af-trails').forEach(function (el) { s = ''; for (var i = 0; i < 26; i++) { var r = 8 + i * 6 + g() * 4, a0 = g() * 360; s += '<circle r="' + r.toFixed(1) + '" stroke-dasharray="' + (r * 0.9).toFixed(1) + ' ' + (r * 6).toFixed(1) + '" style="--a:' + a0.toFixed(0) + 'deg;--o:' + (0.35 + g() * .6).toFixed(2) + '"/>'; } s += '<circle r="1.6" class="af-polaris"/>'; el.innerHTML = s; });
+    // Funkeln in drei Gruppen statt 70 einzeln animierter Sterne (jede Einzelanimation wäre eine eigene Grafik-Ebene)
+    document.querySelectorAll('.af-stars').forEach(function (el) { var gr = ['', '', '']; for (var i = 0; i < 70; i++) gr[i % 3] += '<circle cx="' + (g() * 320).toFixed(1) + '" cy="' + (g() * 140).toFixed(1) + '" r="' + (0.4 + g() * 1.1).toFixed(2) + '"/>'; el.innerHTML = gr.map(function (x, k) { return '<g class="tw tw' + (k + 1) + '">' + x + '</g>'; }).join(''); });
+    // Eine gemeinsam drehende Gruppe statt 26 einzeln animierter Kreise (spart Grafik-Ebenen)
+    document.querySelectorAll('.af-trails').forEach(function (el) { s = '<g class="af-rot">'; for (var i = 0; i < 26; i++) { var r = 8 + i * 6 + g() * 4, a0 = g() * 360; s += '<circle r="' + r.toFixed(1) + '" stroke-dasharray="' + (r * 0.9).toFixed(1) + ' ' + (r * 6).toFixed(1) + '" style="--a:' + a0.toFixed(0) + 'deg;--o:' + (0.35 + g() * .6).toFixed(2) + '"/>'; } s += '</g><circle r="1.6" class="af-polaris"/>'; el.innerHTML = s; });
     document.querySelectorAll('.af-edit-stars').forEach(function (el) { s = ''; for (var i = 0; i < 50; i++) s += '<circle cx="' + (44 + g() * 232).toFixed(1) + '" cy="' + (22 + g() * 112).toFixed(1) + '" r="' + (0.4 + g() * 1.2).toFixed(2) + '"/>'; el.innerHTML = s; });
   })();
 })();

@@ -95,7 +95,7 @@
       THREE = window.THREE;
       try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'low-power' }); }
       catch (e) { loading.textContent = '😢 Dein Browser unterstützt kein WebGL – die Steckbriefe funktionieren trotzdem.'; throw e; }
-      renderer.outputEncoding = THREE.sRGBEncoding; renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      renderer.outputEncoding = THREE.sRGBEncoding; renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio || 1));
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(40, 1, 0.05, 200);
       var sun = new THREE.DirectionalLight(0xfff4e6, 2.4); sun.position.set(-4, 1.6, 3); scene.add(sun);
