@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#05060f">
 <script>/* Rotlicht-Nachtmodus vor dem ersten Zeichnen setzen */try{if(localStorage.getItem('ae-rotlicht-v1')==='1'){var d=document.documentElement,b=parseFloat(localStorage.getItem('ae-rotlicht-hell-v1'));d.classList.add('rotlicht');if(b>=.25&&b<=1)d.style.setProperty('--rl-c','rgb('+Math.round(255*b)+',0,0)');var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('data-off',m.content);m.content='#120000';}}}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=14">
 </head>
 <body class="page-lernen">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -22,7 +22,7 @@
     <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
     <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
-    <a href="hopper.html"><span class="nl-ic" aria-hidden="true">🎯</span>Star-Hopper</a>
+    <a href="astrogator.html"><span class="nl-ic" aria-hidden="true">🎯</span>Astrogator</a>
     <a href="lernen.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
   <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
@@ -736,7 +736,7 @@
       <div class="card glass tip reveal"><div class="tip-ic">📅</div><h4>Eine Jahreszeit nach der anderen</h4><p>Jeden Monat gehen Sterne etwa 2 Stunden früher auf. Lerne pro Jahreszeit 2–3 Sternbilder – nach einem Jahr kennst du den ganzen Himmel.</p></div>
       <div class="card glass tip reveal"><div class="tip-ic">✏️</div><h4>Zeichnen statt Fotografieren</h4><p>Skizziere, was du siehst. Beim Zeichnen prägen sich Muster und Abstände viel besser ein als beim Knipsen.</p></div>
     </div>
-    <div class="glass lesson-note hop-cta reveal"><div class="tip-ic">🎯</div><div><h4>Star-Hopping mit dem Handy auf dem Teleskop</h4><p>Unser <b>Star-Hopper</b> macht dein Handy zu „digitalen Teilkreisen“: Handy flach auf den Tubus legen (obere Kante nach vorn), an einem hellen Stern ausrichten, Ziel wählen – große Pfeile zeigen „Hoch 12°, Rechts 8°“. Bei weiten Sprüngen schlägt er einen hellen Zwischenstern vor, an dem du neu ausrichtest – genau wie beim klassischen Star-Hopping.</p><a class="btn btn-primary" href="hopper.html">🎯 Star-Hopper öffnen</a></div></div>
+    <div class="glass lesson-note hop-cta reveal"><div class="tip-ic">🎯</div><div><h4>Star-Hopping mit dem Handy auf dem Teleskop</h4><p>Unser <b>Astrogator</b> macht dein Handy zu „digitalen Teilkreisen“: Handy flach auf den Tubus legen (obere Kante nach vorn), an einem hellen Stern ausrichten, Ziel wählen – große Pfeile zeigen „Hoch 12°, Rechts 8°“. Bei weiten Sprüngen schlägt er einen hellen Zwischenstern vor, an dem du neu ausrichtest – genau wie beim klassischen Star-Hopping.</p><a class="btn btn-primary" href="astrogator.html">🎯 Astrogator öffnen</a></div></div>
   </div>
 </article>
 
@@ -768,7 +768,7 @@
 </main>
 
 <footer class="footer">
-  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="hopper.html">Star-Hopper</a> · <a href="lernen.html" aria-current="page">Lernkurs</a></nav>
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="astrogator.html">Astrogator</a> · <a href="lernen.html" aria-current="page">Lernkurs</a></nav>
   <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
   <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
   <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
@@ -798,21 +798,21 @@
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=13"></script>
-<script src="js/data/sky-data.js?v=13"></script>
-<script src="js/data/constellation-info.js?v=13"></script>
-<script src="js/data/cities.js?v=13"></script>
-<script src="js/core.js?v=13"></script>
-<script src="js/background.js?v=13"></script>
-<script src="js/course.js?v=13"></script>
-<script src="js/telescope.js?v=13"></script>
-<script src="js/learn.js?v=13"></script>
-<script src="js/ratgeber.js?v=13"></script>
-<script src="js/rechner.js?v=13"></script>
-<script src="js/objekte.js?v=13"></script>
-<script src="js/bortle.js?v=13"></script>
-<script src="js/rotlicht.js?v=13"></script>
-<script src="js/ux.js?v=13"></script>
-<script src="js/main.js?v=13"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=14"></script>
+<script src="js/data/sky-data.js?v=14"></script>
+<script src="js/data/constellation-info.js?v=14"></script>
+<script src="js/data/cities.js?v=14"></script>
+<script src="js/core.js?v=14"></script>
+<script src="js/background.js?v=14"></script>
+<script src="js/course.js?v=14"></script>
+<script src="js/telescope.js?v=14"></script>
+<script src="js/learn.js?v=14"></script>
+<script src="js/ratgeber.js?v=14"></script>
+<script src="js/rechner.js?v=14"></script>
+<script src="js/objekte.js?v=14"></script>
+<script src="js/bortle.js?v=14"></script>
+<script src="js/rotlicht.js?v=14"></script>
+<script src="js/ux.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>

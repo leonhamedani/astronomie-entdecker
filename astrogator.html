@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Astrogator: Handy als Teleskop-Navi – Astronomie Entdecker</title>
+<meta name="description" content="Leg dein Handy aufs Teleskop: Astrogator zeigt mit großen Pfeilen, wohin du schwenken musst – Planeten, Messier-Objekte und helle Sterne. Digitale Teilkreise ohne Zusatzhardware.">
+<meta name="theme-color" content="#05060f">
+<script>/* Rotlicht-Nachtmodus vor dem ersten Zeichnen setzen */try{if(localStorage.getItem('ae-rotlicht-v1')==='1'){var d=document.documentElement,b=parseFloat(localStorage.getItem('ae-rotlicht-hell-v1'));d.classList.add('rotlicht');if(b>=.25&&b<=1)d.style.setProperty('--rl-c','rgb('+Math.round(255*b)+',0,0)');var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('data-off',m.content);m.content='#120000';}}}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css?v=14">
+</head>
+<body class="page-hopper">
+<canvas id="bg-stars" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html"><span class="brand-star">✦</span> Astronomie<span class="brand-2"> Entdecker</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+  <nav class="nav-links" id="navLinks" aria-label="Hauptnavigation">
+    <a href="index.html"><span class="nl-ic" aria-hidden="true">🏠</span>Start</a>
+    <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
+    <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
+    <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="astrogator.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🎯</span>Astrogator</a>
+    <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
+  </nav>
+  <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
+  <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
+  <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+</header>
+
+<main id="inhalt" class="hp-main">
+<div class="hp-wrap">
+  <nav class="hp-steps" aria-label="Schritte">
+    <button type="button" class="hp-step" data-go="start"><b>1</b><span>Start</span></button>
+    <button type="button" class="hp-step" data-go="align"><b>2</b><span>Ausrichten</span></button>
+    <button type="button" class="hp-step" data-go="target"><b>3</b><span>Ziel</span></button>
+    <button type="button" class="hp-step" data-go="nav"><b>4</b><span>Navigieren</span></button>
+  </nav>
+  <div class="hp-live" id="hpLive" aria-live="off">
+    <span class="hp-live-src" id="hpSrc">Sensor: aus</span>
+    <span class="hp-live-pos" id="hpPos">Tubus: –</span>
+    <span class="hp-live-al" id="hpAl">nicht ausgerichtet</span>
+  </div>
+
+  <!-- 1 START -->
+  <section class="hp-panel" data-step="start" aria-labelledby="hpT1">
+    <div class="hp-card hp-hero">
+      <p class="eyebrow">Digitale Teilkreise mit deinem Handy</p>
+      <h1 id="hpT1">🎯 Astrogator</h1>
+      <p class="hp-lead">Leg dein Handy <b>auf den Tubus</b> – es misst, wohin dein Teleskop zeigt, und führt dich mit großen Pfeilen zu Planeten, Sternhaufen, Nebeln und Galaxien.</p>
+      <svg class="hp-illu" viewBox="0 0 320 150" role="img" aria-label="Skizze: Handy liegt flach auf dem Teleskop-Tubus, die obere Kante zeigt zur Öffnung">
+        <g transform="rotate(-24 160 110)">
+          <rect x="40" y="88" width="230" height="44" rx="8" class="hp-i-tube"/>
+          <rect x="262" y="82" width="16" height="56" rx="4" class="hp-i-tube2"/>
+          <rect x="22" y="100" width="20" height="20" rx="3" class="hp-i-tube2"/>
+          <rect x="120" y="70" width="86" height="18" rx="4" class="hp-i-phone"/>
+          <rect x="126" y="73" width="74" height="12" rx="2" class="hp-i-screen"/>
+          <line x1="130" y1="61" x2="250" y2="61" class="hp-i-arrow"/>
+          <path d="M250 55 L262 61 L250 67 Z" class="hp-i-head"/>
+          <text x="128" y="54" class="hp-i-txt">obere Kante → Öffnung</text>
+          <path d="M150 88 v44 M180 88 v44" class="hp-i-band"/>
+        </g>
+        <text x="286" y="24" class="hp-i-star">✦</text>
+      </svg>
+      <ol class="hp-howto">
+        <li><b>Handy auf den Tubus legen</b> – Bildschirm nach oben, <b>obere Kante zeigt nach vorn</b> zur Teleskop-Öffnung (in Blickrichtung).</li>
+        <li><b>Festmachen</b> mit Gummiband oder Klettband. Es darf beim Schwenken nicht verrutschen.</li>
+        <li><b>Bildschirmdrehung sperren</b> (Hochformat), Helligkeit runter, am besten mit <b>Rotlicht</b>.</li>
+        <li><b>Sensoren aktivieren</b> → an einem hellen Stern <b>ausrichten</b> → <b>Ziel wählen</b> → den Pfeilen folgen.</li>
+      </ol>
+      <p class="hp-loc">📍 Standort: <b id="hpLocName">–</b> <button type="button" class="chip" id="hpGeo">🛰️ GPS verwenden</button></p>
+      <div class="hp-actions">
+        <button type="button" class="hp-big hp-primary" id="hpActivate">📡 Sensoren aktivieren</button>
+        <button type="button" class="hp-big hp-ghost" id="hpSimBtn">🖥️ Simulation (ohne Sensoren)</button>
+        <button type="button" class="hp-big hp-ghost hp-redbtn" data-red-toggle aria-pressed="false">🔴 Rotlicht-Modus einschalten</button>
+      </div>
+      <p class="hp-msg" id="hpSensMsg" role="status"></p>
+    </div>
+    <details class="hp-card hp-settings" id="hpSettings">
+      <summary>⚙️ Einstellungen</summary>
+      <label class="hp-switch"><input type="checkbox" id="hpRev"> <span><b>Spiegelung:</b> Obere Handykante zeigt nach <b>hinten</b> (zum Okular)</span></label>
+      <label class="hp-range"><span>Sichtfeld-Radius für „Im Ziel“: <b id="hpFovVal">1,0°</b></span><input type="range" id="hpFov" min="0.2" max="5" step="0.1" value="1"><small class="muted">Sucher ≈ 2–3°, Okular mit wenig Vergrößerung ≈ 0,5–1°.</small></label>
+      <label class="hp-sel"><span>Kompass</span><select id="hpCompass"><option value="auto">Automatisch – Kompass nutzen, wenn vorhanden</option><option value="aus">Aus – nur relativ (Ausrichtung nötig, oft genauer)</option></select></label>
+      <p class="muted small">Ohne Kompass misst das Handy nur Drehungen <i>relativ</i> zur Ausrichtung (Kreisel). Das ist in der Nähe von Metall (Stahl-Tubus, Montierung) meist genauer – driftet aber langsam. Deshalb ab und zu neu ausrichten.</p>
+    </details>
+    <p class="muted small hp-credit">Idee nach <a href="https://github.com/artyom-beilis/skyhopper" target="_blank" rel="noopener">AstroHopper</a> von Artyom Beilis – eigene Umsetzung für diese Website. Positionen mit Astronomy Engine, Sterne und Messier-Objekte aus d3-celestial.</p>
+  </section>
+
+  <!-- 2 AUSRICHTEN -->
+  <section class="hp-panel" data-step="align" aria-labelledby="hpT2" hidden>
+    <div class="hp-card">
+      <h2 id="hpT2">② Ausrichten</h2>
+      <p>Stell einen <b>hellen Stern oder Planeten</b>, den du sicher erkennst, <b>mittig ins Okular</b>. Dann hier antippen – 3 Sekunden nicht wackeln.</p>
+      <input type="search" class="hp-search" id="hpAlignQ" placeholder="Suchen, z. B. Wega, Jupiter …" aria-label="Ausrichtungsstern suchen" autocomplete="off">
+      <ul class="hp-list" id="hpAlignList" aria-label="Helle Objekte über dem Horizont"></ul>
+      <button type="button" class="chip hp-skip" id="hpSkipAlign">Ohne Ausrichtung weiter (nur mit Kompass, ungenau)</button>
+    </div>
+  </section>
+
+  <!-- 3 ZIEL -->
+  <section class="hp-panel" data-step="target" aria-labelledby="hpT3" hidden>
+    <div class="hp-card">
+      <h2 id="hpT3">③ Ziel wählen</h2>
+      <input type="search" class="hp-search" id="hpTargetQ" placeholder="Suchen: M13, Andromeda, Saturn …" aria-label="Ziel suchen" autocomplete="off">
+      <div class="hp-cats" role="group" aria-label="Kategorie">
+        <button type="button" class="chip active" data-cat="alle" aria-pressed="true">Alle</button>
+        <button type="button" class="chip" data-cat="planet" aria-pressed="false">🪐 Planeten</button>
+        <button type="button" class="chip" data-cat="moon" aria-pressed="false">🌙 Mond</button>
+        <button type="button" class="chip" data-cat="dso" aria-pressed="false">🌌 Deep-Sky</button>
+        <button type="button" class="chip" data-cat="star" aria-pressed="false">⭐ Helle Sterne</button>
+      </div>
+      <label class="hp-switch hp-only"><input type="checkbox" id="hpOnlyUp" checked> <span>Nur Objekte über dem Horizont</span></label>
+      <ul class="hp-list" id="hpTargetList" aria-label="Ziele"></ul>
+    </div>
+  </section>
+
+  <!-- 4 NAVIGIEREN -->
+  <section class="hp-panel" data-step="nav" aria-labelledby="hpT4" hidden>
+    <div class="hp-card hp-navcard" id="hpNavCard">
+      <p class="hp-tname"><span class="muted">Ziel:</span> <b id="hpT4">–</b> <span class="hp-tsub" id="hpTSub"></span></p>
+      <div class="hp-readout">
+        <div class="hp-ax" id="hpAxUp"><span class="hp-arrow" id="hpArUp" aria-hidden="true">↑</span><span class="hp-num"><small id="hpLbUp">Hoch</small><b id="hpValUp">–</b></span></div>
+        <div class="hp-ax" id="hpAxRt"><span class="hp-arrow" id="hpArRt" aria-hidden="true">→</span><span class="hp-num"><small id="hpLbRt">Rechts</small><b id="hpValRt">–</b></span></div>
+      </div>
+      <div class="hp-mid">
+        <canvas id="hpRadar" width="240" height="240" aria-label="Radar: Fadenkreuz ist die aktuelle Tubus-Richtung, der Punkt das Ziel" role="img"></canvas>
+        <div class="hp-side">
+          <p class="hp-dist">Abstand <b id="hpDist">–</b></p>
+          <p class="hp-status" id="hpStatus" role="status" aria-live="polite">–</p>
+          <p class="hp-cur muted small" id="hpCur"></p>
+        </div>
+      </div>
+      <p class="hp-hop" id="hpHop" hidden></p>
+      <p class="hp-drift" id="hpDrift" hidden></p>
+      <div class="hp-actions hp-navbtns">
+        <button type="button" class="hp-big hp-ghost" data-go="target">🔭 Ziel wechseln</button>
+        <button type="button" class="hp-big hp-ghost" id="hpSync">🎯 Ziel ist im Okular – hier neu ausrichten</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATION -->
+  <div class="hp-card hp-sim" id="hpSim" hidden>
+    <p class="hp-simhead">🖥️ <b>Simulation</b> – so, als würdest du den Tubus bewegen <span class="muted small">(Pfeiltasten ←→↑↓, mit Umschalt feiner)</span></p>
+    <label class="hp-range"><span>Höhe <b id="hpSimAltV">20,0°</b></span><input type="range" id="hpSimAlt" min="-10" max="90" step="0.1" value="20"></label>
+    <label class="hp-range"><span>Azimut <b id="hpSimAzV">180,0°</b></span><input type="range" id="hpSimAz" min="0" max="359.9" step="0.1" value="180"></label>
+    <p class="muted small">Der simulierte „Kompass“ liegt absichtlich 23° daneben und das Handy 1,5° schräg – genau dafür ist die Ausrichtung da.</p>
+  </div>
+</div>
+</main>
+
+<div class="hp-count" id="hpCount" hidden role="alertdialog" aria-modal="true" aria-labelledby="hpCountN">
+  <div class="hp-count-in">
+    <p class="hp-count-t">Ausrichten auf <b id="hpCountObj">–</b></p>
+    <p class="hp-count-n" id="hpCountN">3</p>
+    <p class="hp-count-w">Nicht wackeln!</p>
+    <button type="button" class="hp-big hp-ghost" id="hpCountCancel">Abbrechen</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="astrogator.html" aria-current="page">Astrogator</a> · <a href="lernen.html">Lernkurs</a></nav>
+  <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
+  <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
+  <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
+</footer>
+
+<!-- STANDORT -->
+<div class="modal" id="locModal" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card glass">
+    <button class="modal-close" data-close aria-label="Schließen">×</button>
+    <h3 id="locTitle">📍 Wo stehst du?</h3>
+    <p class="muted">Für eine exakte Himmelsansicht brauchen wir deinen ungefähren Standort. Er gilt für alle Seiten und bleibt in deinem Browser – nichts wird gesendet.</p>
+    <button class="btn btn-primary wide" id="btnGeo">🛰️ Meinen Standort verwenden</button>
+    <p class="geo-status" id="geoStatus"></p>
+    <div class="or"><span>oder</span></div>
+    <label class="field">Stadt auswählen
+      <select id="citySelect"></select>
+    </label>
+    <div class="field-row">
+      <label class="field">Breite (°)<input id="latInput" type="number" step="0.001" min="-90" max="90" placeholder="52.52"></label>
+      <label class="field">Länge (°)<input id="lonInput" type="number" step="0.001" min="-180" max="180" placeholder="13.40"></label>
+    </div>
+    <p class="muted small">Nord = positive Breite, Ost = positive Länge. Bei eigenen Koordinaten wird die Zeitzone deines Browsers verwendet.</p>
+    <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
+  </div>
+</div>
+<button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/vendor/astronomy.browser.min.js?v=14"></script>
+<script src="js/data/cities.js?v=14"></script>
+<script src="js/data/sky-data.js?v=14"></script>
+<script src="js/data/messier.js?v=14"></script>
+<script src="js/core.js?v=14"></script>
+<script src="js/background.js?v=14"></script>
+<script src="js/hopper-math.js?v=14"></script>
+<script src="js/hopper.js?v=14"></script>
+<script src="js/rotlicht.js?v=14"></script>
+<script src="js/ux.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
+</body>
+</html>

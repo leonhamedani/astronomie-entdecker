@@ -1,4 +1,4 @@
-/* Star-Hopper – reine Mathematik (ohne DOM), auch unter Node testbar (tests/hopper-math.test.js).
+/* Astrogator – reine Mathematik (ohne DOM), auch unter Node testbar (tests/hopper-math.test.js).
    Eigene Umsetzung; Idee „Handy aufs Teleskop legen“ nach AstroHopper (A. Beilis).
 
    Gerätekoordinaten (W3C DeviceOrientation): x = rechts, y = obere Handykante, z = aus dem Bildschirm.

@@ -21,7 +21,7 @@
   if (m[h]) location.replace(m[h]);
 })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=14">
 </head>
 <body class="page-start">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -35,7 +35,7 @@
     <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
     <a href="heute.html"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
-    <a href="hopper.html"><span class="nl-ic" aria-hidden="true">🎯</span>Star-Hopper</a>
+    <a href="astrogator.html"><span class="nl-ic" aria-hidden="true">🎯</span>Astrogator</a>
     <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
   <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
@@ -105,10 +105,10 @@
       <ul class="pc-list"><li>3 Stufen: Einsteiger · Fortgeschritten · Experte</li><li>Fortschrittsleiste, Kurz-Checks &amp; Mini-Spiele</li><li>Teleskop-Ratgeber, Okular-Rechner &amp; Handy-Astrofotos</li></ul>
       <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
     </a>
-    <a class="card glass page-card reveal pc-hopper" href="hopper.html">
+    <a class="card glass page-card reveal pc-hopper" href="astrogator.html">
       <span class="pc-orb" aria-hidden="true">🎯</span>
       <div class="pc-hop-txt">
-        <h3>Star-Hopper: Dein Handy als Teleskop-Navi <span class="pc-new">Neu</span></h3>
+        <h3>Astrogator: Dein Handy als Teleskop-Navi <span class="pc-new">Neu</span></h3>
         <p>Leg das Handy auf den Tubus – große Pfeile zeigen, wohin du schwenken musst. Einmal an einem hellen Stern ausrichten, dann Planeten, Messier-Objekte und Sterne finden.</p>
       </div>
       <span class="pc-go">Öffnen <span aria-hidden="true">→</span></span>
@@ -138,7 +138,7 @@
 </main>
 
 <footer class="footer">
-  <nav class="foot-nav" aria-label="Seiten"><a href="index.html" aria-current="page">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="hopper.html">Star-Hopper</a> · <a href="lernen.html">Lernkurs</a></nav>
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html" aria-current="page">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="astrogator.html">Astrogator</a> · <a href="lernen.html">Lernkurs</a></nav>
   <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
   <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
   <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
@@ -168,13 +168,13 @@
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=13"></script>
-<script src="js/data/cities.js?v=13"></script>
-<script src="js/core.js?v=13"></script>
-<script src="js/background.js?v=13"></script>
-<script src="js/glance.js?v=13"></script>
-<script src="js/rotlicht.js?v=13"></script>
-<script src="js/ux.js?v=13"></script>
-<script src="js/main.js?v=13"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=14"></script>
+<script src="js/data/cities.js?v=14"></script>
+<script src="js/core.js?v=14"></script>
+<script src="js/background.js?v=14"></script>
+<script src="js/glance.js?v=14"></script>
+<script src="js/rotlicht.js?v=14"></script>
+<script src="js/ux.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>

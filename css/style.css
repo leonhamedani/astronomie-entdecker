@@ -1425,7 +1425,7 @@ kbd{font:inherit;font-size:.85em;padding:.05em .4em;border:1px solid var(--glass
   .nav-toggle{margin-left:0}
 }
 
-/* ---------- v13: Star-Hopper (Handy auf dem Teleskop) ----------
+/* ---------- v13: Astrogator (Handy auf dem Teleskop) ----------
    Bewusst dunkel, wenig Glanz, große Ziele – funktioniert auch im Rotlicht-Modus gut lesbar. */
 .page-hopper{--hp-acc:#ff6b5a;--hp-bg:#0b0d1c;--hp-line:rgba(255,140,120,.18)}
 .page-hopper #bg-stars{opacity:.45}
@@ -1542,7 +1542,7 @@ kbd{font:inherit;font-size:.85em;padding:.05em .4em;border:1px solid var(--glass
   .hp-cur{margin:0}
   .hp-big{flex-basis:100%}
 }
-/* Startseite: Star-Hopper-Karte über die volle Breite; Lernkurs-Hinweis */
+/* Startseite: Astrogator-Karte über die volle Breite; Lernkurs-Hinweis */
 .page-card.pc-hopper{--pc:#ff6b5a;grid-column:1/-1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
 .pc-hopper .pc-hop-txt{flex:1 1 320px;min-width:0}
 .pc-hopper .pc-hop-txt p{margin:0}

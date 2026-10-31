@@ -1,4 +1,4 @@
-/* Star-Hopper: Handy liegt auf dem Teleskop-Tubus und führt zum Ziel („digitale Teilkreise“).
+/* Astrogator: Handy liegt auf dem Teleskop-Tubus und führt zum Ziel („digitale Teilkreise“).
    Ablauf: Start → Ausrichten (an hellem Objekt) → Ziel wählen → Navigieren. Mathematik in hopper-math.js. */
 (function () {
   'use strict';
