@@ -6,6 +6,7 @@
 <title>Astronomie Entdecker – Dein Fenster zum Sternenhimmel</title>
 <meta name="description" content="Interaktive Sternkarte, „Heute sichtbar“-Planer, Planeten in 3D und Sterne lesen lernen – alles auf Deutsch.">
 <meta name="theme-color" content="#05060f">
+<script>/* Rotlicht-Nachtmodus vor dem ersten Zeichnen setzen */try{if(localStorage.getItem('ae-rotlicht-v1')==='1'){var d=document.documentElement,b=parseFloat(localStorage.getItem('ae-rotlicht-hell-v1'));d.classList.add('rotlicht');if(b>=.25&&b<=1)d.style.setProperty('--rl-c','rgb('+Math.round(255*b)+',0,0)');var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('data-off',m.content);m.content='#120000';}}}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
 <script>
 /* Alte Sprungmarken des One-Pagers (index.html#…) auf die neuen Unterseiten umleiten */
@@ -20,7 +21,7 @@
   if (m[h]) location.replace(m[h]);
 })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body class="page-start">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -36,6 +37,7 @@
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
     <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
+  <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
   <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
   <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
 </header>
@@ -157,12 +159,13 @@
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=11"></script>
-<script src="js/data/cities.js?v=11"></script>
-<script src="js/core.js?v=11"></script>
-<script src="js/background.js?v=11"></script>
-<script src="js/glance.js?v=11"></script>
-<script src="js/ux.js?v=11"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=12"></script>
+<script src="js/data/cities.js?v=12"></script>
+<script src="js/core.js?v=12"></script>
+<script src="js/background.js?v=12"></script>
+<script src="js/glance.js?v=12"></script>
+<script src="js/rotlicht.js?v=12"></script>
+<script src="js/ux.js?v=12"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>

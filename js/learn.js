@@ -321,14 +321,7 @@
   });
   $('findNext').addEventListener('click', newRound);
 
-  /* ---------- Rotlicht-Modus ---------- */
-  function setRed(on) {
-    document.body.classList.toggle('redlight', on); $('redExit').hidden = !on;
-    $('redBtn').textContent = on ? '⚪ Rotlicht-Modus beenden' : '🔴 Rotlicht-Modus testen';
-    if (on) AE.toast('🔴 Rotlicht-Modus aktiv – so schonst du nachts deine Augen.');
-  }
-  $('redBtn').addEventListener('click', function () { setRed(!document.body.classList.contains('redlight')); });
-  $('redExit').addEventListener('click', function () { setRed(false); });
+  /* Rotlicht-Modus: global in rotlicht.js (Knopf #redBtn wird dort behandelt) */
 
   /* ---------- Start & Größenänderung ---------- */
   function resizeAll() { lp.resize(); hp.resize(); fp.resize(); drawStep(anim ? performance.now() - t0 : 99999); drawHand(1); drawFind(game.answered ? 1 : 0); }

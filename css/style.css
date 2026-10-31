@@ -395,8 +395,6 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .app-ic{font-size:2rem;filter:drop-shadow(0 0 10px rgba(160,190,255,.5))}
 .app a.pill{text-decoration:none}
 .red-btn{margin-top:.4rem;padding:.55rem 1rem;font-size:.88rem}
-body.redlight::after{content:"";position:fixed;inset:0;background:#ff2020;mix-blend-mode:multiply;pointer-events:none;z-index:9998}
-.red-exit{position:fixed;right:1rem;bottom:1rem;z-index:9999;background:#3a0000;color:#ff6a6a;border:1px solid #ff4040;border-radius:999px;padding:.6rem 1rem;font:inherit;cursor:pointer}
 @media (max-width:980px){.learn-layout,.learn-stage,.hand-box,.find-layout{grid-template-columns:1fr}
   .learn-steps{flex-direction:row;overflow-x:auto;padding-bottom:.4rem;scroll-snap-type:x mandatory}
   .learn-step{flex:0 0 auto;scroll-snap-align:start}
@@ -1386,4 +1384,43 @@ html,body{overflow-x:clip}
   .bt-row{grid-template-columns:2.4rem minmax(0,1fr) 4.4rem 5rem;gap:.35rem;padding:.4rem .4rem;font-size:.78rem}
   .co-intro{padding:1rem}
   .co-cta .btn{flex:1 1 100%;text-align:center;justify-content:center}
+}
+
+/* ---------- v12: Rotlicht-Nachtmodus ----------
+   Eine einzige feste Ebene multipliziert alles mit reinem, gedimmtem Rot (R×Helligkeit, G=B=0):
+   Text, Karten, Canvas (Sternfeld, Sternkarte), WebGL (3D-Planeten), Bilder und Emojis werden rot/schwarz.
+   Kein filter auf html/body (bricht position:fixed und kostet Leistung). */
+:root{--rl-c:rgb(191,0,0)}
+html.rotlicht{background:#000;color-scheme:dark}
+html.rotlicht::after{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;background:var(--rl-c);mix-blend-mode:multiply}
+/* Leuchtende Effekte und Glanz dämpfen, damit nichts „glüht“ */
+/* Im Rotlicht-Modus teure, ohnehin kaum sichtbare Effekte abschalten → Mischebene bleibt flüssig */
+html.rotlicht .nebula,html.rotlicht .glass-orb{display:none}
+html.rotlicht *,html.rotlicht *::before,html.rotlicht *::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html.rotlicht ::selection{background:#600;color:#fff}
+.rl-btn{display:inline-flex;align-items:center;gap:.45rem;flex:none;font:inherit;font-size:.9rem;color:var(--ink);cursor:pointer;border-radius:999px;padding:.45rem .85rem;border:1px solid rgba(255,90,90,.45);background:linear-gradient(180deg,rgba(255,70,70,.16),rgba(120,0,0,.12));box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:background .2s,border-color .2s}
+.rl-btn:hover{background:linear-gradient(180deg,rgba(255,70,70,.28),rgba(140,0,0,.2));border-color:rgba(255,110,110,.7)}
+.rl-btn:focus-visible{outline:2px solid #ff6a6a;outline-offset:2px}
+.rl-ic{width:18px;height:18px;color:#ff4d4d;flex:none}
+.rl-btn[aria-pressed="true"]{background:#2a0000;border-color:#ff5050;color:#fff;box-shadow:inset 0 0 0 1px #ff5050}
+.rl-btn[aria-pressed="true"] .rl-ic{color:#fff}
+.rl-btn[aria-pressed="true"]:hover{background:#400000}
+.nav-links+.rl-btn{margin-left:-.4rem}
+.rl-dim{position:fixed;left:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:60;display:flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border-radius:999px;background:rgba(30,0,0,.85);border:1px solid rgba(255,80,80,.4);font-size:1rem}
+.rl-dim[hidden]{display:none}
+.rl-dim input{width:110px;height:20px;min-height:0;accent-color:#ff3030;margin:0}
+.rl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+kbd{font:inherit;font-size:.85em;padding:.05em .4em;border:1px solid var(--glass-b);border-radius:6px;background:rgba(255,255,255,.06)}
+@media (max-width:1180px){
+  .rl-btn{order:2;margin-left:auto;min-height:44px}
+  .nav-links+.rl-btn{margin-left:auto}
+  .rl-btn~.loc-chip{margin-left:.5rem}
+}
+@media (max-width:760px){
+  .nav{gap:.6rem}
+  .rl-btn{padding:0;width:44px;height:44px;justify-content:center}
+  .rl-txt{display:none}
+  .rl-btn~.loc-chip{margin-left:0}
+  .rl-dim input{width:84px}
+  .nav-toggle{margin-left:0}
 }

@@ -3,12 +3,7 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
 
-  // Rotlicht-Knöpfe in anderen Abschnitten nutzen den bestehenden Modus aus learn.js
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('[data-red-toggle]')) return;
-    var b = $('redBtn');
-    if (b) b.click(); else { var on = document.body.classList.toggle('redlight'); if ($('redExit')) $('redExit').hidden = !on; }
-  });
+  // Rotlicht-Knöpfe ([data-red-toggle]) werden global in rotlicht.js behandelt
 
   var cv = $('bortleCanvas'), range = $('bortleRange');
   if (!cv || !range) return;

@@ -6,8 +6,9 @@
 <title>Lernkurs: Sterne, Teleskope & Astrofotos – Astronomie Entdecker</title>
 <meta name="description" content="Astronomie Schritt für Schritt lernen: 27 kurze Lektionen von Einsteiger bis Experte – Sterne finden, Hand-Trick, Teleskope verstehen und auswählen, Okular-Rechner, Himmelsobjekte, Handy-Astrofotografie und Bortle-Skala, mit Fortschrittsanzeige.">
 <meta name="theme-color" content="#05060f">
+<script>/* Rotlicht-Nachtmodus vor dem ersten Zeichnen setzen */try{if(localStorage.getItem('ae-rotlicht-v1')==='1'){var d=document.documentElement,b=parseFloat(localStorage.getItem('ae-rotlicht-hell-v1'));d.classList.add('rotlicht');if(b>=.25&&b<=1)d.style.setProperty('--rl-c','rgb('+Math.round(255*b)+',0,0)');var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('data-off',m.content);m.content='#120000';}}}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body class="page-lernen">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -23,6 +24,7 @@
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
     <a href="lernen.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
+  <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
   <button class="loc-chip" id="locChip" title="Standort ändern (gilt für alle Seiten)">📍 <span id="locChipText">Standort wählen</span></button>
   <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
 </header>
@@ -143,8 +145,8 @@
   <div class="lesson-body">
     <div class="grid cards-3">
       <div class="card glass tip reveal"><div class="tip-ic">👁️</div><h4>Dunkeladaption</h4><p>Die Stäbchen in deiner Netzhaut brauchen 20–30 Minuten, bis sie voll lichtempfindlich sind. Ein einziger Blick aufs helle Handy setzt die Uhr zurück!</p><p class="small muted">Trick: Schau schwache Objekte leicht <b>seitlich</b> an („indirektes Sehen“) – am Rand der Netzhaut sitzen mehr Stäbchen.</p></div>
-      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" id="redBtn">🔴 Rotlicht-Modus testen</button></div>
-      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Dunkeladaption: 20–30 Minuten</h4><p class="small">So lange brauchen deine Augen, bis sie richtig empfindlich sind. Nutze nur <b>rotes Licht</b> (Stirnlampe oder Rotlicht-Modus), dimme das Handy maximal – ein einziger weißer Lichtblitz kostet dich viele Minuten.</p><button class="btn btn-ghost red-btn" type="button" data-red-toggle>🔴 Rotlicht-Modus</button></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Rotlicht statt Weißlicht</h4><p>Rotes Licht stört die Dunkeladaption kaum. Nimm eine Rotlicht-Stirnlampe oder klebe rote Folie über die Taschenlampe.</p><button class="btn btn-ghost red-btn" type="button" id="redBtn" aria-pressed="false">🔴 Rotlicht-Modus einschalten</button><p class="small muted">Tipp: Der 🌙-Knopf <b>Rotlicht</b> oben in der Kopfzeile (oder Taste <kbd>R</kbd>) färbt die ganze Website rot – auch Sternkarte und 3D-Planeten – und merkt sich die Einstellung.</p></div>
+      <div class="card glass tip reveal"><div class="tip-ic">🔴</div><h4>Dunkeladaption: 20–30 Minuten</h4><p class="small">So lange brauchen deine Augen, bis sie richtig empfindlich sind. Nutze nur <b>rotes Licht</b> (Stirnlampe oder Rotlicht-Modus), dimme das Handy maximal – ein einziger weißer Lichtblitz kostet dich viele Minuten.</p><button class="btn btn-ghost red-btn" type="button" data-red-toggle aria-pressed="false">🔴 Rotlicht-Modus</button></div>
       <div class="card glass tip reveal"><div class="tip-ic">👀</div><h4>Indirektes Sehen</h4><p class="small">Schau bei lichtschwachen Objekten knapp daneben: Am Rand der Netzhaut sitzen die lichtempfindlichen Stäbchen. Ein Nebel, den du direkt nicht siehst, taucht so plötzlich auf.</p></div>
     </div>
     <div class="glass lesson-check" data-why="Richtig – rotes Licht stört die lichtempfindlichen Stäbchen im Auge kaum."><p class="eyebrow">✔ Kurz-Check</p><p class="quiz-q">Welches Licht stört die Dunkeladaption am wenigsten?</p><div class="lc-opts"><button class="quiz-opt" type="button" data-ok="0">Weißes Handylicht</button><button class="quiz-opt" type="button" data-ok="1">Rotes Licht</button><button class="quiz-opt" type="button" data-ok="0">Blaues Licht</button></div><p class="lc-msg" aria-live="polite"></p></div>
@@ -791,24 +793,24 @@
     <button class="btn btn-ghost wide" id="btnManual">Koordinaten übernehmen</button>
   </div>
 </div>
-<button class="red-exit" id="redExit" hidden>🔴 Rotlicht-Modus beenden</button>
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=11"></script>
-<script src="js/data/sky-data.js?v=11"></script>
-<script src="js/data/constellation-info.js?v=11"></script>
-<script src="js/data/cities.js?v=11"></script>
-<script src="js/core.js?v=11"></script>
-<script src="js/background.js?v=11"></script>
-<script src="js/course.js?v=11"></script>
-<script src="js/telescope.js?v=11"></script>
-<script src="js/learn.js?v=11"></script>
-<script src="js/ratgeber.js?v=11"></script>
-<script src="js/rechner.js?v=11"></script>
-<script src="js/objekte.js?v=11"></script>
-<script src="js/bortle.js?v=11"></script>
-<script src="js/ux.js?v=11"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=12"></script>
+<script src="js/data/sky-data.js?v=12"></script>
+<script src="js/data/constellation-info.js?v=12"></script>
+<script src="js/data/cities.js?v=12"></script>
+<script src="js/core.js?v=12"></script>
+<script src="js/background.js?v=12"></script>
+<script src="js/course.js?v=12"></script>
+<script src="js/telescope.js?v=12"></script>
+<script src="js/learn.js?v=12"></script>
+<script src="js/ratgeber.js?v=12"></script>
+<script src="js/rechner.js?v=12"></script>
+<script src="js/objekte.js?v=12"></script>
+<script src="js/bortle.js?v=12"></script>
+<script src="js/rotlicht.js?v=12"></script>
+<script src="js/ux.js?v=12"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>
