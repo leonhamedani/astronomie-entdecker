@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#05060f">
 <script>/* Rotlicht-Nachtmodus vor dem ersten Zeichnen setzen */try{if(localStorage.getItem('ae-rotlicht-v1')==='1'){var d=document.documentElement,b=parseFloat(localStorage.getItem('ae-rotlicht-hell-v1'));d.classList.add('rotlicht');if(b>=.25&&b<=1)d.style.setProperty('--rl-c','rgb('+Math.round(255*b)+',0,0)');var m=document.querySelector('meta[name="theme-color"]');if(m){m.setAttribute('data-off',m.content);m.content='#120000';}}}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1030'/%3E%3Cpath d='M32 10l5 15h16l-13 9 5 16-13-10-13 10 5-16-13-9h16z' fill='%23ffd76a'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 <body class="page-heute">
 <canvas id="bg-stars" aria-hidden="true"></canvas>
@@ -22,6 +22,7 @@
     <a href="sternkarte.html"><span class="nl-ic" aria-hidden="true">🗺️</span>Sternkarte</a>
     <a href="heute.html" class="active" aria-current="page"><span class="nl-ic" aria-hidden="true">🌙</span>Heute sichtbar</a>
     <a href="planeten.html"><span class="nl-ic" aria-hidden="true">🪐</span>Planeten 3D</a>
+    <a href="hopper.html"><span class="nl-ic" aria-hidden="true">🎯</span>Star-Hopper</a>
     <a href="lernen.html"><span class="nl-ic" aria-hidden="true">🧭</span>Lernkurs</a>
   </nav>
   <button class="rl-btn" id="rlBtn" type="button" aria-label="Rotlicht-Nachtmodus" aria-pressed="false" title="Rotlicht-Nachtmodus einschalten (Taste R)"><svg class="rl-ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7z" fill="currentColor"/><circle cx="17.6" cy="5.6" r="1.3" fill="currentColor"/></svg><span class="rl-txt">Rotlicht</span></button>
@@ -128,7 +129,7 @@
 </main>
 
 <footer class="footer">
-  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html" aria-current="page">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="lernen.html">Lernkurs</a></nav>
+  <nav class="foot-nav" aria-label="Seiten"><a href="index.html">Start</a> · <a href="sternkarte.html">Sternkarte</a> · <a href="heute.html" aria-current="page">Heute sichtbar</a> · <a href="planeten.html">Planeten 3D</a> · <a href="hopper.html">Star-Hopper</a> · <a href="lernen.html">Lernkurs</a></nav>
   <p>✦ Astronomie Entdecker – Berechnungen mit <em>Astronomy Engine</em> (MIT) und <em>satellite.js</em> (MIT), Sterndaten aus <em>d3-celestial</em> (BSD-3, Hipparcos/Yale BSC), 3D mit <em>three.js</em> (MIT), Planetentexturen von <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener">Solar System Scope</a> (CC BY 4.0), Wetter von <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0), ISS-Bahndaten von <a href="https://celestrak.org/" target="_blank" rel="noopener">CelesTrak</a>. Keine Anmeldung, keine API-Schlüssel.</p>
   <p class="muted small foot-lic">Lizenztexte: <a href="licenses/astronomy-engine-LICENSE.txt">Astronomy Engine</a> · <a href="licenses/satellite.js-LICENSE.txt">satellite.js</a> · <a href="licenses/d3-celestial-LICENSE.txt">d3-celestial</a> · <a href="licenses/three-LICENSE.txt">three.js</a> · <a href="licenses/textures-CC-BY-4.0.txt">Texturen (CC BY 4.0)</a></p>
   <p class="muted small">Klarer Himmel und viel Freude beim Entdecken! 🌠</p>
@@ -159,18 +160,18 @@
 <button class="to-top" id="toTop" type="button" aria-label="Nach oben" hidden>↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/vendor/astronomy.browser.min.js?v=12"></script>
-<script src="js/vendor/satellite.min.js?v=12"></script>
-<script src="js/data/sky-data.js?v=12"></script>
-<script src="js/data/cities.js?v=12"></script>
-<script src="js/data/iss-tle.js?v=12"></script>
-<script src="js/core.js?v=12"></script>
-<script src="js/background.js?v=12"></script>
-<script src="js/tonight.js?v=12"></script>
-<script src="js/weather.js?v=12"></script>
-<script src="js/iss.js?v=12"></script>
-<script src="js/rotlicht.js?v=12"></script>
-<script src="js/ux.js?v=12"></script>
-<script src="js/main.js?v=12"></script>
+<script src="js/vendor/astronomy.browser.min.js?v=13"></script>
+<script src="js/vendor/satellite.min.js?v=13"></script>
+<script src="js/data/sky-data.js?v=13"></script>
+<script src="js/data/cities.js?v=13"></script>
+<script src="js/data/iss-tle.js?v=13"></script>
+<script src="js/core.js?v=13"></script>
+<script src="js/background.js?v=13"></script>
+<script src="js/tonight.js?v=13"></script>
+<script src="js/weather.js?v=13"></script>
+<script src="js/iss.js?v=13"></script>
+<script src="js/rotlicht.js?v=13"></script>
+<script src="js/ux.js?v=13"></script>
+<script src="js/main.js?v=13"></script>
 </body>
 </html>
